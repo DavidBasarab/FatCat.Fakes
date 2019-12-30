@@ -4,8 +4,47 @@ using Xunit;
 
 namespace FatCat.Fakes.Tests
 {
+	public abstract class PrimitiveTests<T>
+	{
+		[Fact]
+		public void EachItemWillBeRandom()
+		{
+			var previousValue = default(T);
+
+			for (var i = 0; i < 13; i++)
+			{
+				var currentValue = Faker.Create<T>();
+
+				currentValue.Should().NotBe(previousValue);
+
+				previousValue = currentValue;
+			}
+		}
+	}
+
+	public class TimeSpanFakeDateTime : PrimitiveTests<TimeSpan>
+	{
+		[Fact]
+		public void CanFakeATimeSpan()
+		{
+			var value = Faker.Create<TimeSpan>();
+
+			value.Should().BeGreaterThan(TimeSpan.MinValue);
+			value.Should().BeLessThan(TimeSpan.MaxValue);
+		}
+	}
+
 	public class FakeDateTime
 	{
+		[Fact]
+		public void ANullableDateTimeCanBeFaked()
+		{
+			var value = Faker.Create<DateTime?>();
+
+			value.Should().BeAfter(DateTime.MinValue);
+			value.Should().BeBefore(DateTime.MaxValue);
+		}
+
 		[Fact]
 		public void CanFakeADateTime()
 		{
@@ -14,7 +53,7 @@ namespace FatCat.Fakes.Tests
 			value.Should().BeAfter(DateTime.MinValue);
 			value.Should().BeBefore(DateTime.MaxValue);
 		}
-		
+
 		[Fact]
 		public void EachDateTimeWillBeRandom()
 		{
@@ -28,15 +67,6 @@ namespace FatCat.Fakes.Tests
 
 				previousValue = currentValue;
 			}
-		}
-		
-		[Fact]
-		public void ANullableDateTimeCanBeFaked()
-		{
-			var value = Faker.Create<DateTime?>();
-
-			value.Should().BeAfter(DateTime.MinValue);
-			value.Should().BeBefore(DateTime.MaxValue);
 		}
 	}
 }

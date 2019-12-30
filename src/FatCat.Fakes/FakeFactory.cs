@@ -17,6 +17,8 @@ namespace FatCat.Fakes
 			TypeGenerators.Add(typeof(int?), new IntGenerator());
 			TypeGenerators.Add(typeof(DateTime), new DateTimeGenerator());
 			TypeGenerators.Add(typeof(DateTime?), new DateTimeGenerator());
+			TypeGenerators.Add(typeof(TimeSpan), new TimespanGenerator());
+			//TypeGenerators.Add(typeof(TimeSpan?), new TimespanGenerator());
 		}
 
 		public object GetValue(Type type)
