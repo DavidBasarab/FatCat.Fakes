@@ -32,6 +32,7 @@ namespace FatCat.Fakes
 		private FakeFactory()
 		{
 			TypeGenerators.Add(typeof(int), new IntGenerator());
+			TypeGenerators.Add(typeof(int?), new IntGenerator());
 		}
 	}
 

@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
 namespace FatCat.Fakes.Tests
 {
-	public class PrimitiveFakeItems
+	public class IntFakeItems
 	{
 		[Fact]
 		public void AnIntCanBeFaked()
@@ -14,12 +12,12 @@ namespace FatCat.Fakes.Tests
 
 			value.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
-		
+
 		[Fact]
 		public void CanFakeByType()
 		{
 			var value = (int)Faker.Create(typeof(int));
-			
+
 			value.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
 
@@ -36,6 +34,14 @@ namespace FatCat.Fakes.Tests
 
 				previousValue = currentValue;
 			}
+		}
+		
+		[Fact]
+		public void CanFakeANullableInt()
+		{
+			var value = Faker.Create<int?>();
+
+			value.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
 	}
 }
