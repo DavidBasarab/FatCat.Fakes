@@ -57,5 +57,7 @@ namespace FatCat.Fakes
 		{
 			return (T)FakeFactory.GetValue(typeof(T));
 		}
+
+		public static object Create(Type fakeType) => FakeFactory.GetValue(fakeType);
 	}
 }
