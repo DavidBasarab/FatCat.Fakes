@@ -6,7 +6,7 @@ namespace FatCat.Fakes.Tests.Primitives
 	public abstract class FakeNumberItems<T> : PrimitiveTests<T> where T : struct
 	{
 		[Fact]
-		public void AnIntCanBeFaked()
+		public void ANumberCanBeFaked()
 		{
 			var value = Faker.Create<T>();
 
@@ -14,7 +14,7 @@ namespace FatCat.Fakes.Tests.Primitives
 		}
 
 		[Fact]
-		public void CanFakeANullableInt()
+		public void CanFakeANullableNumber()
 		{
 			var value = Faker.Create<T?>();
 
