@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Code\FatCat.Fakes\src" t="IncludeFlat">
+      <e p="FatCat.Fakes" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="FatCat.Fakes.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="FatCat.Fakes.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="FatCat.Fakes.sln" t="IncludeFlat" />
+      <e p="FatCat.Fakes.Tests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="FatCat.Fakes.Tests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="FatCat.Fakes.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+    <e p="C:\Users\dbasa\.Rider2019.3\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\dbasa\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\dbasa\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_FatCat.Fakes.-1622254178.00" t="ExcludeRecursive" />
+  </component>
+</project>
