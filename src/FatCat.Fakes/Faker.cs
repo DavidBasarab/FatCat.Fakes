@@ -2,7 +2,7 @@
 
 namespace FatCat.Fakes
 {
-    public class Class1
+    public class Faker
     {
     }
 }
