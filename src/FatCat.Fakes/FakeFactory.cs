@@ -23,6 +23,8 @@ namespace FatCat.Fakes
 			TypeGenerators.Add(typeof(double?), new DoubleGenerator());
 			TypeGenerators.Add(typeof(byte), new ByteGenerator());
 			TypeGenerators.Add(typeof(byte?), new ByteGenerator());
+			TypeGenerators.Add(typeof(short), new ShortGenerator());
+			TypeGenerators.Add(typeof(short?), new ShortGenerator());
 		}
 
 		public object GetValue(Type type)
