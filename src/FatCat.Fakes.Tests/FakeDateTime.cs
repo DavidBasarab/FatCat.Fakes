@@ -29,5 +29,14 @@ namespace FatCat.Fakes.Tests
 				previousValue = currentValue;
 			}
 		}
+		
+		[Fact]
+		public void ANullableDateTimeCanBeFaked()
+		{
+			var value = Faker.Create<DateTime?>();
+
+			value.Should().BeAfter(DateTime.MinValue);
+			value.Should().BeBefore(DateTime.MaxValue);
+		}
 	}
 }
