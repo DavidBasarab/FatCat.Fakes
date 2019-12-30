@@ -1,4 +1,5 @@
 ﻿using System;
+using FatCat.Fakes.Generators;
 
 namespace FatCat.Fakes
 {

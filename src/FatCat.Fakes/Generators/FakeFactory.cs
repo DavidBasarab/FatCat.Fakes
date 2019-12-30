@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FatCat.Fakes
+namespace FatCat.Fakes.Generators
 {
 	internal class FakeFactory
 	{

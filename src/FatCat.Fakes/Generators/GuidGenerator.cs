@@ -1,6 +1,6 @@
 using System;
 
-namespace FatCat.Fakes
+namespace FatCat.Fakes.Generators
 {
 	internal class GuidGenerator : FakeGenerator
 	{
