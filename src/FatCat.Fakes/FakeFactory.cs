@@ -27,6 +27,8 @@ namespace FatCat.Fakes
 			TypeGenerators.Add(typeof(short?), new ShortGenerator());
 			TypeGenerators.Add(typeof(ushort), new UshortGenerator());
 			TypeGenerators.Add(typeof(ushort?), new UshortGenerator());
+			TypeGenerators.Add(typeof(float), new FloatGenerator());
+			TypeGenerators.Add(typeof(float?), new FloatGenerator());
 		}
 
 		public object GetValue(Type type)
