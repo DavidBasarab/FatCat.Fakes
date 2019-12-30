@@ -1,32 +1,9 @@
 using FluentAssertions;
-using Xunit;
 
 namespace FatCat.Fakes.Tests.Primitives
 {
-	public class IntFakeItems : PrimitiveTests<int>
+	public class IntFakeItems : FakeNumberItems<int>
 	{
-		[Fact]
-		public void AnIntCanBeFaked()
-		{
-			var value = Faker.Create<int>();
-
-			value.Should().BeInRange(int.MinValue, int.MaxValue);
-		}
-
-		[Fact]
-		public void CanFakeANullableInt()
-		{
-			var value = Faker.Create<int?>();
-
-			value.Should().BeInRange(int.MinValue, int.MaxValue);
-		}
-
-		[Fact]
-		public void CanFakeByType()
-		{
-			var value = (int)Faker.Create(typeof(int));
-
-			value.Should().BeInRange(int.MinValue, int.MaxValue);
-		}
+		protected override void VerifyRange(int value) => value.Should().BeInRange(int.MinValue, int.MaxValue);
 	}
 }
