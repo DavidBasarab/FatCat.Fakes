@@ -18,14 +18,14 @@ namespace FatCat.Fakes
 		{
 			var fakeType = typeof(T);
 
-			var item = (T)Create(fakeType, length);
-			
+			var item = (T)Create(fakeType, length: length);
+
 			afterCreate?.Invoke(item);
 
 			return item;
 		}
 
-		public static object Create(Type fakeType, int? length = null)
+		public static object Create(Type fakeType, Action<object> afterCreate = null, int? length = null)
 		{
 			if (FakeFactory.IsTypeFaked(fakeType)) return FakeFactory.GetValue(fakeType);
 
@@ -38,7 +38,11 @@ namespace FatCat.Fakes
 				return CreateList(length, fakeType);
 			}
 
-			return CreateInstance(fakeType);
+			var item = CreateInstance(fakeType);
+			
+			afterCreate?.Invoke(item);
+
+			return item;
 		}
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
