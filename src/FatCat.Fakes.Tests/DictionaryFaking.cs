@@ -21,5 +21,13 @@ namespace FatCat.Fakes.Tests
 				pair.Value.Should().NotBeNullOrWhiteSpace();
 			}
 		}
+		
+		[Fact]
+		public void CanCreateADictionaryWithTheNumberOfItemsIProvide()
+		{
+			var item = Faker.Create<Dictionary<int, string>>(21);
+
+			item.Count.Should().Be(21);
+		}
 	}
 }

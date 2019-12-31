@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using Fasterflect;
@@ -31,11 +30,22 @@ namespace FatCat.Fakes
 			if (IsList(fakeType))
 			{
 				if (IsDictionary(fakeType)) return CreateDictionary(lengthOfList, fakeType);
-				
+
 				return CreateList(lengthOfList, fakeType);
 			}
 
 			return CreateInstance(fakeType);
+		}
+
+		private static object CreateArray(int? lengthOfList, Type fakeType)
+		{
+			var length = lengthOfList ?? Random.Next(3, 9);
+
+			var array = Array.CreateInstance(fakeType.GetElementType(), length);
+
+			for (var i = 0; i < length; i++) array.SetValue(Create(fakeType.GetElementType()), i);
+
+			return array;
 		}
 
 		private static object CreateDictionary(int? lengthOfList, Type fakeType)
@@ -51,22 +61,18 @@ namespace FatCat.Fakes
 
 			var addMethod = dictionary.GetType().GetMethod("Add");
 
-			var numberOfItems = Random.Next(3, 9);
+			var numberOfItems = lengthOfList ?? Random.Next(3, 9);
 
-			for (int i = 0; i < numberOfItems; i++) { addMethod.Invoke(dictionary, new[] { Create(keyType), Create(valueType) }); }
+			for (var i = 0; i < numberOfItems; i++)
+			{
+				try { addMethod.Invoke(dictionary, new[] { Create(keyType), Create(valueType) }); }
+				catch (ArgumentException)
+				{
+					// Added the same key, skipping entry
+				}
+			}
 
 			return dictionary;
-		}
-
-		private static object CreateArray(int? lengthOfList, Type fakeType)
-		{
-			var length = lengthOfList ?? Random.Next(3, 9);
-
-			var array = Array.CreateInstance(fakeType.GetElementType(), length);
-
-			for (var i = 0; i < length; i++) array.SetValue(Create(fakeType.GetElementType()), i);
-
-			return array;
 		}
 
 		private static object CreateInstance(Type fakeType)
@@ -115,8 +121,8 @@ namespace FatCat.Fakes
 			return types[typeIndex];
 		}
 
-		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
-		
 		private static bool IsDictionary(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
+
+		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
 	}
 }
