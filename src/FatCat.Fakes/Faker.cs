@@ -49,10 +49,7 @@ namespace FatCat.Fakes
 
 			var properties = new List<PropertyInfo>(fakeType.GetProperties());
 
-			foreach (var propertyInfo in properties.Where(i => i.CanWrite))
-			{
-				propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
-			}
+			foreach (var propertyInfo in properties.Where(i => i.CanWrite)) propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
 
 			return instance;
 		}

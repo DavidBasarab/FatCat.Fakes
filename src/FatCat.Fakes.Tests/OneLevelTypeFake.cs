@@ -9,7 +9,6 @@ namespace FatCat.Fakes.Tests
 	{
 		/// <summary>
 		///  tests to add
-		///  
 		///  no setter
 		///  sub object
 		///  multi level sub objects
@@ -42,10 +41,20 @@ namespace FatCat.Fakes.Tests
 			item.NoSetter.Should().Be(12);
 		}
 
+		[Fact]
+		public void WillNotSetAPrivateField()
+		{
+			var item = Faker.Create<ItemToFake>();
+
+			item.GetPrivateItemValue().Should().Be(34);
+		}
+
 		private class ItemToFake
 		{
+			private readonly int aPrivateItem = 34;
+
 			public int NoSetter { get; } = 12;
-			
+
 			public int PrivateSetInt { get; set; }
 
 			public byte SomeByte { get; set; }
@@ -63,6 +72,8 @@ namespace FatCat.Fakes.Tests
 			public string SomeString { get; set; }
 
 			public TimeSpan SomeTimeSpan { get; set; }
+
+			public int GetPrivateItemValue() => aPrivateItem;
 		}
 	}
 }
