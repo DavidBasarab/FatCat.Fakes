@@ -35,6 +35,7 @@ namespace FatCat.Fakes.Generators
 			TypeGenerators.Add(typeof(Guid?), new GuidGenerator());
 			TypeGenerators.Add(typeof(bool), new BoolGenerator());
 			TypeGenerators.Add(typeof(bool?), new BoolGenerator());
+			TypeGenerators.Add(typeof(string), new StringGenerator());
 		}
 
 		public object GetValue(Type type)
