@@ -47,11 +47,7 @@ namespace FatCat.Fakes
 		{
 			var typeToCreate = fakeType;
 
-			if (fakeType.IsAbstract)
-			{
-				// This is an abstract type we must find a real type to use
-				typeToCreate = GetImplementingType(fakeType);
-			}
+			if (fakeType.IsAbstract || fakeType.IsInterface) typeToCreate = FindImplementingType(fakeType);
 
 			var instance = Activator.CreateInstance(typeToCreate);
 
@@ -80,12 +76,12 @@ namespace FatCat.Fakes
 			return listAsInstance;
 		}
 
-		private static Type GetImplementingType(Type fakeType)
+		private static Type FindImplementingType(Type fakeType)
 		{
 			var assembly = fakeType.Assembly;
 
 			var types = assembly.GetTypes()
-								.Where(i => i.IsClass && !i.IsAbstract && i.IsSubclassOf(fakeType))
+								.Where(i => i.IsClass && !i.IsAbstract && (i.IsSubclassOf(fakeType) || i.Implements(fakeType)))
 								.ToList();
 
 			var typeIndex = Random.Next(types.Count);
