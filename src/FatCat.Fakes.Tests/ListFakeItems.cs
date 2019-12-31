@@ -43,12 +43,27 @@ namespace FatCat.Fakes.Tests
 		}
 
 		[Fact]
+		public void CanCreateAnArray()
+		{
+			var array = Faker.Create<short[]>(7);
+
+			var testList = array.ToList();
+
+			VerifyItems(testList);
+		}
+
+		[Fact]
 		public void CanCreateAnIEnumerable()
 		{
 			var enumerableOfItems = Faker.Create<IEnumerable<short>>(7);
 
 			var testList = enumerableOfItems.ToList();
 
+			VerifyItems(testList);
+		}
+
+		private static void VerifyItems(List<short> testList)
+		{
 			testList.Count.Should().Be(7);
 
 			foreach (var testItem in testList) testItem.Should().BeInRange(short.MinValue, short.MaxValue);
