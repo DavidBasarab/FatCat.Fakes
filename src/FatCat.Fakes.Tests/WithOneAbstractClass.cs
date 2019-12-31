@@ -4,8 +4,19 @@ using Xunit;
 
 namespace FatCat.Fakes.Tests
 {
-	public class WithAbstractClass
+	public class WithONeAbstractClass
 	{
+		[Fact]
+		public void WillPopulateAnAbstractClass()
+		{
+			var item = Faker.Create<SomeClass>();
+
+			item.ThisIsNotReal.Should().NotBeNull();
+			item.ThisIsNotReal.Should().BeOfType<RealClass>();
+
+			item.ThisIsNotReal.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
+		}
+
 		private abstract class AbstractClass
 		{
 			public int SomeInt { get; set; }
@@ -21,17 +32,6 @@ namespace FatCat.Fakes.Tests
 		private class SomeClass
 		{
 			public AbstractClass ThisIsNotReal { get; set; }
-		}
-		
-		[Fact]
-		public void WillPopulateAnAbstractClass()
-		{
-			var item = Faker.Create<SomeClass>();
-
-			item.ThisIsNotReal.Should().NotBeNull();
-			item.ThisIsNotReal.Should().BeOfType<RealClass>();
-
-			item.ThisIsNotReal.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
 	}
 }

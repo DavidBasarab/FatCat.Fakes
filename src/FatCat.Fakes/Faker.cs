@@ -88,7 +88,9 @@ namespace FatCat.Fakes
 								.Where(i => i.IsClass && !i.IsAbstract && i.IsSubclassOf(fakeType))
 								.ToList();
 
-			return types.FirstOrDefault();
+			var typeIndex = Random.Next(types.Count);
+
+			return types[typeIndex];
 		}
 
 		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
