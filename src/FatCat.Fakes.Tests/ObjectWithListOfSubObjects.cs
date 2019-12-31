@@ -1,22 +1,27 @@
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
 namespace FatCat.Fakes.Tests
 {
-	public class MultiLevelObjectTests
+	public class ObjectWithListOfSubObjects
 	{
 		[Fact]
 		public void ItWillPopulateALowerObject()
 		{
 			var upperObject = Faker.Create<UpperObject>();
 
-			upperObject.LowerObject.Should().NotBeNull();
+			upperObject.LowerList.Should().NotBeNull();
+			upperObject.LowerList.Count.Should().BeInRange(3, 9);
 
 			upperObject.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 			upperObject.SomeString.Length.Should().BeGreaterThan(6);
 
-			upperObject.LowerObject.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
-			upperObject.LowerObject.SomeString.Length.Should().BeGreaterThan(6);
+			foreach (var lowerObject in upperObject.LowerList)
+			{
+				lowerObject.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
+				lowerObject.SomeString.Length.Should().BeGreaterThan(6);
+			}
 		}
 
 		private class LowerObject
@@ -28,7 +33,7 @@ namespace FatCat.Fakes.Tests
 
 		private class UpperObject
 		{
-			public LowerObject LowerObject { get; set; }
+			public List<LowerObject> LowerList { get; set; }
 
 			public int SomeNumber { get; set; }
 
