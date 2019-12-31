@@ -15,12 +15,14 @@ namespace FatCat.Fakes
 		public static T Create<T>(int? lengthOfList = null)
 		{
 			var fakeType = typeof(T);
+			
+			if (FakeFactory.IsTypeFaked(fakeType)) return (T)Create(fakeType);
 
 			if (fakeType.IsArray) return (T)CreateArray(lengthOfList, fakeType);
 
 			if (IsList<T>(fakeType)) return (T)CreateList(lengthOfList, fakeType);
 
-			return (T)Create(fakeType);
+			throw new ArgumentException($"A fake for type of {fakeType.FullName} is not supported");
 		}
 
 		public static object Create(Type fakeType) => FakeFactory.GetValue(fakeType);

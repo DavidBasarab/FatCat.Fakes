@@ -62,7 +62,7 @@ namespace FatCat.Fakes.Tests
 			VerifyItems(testList);
 		}
 
-		private static void VerifyItems(List<short> testList)
+		private static void VerifyItems(IReadOnlyCollection<short> testList)
 		{
 			testList.Count.Should().Be(7);
 

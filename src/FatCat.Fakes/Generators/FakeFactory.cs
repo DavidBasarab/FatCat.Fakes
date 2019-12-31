@@ -50,6 +50,13 @@ namespace FatCat.Fakes.Generators
 			return TypeGenerators.TryGetValue(fakeType, out var faker) ? faker.Generate() : null;
 		}
 
+		public bool IsTypeFaked(Type type)
+		{
+			var fakeType = GetTypeForFake(type);
+
+			return TypeGenerators.ContainsKey(fakeType);
+		}
+
 		private Type GetTypeForFake(Type type) => type;
 
 		// if (!type.IsGenericType) return type;
