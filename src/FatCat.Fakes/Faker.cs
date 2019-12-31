@@ -45,9 +45,17 @@ namespace FatCat.Fakes
 
 		private static object CreateInstance(Type fakeType)
 		{
-			var instance = Activator.CreateInstance(fakeType);
+			var typeToCreate = fakeType;
 
-			var properties = new List<PropertyInfo>(fakeType.GetProperties());
+			if (fakeType.IsAbstract)
+			{
+				// This is an abstract type we must find a real type to use
+				typeToCreate = GetImplementingType(fakeType);
+			}
+
+			var instance = Activator.CreateInstance(typeToCreate);
+
+			var properties = new List<PropertyInfo>(typeToCreate.GetProperties());
 
 			foreach (var propertyInfo in properties.Where(i => i.CanWrite)) propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
 
@@ -70,6 +78,17 @@ namespace FatCat.Fakes
 			for (var i = 0; i < numberOfItems; i++) addMethod.Invoke(listAsInstance, new[] { Create(itemType) });
 
 			return listAsInstance;
+		}
+
+		private static Type GetImplementingType(Type fakeType)
+		{
+			var assembly = fakeType.Assembly;
+
+			var types = assembly.GetTypes()
+								.Where(i => i.IsClass && !i.IsAbstract && i.IsSubclassOf(fakeType))
+								.ToList();
+
+			return types.FirstOrDefault();
 		}
 
 		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
