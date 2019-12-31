@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Fasterflect;
 using FatCat.Fakes.Generators;
 
@@ -22,7 +23,16 @@ namespace FatCat.Fakes
 
 			if (IsList<T>(fakeType)) return (T)CreateList(lengthOfList, fakeType);
 
-			throw new ArgumentException($"A fake for type of {fakeType.FullName} is not supported");
+			var instance = Activator.CreateInstance(fakeType);
+
+			var properties = new List<PropertyInfo>(fakeType.GetProperties());
+
+			foreach (var propertyInfo in properties)
+			{
+				propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
+			}
+
+			return (T)instance;
 		}
 
 		public static object Create(Type fakeType) => FakeFactory.GetValue(fakeType);
