@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -24,6 +25,8 @@ namespace FatCat.Fakes.Tests
 
 			item.SomeTimeSpan.Should().BeGreaterThan(TimeSpan.MinValue);
 			item.SomeTimeSpan.Should().BeLessThan(TimeSpan.MaxValue);
+
+			item.SomeList.Count.Should().BeInRange(3, 9);
 		}
 
 		private class ItemToFake
@@ -41,6 +44,8 @@ namespace FatCat.Fakes.Tests
 			public string SomeString { get; set; }
 
 			public TimeSpan SomeTimeSpan { get; set; }
+
+			public List<int> SomeList { get; set; }
 		}
 	}
 }

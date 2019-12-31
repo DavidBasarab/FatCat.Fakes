@@ -16,26 +16,20 @@ namespace FatCat.Fakes
 		public static T Create<T>(int? lengthOfList = null)
 		{
 			var fakeType = typeof(T);
-			
-			if (FakeFactory.IsTypeFaked(fakeType)) return (T)Create(fakeType);
 
-			if (fakeType.IsArray) return (T)CreateArray(lengthOfList, fakeType);
-
-			if (IsList<T>(fakeType)) return (T)CreateList(lengthOfList, fakeType);
-
-			var instance = Activator.CreateInstance(fakeType);
-
-			var properties = new List<PropertyInfo>(fakeType.GetProperties());
-
-			foreach (var propertyInfo in properties)
-			{
-				propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
-			}
-
-			return (T)instance;
+			return (T)Create(fakeType, lengthOfList);
 		}
 
-		public static object Create(Type fakeType) => FakeFactory.GetValue(fakeType);
+		public static object Create(Type fakeType, int? lengthOfList = null)
+		{
+			if (FakeFactory.IsTypeFaked(fakeType)) return FakeFactory.GetValue(fakeType);
+
+			if (fakeType.IsArray) return CreateArray(lengthOfList, fakeType);
+
+			if (IsList(fakeType)) return CreateList(lengthOfList, fakeType);
+
+			return CreateInstance(fakeType);
+		}
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
 		{
@@ -46,6 +40,17 @@ namespace FatCat.Fakes
 			for (var i = 0; i < length; i++) array.SetValue(Create(fakeType.GetElementType()), i);
 
 			return array;
+		}
+
+		private static object CreateInstance(Type fakeType)
+		{
+			var instance = Activator.CreateInstance(fakeType);
+
+			var properties = new List<PropertyInfo>(fakeType.GetProperties());
+
+			foreach (var propertyInfo in properties) propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
+
+			return instance;
 		}
 
 		private static object CreateList(int? lengthOfList, Type fakeType)
@@ -66,6 +71,6 @@ namespace FatCat.Fakes
 			return listAsInstance;
 		}
 
-		private static bool IsList<T>(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
 	}
 }
