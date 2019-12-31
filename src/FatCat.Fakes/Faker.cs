@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using Fasterflect;
@@ -27,9 +28,34 @@ namespace FatCat.Fakes
 
 			if (fakeType.IsArray) return CreateArray(lengthOfList, fakeType);
 
-			if (IsList(fakeType)) return CreateList(lengthOfList, fakeType);
+			if (IsList(fakeType))
+			{
+				if (IsDictionary(fakeType)) return CreateDictionary(lengthOfList, fakeType);
+				
+				return CreateList(lengthOfList, fakeType);
+			}
 
 			return CreateInstance(fakeType);
+		}
+
+		private static object CreateDictionary(int? lengthOfList, Type fakeType)
+		{
+			var keyType = fakeType.GetGenericArguments()[0];
+			var valueType = fakeType.GetGenericArguments()[1];
+
+			var genericDictionary = typeof(Dictionary<,>);
+
+			var finalDictionaryType = genericDictionary.MakeGenericType(keyType, valueType);
+
+			var dictionary = Activator.CreateInstance(finalDictionaryType);
+
+			var addMethod = dictionary.GetType().GetMethod("Add");
+
+			var numberOfItems = Random.Next(3, 9);
+
+			for (int i = 0; i < numberOfItems; i++) { addMethod.Invoke(dictionary, new[] { Create(keyType), Create(valueType) }); }
+
+			return dictionary;
 		}
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
@@ -90,5 +116,7 @@ namespace FatCat.Fakes
 		}
 
 		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+		
+		private static bool IsDictionary(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
 	}
 }
