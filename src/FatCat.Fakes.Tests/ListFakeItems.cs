@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace FatCat.Fakes.Tests
 
 			foreach (var listItem in listOfInts) listItem.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
-		
+
 		[Fact]
 		public void CanCreateAListOfDates()
 		{
@@ -32,13 +33,25 @@ namespace FatCat.Fakes.Tests
 				dateItem.Should().BeBefore(DateTime.MaxValue);
 			}
 		}
-		
+
 		[Fact]
 		public void CanCreateAListOfGivenLength()
 		{
 			var list = Faker.Create<List<string>>(17);
 
 			list.Count.Should().Be(17);
+		}
+
+		[Fact]
+		public void CanCreateAnIEnumerable()
+		{
+			var enumerableOfItems = Faker.Create<IEnumerable<short>>(7);
+
+			var testList = enumerableOfItems.ToList();
+
+			testList.Count.Should().Be(7);
+
+			foreach (var testItem in testList) testItem.Should().BeInRange(short.MinValue, short.MaxValue);
 		}
 	}
 }
