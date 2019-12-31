@@ -26,6 +26,16 @@ namespace FatCat.Fakes.Tests
 			anotherClassFound.Should().BeTrue();
 			evenAnotherClassFound.Should().BeTrue();
 		}
+		
+		[Fact]
+		public void CanFakeAnAbstractClass()
+		{
+			var item = Faker.Create<AbstractClass>();
+
+			item.Should().NotBeNull();
+
+			item.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
+		}
 
 		private abstract class AbstractClass
 		{
