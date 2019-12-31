@@ -9,7 +9,7 @@ namespace FatCat.Fakes.Tests
 	{
 		/// <summary>
 		///  tests to add
-		///  no setter
+		///  
 		///  sub object
 		///  multi level sub objects
 		///  abstract class
