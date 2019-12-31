@@ -43,7 +43,7 @@ namespace FatCat.Fakes
 
 		private static bool IsList<T>(Type fakeType)
 		{
-			return fakeType.IsGenericType && (fakeType.Implements(typeof(IList)) || fakeType.Implements(typeof(IEnumerable)));
+			return fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
 		}
 	}
 }
