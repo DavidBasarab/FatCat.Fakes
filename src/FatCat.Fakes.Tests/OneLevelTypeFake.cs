@@ -7,6 +7,17 @@ namespace FatCat.Fakes.Tests
 {
 	public class OneLevelTypeFake
 	{
+		/// <summary>
+		/// tests to add
+		///
+		/// private set
+		/// no setter
+		/// sub object
+		/// multi level sub objects
+		/// abstract class
+		/// object with abstract class as property
+		/// </summary>
+		
 		[Fact]
 		public void CanFakeABasicItemWithJustPrimitiveTypes()
 		{
