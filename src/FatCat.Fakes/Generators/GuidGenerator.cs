@@ -4,6 +4,6 @@ namespace FatCat.Fakes.Generators
 {
 	internal class GuidGenerator : FakeGenerator
 	{
-		public override object Generate(Type type) => Guid.NewGuid();
+		public override object Generate() => Guid.NewGuid();
 	}
 }

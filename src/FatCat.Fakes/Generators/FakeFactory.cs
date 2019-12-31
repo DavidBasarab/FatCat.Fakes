@@ -36,13 +36,14 @@ namespace FatCat.Fakes.Generators
 			TypeGenerators.Add(typeof(bool), new BoolGenerator());
 			TypeGenerators.Add(typeof(bool?), new BoolGenerator());
 			TypeGenerators.Add(typeof(string), new StringGenerator());
+			TypeGenerators.Add(typeof(byte[]), new ByteArrayGenerator());
 		}
 
 		public object GetValue(Type type)
 		{
 			var fakeType = GetTypeForFake(type);
 
-			return TypeGenerators.TryGetValue(fakeType, out var faker) ? faker.Generate(type) : null;
+			return TypeGenerators.TryGetValue(fakeType, out var faker) ? faker.Generate() : null;
 		}
 
 		private Type GetTypeForFake(Type type) => type;

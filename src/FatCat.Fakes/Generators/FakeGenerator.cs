@@ -8,6 +8,6 @@ namespace FatCat.Fakes.Generators
 
 		protected static Random Random => random ??= new Random();
 
-		public abstract object Generate(Type type);
+		public abstract object Generate();
 	}
 }

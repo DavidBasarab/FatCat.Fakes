@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 
 namespace FatCat.Fakes.Generators
@@ -7,7 +6,7 @@ namespace FatCat.Fakes.Generators
 	{
 		private const string StringCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 
-		public override object Generate(Type type)
+		public override object Generate()
 		{
 			var length = Random.Next(8, 37);
 
