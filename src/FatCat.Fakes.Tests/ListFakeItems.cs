@@ -32,5 +32,13 @@ namespace FatCat.Fakes.Tests
 				dateItem.Should().BeBefore(DateTime.MaxValue);
 			}
 		}
+		
+		[Fact]
+		public void CanCreateAListOfGivenLength()
+		{
+			var list = Faker.Create<List<string>>(17);
+
+			list.Count.Should().Be(17);
+		}
 	}
 }

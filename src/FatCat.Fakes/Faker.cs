@@ -12,31 +12,35 @@ namespace FatCat.Fakes
 
 		private static Random Random { get; } = new Random();
 
-		public static T Create<T>()
+		public static T Create<T>(int? lengthOfList = null)
 		{
 			var fakeType = typeof(T);
 
-			if (fakeType.IsGenericType && fakeType.Implements(typeof(IList)))
-			{
-				var itemType = fakeType.GetGenericArguments()[0];
-
-				var genericListType = typeof(List<>);
-
-				var subCombinedType = genericListType.MakeGenericType(itemType);
-				var listAsInstance = Activator.CreateInstance(subCombinedType);
-
-				var addMethod = listAsInstance.GetType().GetMethod("Add");
-
-				var numberOfItems = Random.Next(3, 9);
-
-				for (int i = 0; i < numberOfItems; i++) { addMethod.Invoke(listAsInstance, new[] { Create(itemType) }); }
-
-				return (T)listAsInstance;
-			}
+			if (IsList<T>(fakeType)) return CreateList<T>(lengthOfList, fakeType);
 
 			return (T)Create(fakeType);
 		}
 
 		public static object Create(Type fakeType) => FakeFactory.GetValue(fakeType);
+
+		private static T CreateList<T>(int? lengthOfList, Type fakeType)
+		{
+			var itemType = fakeType.GetGenericArguments()[0];
+
+			var genericListType = typeof(List<>);
+
+			var subCombinedType = genericListType.MakeGenericType(itemType);
+			var listAsInstance = Activator.CreateInstance(subCombinedType);
+
+			var addMethod = listAsInstance.GetType().GetMethod("Add");
+
+			var numberOfItems = lengthOfList ?? Random.Next(3, 9);
+
+			for (var i = 0; i < numberOfItems; i++) addMethod.Invoke(listAsInstance, new[] { Create(itemType) });
+
+			return (T)listAsInstance;
+		}
+
+		private static bool IsList<T>(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IList));
 	}
 }
