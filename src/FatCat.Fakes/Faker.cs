@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Fasterflect;
 using FatCat.Fakes.Generators;
@@ -48,7 +49,10 @@ namespace FatCat.Fakes
 
 			var properties = new List<PropertyInfo>(fakeType.GetProperties());
 
-			foreach (var propertyInfo in properties) propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
+			foreach (var propertyInfo in properties.Where(i => i.CanWrite))
+			{
+				propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
+			}
 
 			return instance;
 		}

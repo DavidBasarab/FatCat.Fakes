@@ -9,7 +9,7 @@ namespace FatCat.Fakes.Tests
 	{
 		/// <summary>
 		///  tests to add
-		///  private set
+		///  
 		///  no setter
 		///  sub object
 		///  multi level sub objects
@@ -38,10 +38,14 @@ namespace FatCat.Fakes.Tests
 			item.SomeList.Count.Should().BeInRange(3, 9);
 
 			item.PrivateSetInt.Should().BeInRange(int.MinValue, int.MaxValue);
+
+			item.NoSetter.Should().Be(12);
 		}
 
 		private class ItemToFake
 		{
+			public int NoSetter { get; } = 12;
+			
 			public int PrivateSetInt { get; set; }
 
 			public byte SomeByte { get; set; }
