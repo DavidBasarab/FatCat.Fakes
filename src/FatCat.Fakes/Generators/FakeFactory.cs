@@ -39,6 +39,8 @@ namespace FatCat.Fakes.Generators
 			TypeGenerators.Add(typeof(byte[]), new ByteArrayGenerator());
 			TypeGenerators.Add(typeof(ulong), new ULongGenerator());
 			TypeGenerators.Add(typeof(ulong?), new ULongGenerator());
+			TypeGenerators.Add(typeof(uint), new UIntGenerator());
+			TypeGenerators.Add(typeof(uint?), new UIntGenerator());
 		}
 
 		public object GetValue(Type type)
