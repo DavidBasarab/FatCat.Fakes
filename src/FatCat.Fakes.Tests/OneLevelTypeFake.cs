@@ -8,16 +8,14 @@ namespace FatCat.Fakes.Tests
 	public class OneLevelTypeFake
 	{
 		/// <summary>
-		/// tests to add
-		///
-		/// private set
-		/// no setter
-		/// sub object
-		/// multi level sub objects
-		/// abstract class
-		/// object with abstract class as property
+		///  tests to add
+		///  private set
+		///  no setter
+		///  sub object
+		///  multi level sub objects
+		///  abstract class
+		///  object with abstract class as property
 		/// </summary>
-		
 		[Fact]
 		public void CanFakeABasicItemWithJustPrimitiveTypes()
 		{
@@ -38,15 +36,21 @@ namespace FatCat.Fakes.Tests
 			item.SomeTimeSpan.Should().BeLessThan(TimeSpan.MaxValue);
 
 			item.SomeList.Count.Should().BeInRange(3, 9);
+
+			item.PrivateSetInt.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
 
 		private class ItemToFake
 		{
+			public int PrivateSetInt { get; set; }
+
 			public byte SomeByte { get; set; }
 
 			public DateTime SomeDateTime { get; set; }
 
 			public double SomeDouble { get; set; }
+
+			public List<int> SomeList { get; set; }
 
 			public long SomeLong { get; set; }
 
@@ -55,8 +59,6 @@ namespace FatCat.Fakes.Tests
 			public string SomeString { get; set; }
 
 			public TimeSpan SomeTimeSpan { get; set; }
-
-			public List<int> SomeList { get; set; }
 		}
 	}
 }
