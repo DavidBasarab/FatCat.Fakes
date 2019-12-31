@@ -16,14 +16,14 @@ namespace FatCat.Fakes
 		{
 			var fakeType = typeof(T);
 
-			if (IsList<T>(fakeType)) return CreateList<T>(lengthOfList, fakeType);
+			if (IsList<T>(fakeType)) return (T)CreateList(lengthOfList, fakeType);
 
 			return (T)Create(fakeType);
 		}
 
 		public static object Create(Type fakeType) => FakeFactory.GetValue(fakeType);
 
-		private static T CreateList<T>(int? lengthOfList, Type fakeType)
+		private static object CreateList(int? lengthOfList, Type fakeType)
 		{
 			var itemType = fakeType.GetGenericArguments()[0];
 
@@ -38,7 +38,7 @@ namespace FatCat.Fakes
 
 			for (var i = 0; i < numberOfItems; i++) addMethod.Invoke(listAsInstance, new[] { Create(itemType) });
 
-			return (T)listAsInstance;
+			return listAsInstance;
 		}
 
 		private static bool IsList<T>(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IList));
