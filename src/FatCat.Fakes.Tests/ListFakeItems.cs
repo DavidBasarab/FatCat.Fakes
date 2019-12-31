@@ -37,7 +37,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateAListOfGivenLength()
 		{
-			var list = Faker.Create<List<string>>(17);
+			var list = Faker.Create<List<string>>(length: 17);
 
 			list.Count.Should().Be(17);
 		}
@@ -45,7 +45,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateAnArray()
 		{
-			var array = Faker.Create<short[]>(7);
+			var array = Faker.Create<short[]>(length: 7);
 
 			var testList = array.ToList();
 
@@ -55,7 +55,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateAnIEnumerable()
 		{
-			var enumerableOfItems = Faker.Create<IEnumerable<short>>(7);
+			var enumerableOfItems = Faker.Create<IEnumerable<short>>(length:7);
 
 			var testList = enumerableOfItems.ToList();
 

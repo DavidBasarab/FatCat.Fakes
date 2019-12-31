@@ -14,24 +14,28 @@ namespace FatCat.Fakes
 
 		private static Random Random { get; } = new Random();
 
-		public static T Create<T>(int? lengthOfList = null)
+		public static T Create<T>(Action<T> afterCreate = null, int? length = null)
 		{
 			var fakeType = typeof(T);
 
-			return (T)Create(fakeType, lengthOfList);
+			var item = (T)Create(fakeType, length);
+			
+			afterCreate?.Invoke(item);
+
+			return item;
 		}
 
-		public static object Create(Type fakeType, int? lengthOfList = null)
+		public static object Create(Type fakeType, int? length = null)
 		{
 			if (FakeFactory.IsTypeFaked(fakeType)) return FakeFactory.GetValue(fakeType);
 
-			if (fakeType.IsArray) return CreateArray(lengthOfList, fakeType);
+			if (fakeType.IsArray) return CreateArray(length, fakeType);
 
 			if (IsList(fakeType))
 			{
-				if (IsDictionary(fakeType)) return CreateDictionary(lengthOfList, fakeType);
+				if (IsDictionary(fakeType)) return CreateDictionary(length, fakeType);
 
-				return CreateList(lengthOfList, fakeType);
+				return CreateList(length, fakeType);
 			}
 
 			return CreateInstance(fakeType);

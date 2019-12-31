@@ -25,7 +25,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateADictionaryWithTheNumberOfItemsIProvide()
 		{
-			var item = Faker.Create<Dictionary<int, string>>(21);
+			var item = Faker.Create<Dictionary<int, string>>(length: 21);
 
 			item.Count.Should().Be(21);
 		}
