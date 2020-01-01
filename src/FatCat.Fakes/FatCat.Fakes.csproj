@@ -10,7 +10,7 @@
     <Authors>David Basarab</Authors>
     <PackageTags>unittest;fakes;object</PackageTags>
     <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>
-    <PackageLicenseExpression>MIT License</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/DavidBasarab/FatCat.Fakes</RepositoryUrl>
     <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
