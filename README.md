@@ -23,13 +23,13 @@ Install-Package FatCat.Fakes -Version 1.0.0
 
 # Examples
 
-### *Create a basic primitive*
+##### *Create a basic primitive*
 
 ```C#
     var someNumber = Faker.Create<int>();
 ```
 
-### *Create a fake 1 level class*
+##### *Create a fake 1 level class*
 
 ```C#
     public class MyClass
@@ -51,7 +51,7 @@ Install-Package FatCat.Fakes -Version 1.0.0
     }
 ```
 
-### *Create a list of numbers between 3 and 9 items*
+##### *Create a list of numbers between 3 and 9 items*
 
 ```C#
     var numbers = Faker.Create<List<int>>();
@@ -66,13 +66,13 @@ Install-Package FatCat.Fakes -Version 1.0.0
     ]
 ```
 
-### *Create a list with the given length*
+##### *Create a list with the given length*
 
 ```C#
     var numbers = Faker.Create<List<int>>(length: 21);
 ```
 
-### *Create a dictionary*
+##### *Create a dictionary*
 
 ```C#
     var dictionary = Faker.Create<Dictionary<string, MyClass>>(length: 3);
@@ -97,7 +97,7 @@ Install-Package FatCat.Fakes -Version 1.0.0
     }
 ```
 
-### *Create an object with sub obects*
+##### *Create an object with sub obects*
 
 ```C#
     public class MultiLevelObject 
@@ -121,7 +121,7 @@ Install-Package FatCat.Fakes -Version 1.0.0
     }
 ```
 
-### *Create an interface or an abstract class*
+##### *Create an interface or an abstract class*
 
 ```C#
     public interface IDoSomeWork 
@@ -167,7 +167,7 @@ Install-Package FatCat.Fakes -Version 1.0.0
     }
 ```
 
-### *Change the object after it is created*
+##### *Change the object after it is created*
 
 ```C#
     var myObject = Faker.Create<MyClass>(i => { i.Name = "I like fakes"; });
