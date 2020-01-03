@@ -44,17 +44,26 @@ namespace FatCat.Fakes
 
 			return item;
 		}
-		
+
 		public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
 
 		public static int RandomInt(int? minValue = null, int? maxValue = null)
 		{
 			if (minValue.HasValue && maxValue.HasValue) return Random.Next(minValue.Value, maxValue.Value);
-			
+
 			if (maxValue.HasValue) return Random.Next(maxValue.Value);
 
 			return Random.Next();
 		}
+
+		public static long RandomLong(int? minValue = null, int? maxValue = null)
+		{
+			if (minValue.HasValue && maxValue.HasValue) return Random.Next(minValue.Value, maxValue.Value);
+
+			return (long)Random.NextDouble();
+		}
+
+		public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
 		{

@@ -6,6 +6,30 @@ namespace FatCat.Fakes.Tests.RandomTests
 	public class RandomNumber
 	{
 		[Fact]
+		public void CanFakeALongInAGivenRange()
+		{
+			var value = Faker.RandomLong(14, 17);
+
+			value.Should().BeInRange(14, 17);
+		}
+
+		[Fact]
+		public void CanGetARandomLong()
+		{
+			var value = Faker.RandomLong();
+
+			value.Should().BeInRange(long.MinValue, long.MaxValue);
+		}
+
+		[Fact]
+		public void CanJustRestrictMaxOnLong()
+		{
+			var value = Faker.RandomLong(5);
+
+			value.Should().BeInRange(long.MinValue, 5);
+		}
+		
+		[Fact]
 		public void CanFakeAnIntInAGivenRange()
 		{
 			var value = Faker.RandomInt(4, 7);
@@ -22,7 +46,7 @@ namespace FatCat.Fakes.Tests.RandomTests
 		}
 
 		[Fact]
-		public void CanJustSendTheMaxValue()
+		public void CanJustRestrictMaxOnInt()
 		{
 			var value = Faker.RandomInt(56);
 
