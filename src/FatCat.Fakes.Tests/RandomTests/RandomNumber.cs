@@ -13,5 +13,13 @@ namespace FatCat.Fakes.Tests.RandomTests
 
 			value.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
+		
+		[Fact]
+		public void CanFakeAnIntInAGivenRange()
+		{
+			var value = Faker.RandomInt(4, 7);
+
+			value.Should().BeInRange(4, 7);
+		}
 	}
 }

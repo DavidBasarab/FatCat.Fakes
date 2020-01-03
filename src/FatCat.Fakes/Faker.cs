@@ -39,10 +39,17 @@ namespace FatCat.Fakes
 			}
 
 			var item = CreateInstance(fakeType);
-			
+
 			afterCreate?.Invoke(item);
 
 			return item;
+		}
+
+		public static int RandomInt(int? minValue = null, int? maxValue = null)
+		{
+			if (minValue.HasValue && maxValue.HasValue) return Random.Next(minValue.Value, maxValue.Value);
+
+			return Random.Next();
 		}
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
@@ -132,7 +139,5 @@ namespace FatCat.Fakes
 		private static bool IsDictionary(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
 
 		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
-
-		public static int RandomInt() => Create<int>();
 	}
 }
