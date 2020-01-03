@@ -48,6 +48,8 @@ namespace FatCat.Fakes
 		public static int RandomInt(int? minValue = null, int? maxValue = null)
 		{
 			if (minValue.HasValue && maxValue.HasValue) return Random.Next(minValue.Value, maxValue.Value);
+			
+			if (maxValue.HasValue) return Random.Next(maxValue.Value);
 
 			return Random.Next();
 		}
