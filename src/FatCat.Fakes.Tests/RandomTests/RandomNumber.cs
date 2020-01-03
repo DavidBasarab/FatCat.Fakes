@@ -24,7 +24,7 @@ namespace FatCat.Fakes.Tests.RandomTests
 		[Fact]
 		public void CanJustSendTheMaxValue()
 		{
-			var value = Faker.RandomInt(maxValue: 56);
+			var value = Faker.RandomInt(56);
 
 			value.Should().BeInRange(int.MinValue, 56);
 		}

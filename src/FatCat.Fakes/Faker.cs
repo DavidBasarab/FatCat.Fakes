@@ -44,6 +44,8 @@ namespace FatCat.Fakes
 
 			return item;
 		}
+		
+		public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
 
 		public static int RandomInt(int? minValue = null, int? maxValue = null)
 		{
