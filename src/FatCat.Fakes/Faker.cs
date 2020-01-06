@@ -152,5 +152,7 @@ namespace FatCat.Fakes
 		private static bool IsDictionary(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
 
 		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+
+		public static string RandomString() { return Create<string>(); }
 	}
 }
