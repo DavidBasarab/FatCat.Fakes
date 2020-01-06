@@ -10,7 +10,9 @@ namespace FatCat.Fakes.Generators
 		{
 			var length = Random.Next(8, 37);
 
-			return new string(Enumerable.Repeat(StringCharacters, length).Select(s => s[Random.Next(s.Length)]).ToArray());
+			return Generate(length);
 		}
+
+		public string Generate(int length) => new string(Enumerable.Repeat(StringCharacters, length).Select(s => s[Random.Next(s.Length)]).ToArray());
 	}
 }

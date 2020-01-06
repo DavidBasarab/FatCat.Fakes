@@ -13,5 +13,14 @@ namespace FatCat.Fakes.Tests.RandomTests
 			randomString.Length.Should().BeGreaterThan(7);
 			randomString.Should().NotBeNullOrWhiteSpace();
 		}
+		
+		[Fact]
+		public void CanCreateARandomStringOfGivenLength()
+		{
+			var randomString = Faker.RandomString(17);
+			
+			randomString.Length.Should().Be(17);
+			randomString.Should().NotBeNullOrWhiteSpace();
+		}
 	}
 }

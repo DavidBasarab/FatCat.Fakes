@@ -65,6 +65,13 @@ namespace FatCat.Fakes
 
 		public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
 
+		public static string RandomString(int? length = null)
+		{
+			var stringGenerator = new StringGenerator();
+
+			return length.HasValue ? stringGenerator.Generate(length.Value) : (string)stringGenerator.Generate();
+		}
+
 		private static object CreateArray(int? lengthOfList, Type fakeType)
 		{
 			var length = lengthOfList ?? Random.Next(3, 9);
@@ -152,7 +159,5 @@ namespace FatCat.Fakes
 		private static bool IsDictionary(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
 
 		private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
-
-		public static string RandomString() { return Create<string>(); }
 	}
 }
