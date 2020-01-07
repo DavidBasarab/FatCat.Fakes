@@ -17,11 +17,37 @@ namespace FatCat.Fakes.Tests
 			Faker.FakeFactory.IsTypeFaked(typeToFake).Should().BeTrue();
 		}
 
-		public class ItemForGenerator { }
+		[Fact]
+		public void WillUseTheNewGenerator()
+		{
+			var typeToFake = typeof(ItemForGenerator);
+
+			Faker.AddGenerator(typeToFake, new TestingGenerator());
+
+			var item = Faker.Create<ItemForGenerator>();
+
+			item.SomeDate.Should().Be(new DateTime(1969, 07, 20));
+			item.SomeNumber.Should().Be(11);
+			item.SomeString.Should().Be("Moon");
+		}
+
+		public class ItemForGenerator
+		{
+			public DateTime SomeDate { get; set; }
+
+			public int SomeNumber { get; set; }
+
+			public string SomeString { get; set; }
+		}
 
 		public class TestingGenerator : FakeGenerator
 		{
-			public override object Generate() => throw new NotImplementedException();
+			public override object Generate() => new ItemForGenerator
+												{
+													SomeDate = new DateTime(1969, 07, 20),
+													SomeNumber = 11,
+													SomeString = "Moon"
+												};
 		}
 	}
 }

@@ -43,7 +43,11 @@ namespace FatCat.Fakes.Generators
 			TypeGenerators.Add(typeof(uint?), new UIntGenerator());
 		}
 
-		public void AddGenerator(Type generatorType, FakeGenerator generator) => TypeGenerators.Add(generatorType, generator);
+		public void AddGenerator(Type generatorType, FakeGenerator generator)
+		{
+			if (TypeGenerators.ContainsKey(generatorType)) TypeGenerators[generatorType] = generator;
+			else TypeGenerators.Add(generatorType, generator);
+		}
 
 		public object GetValue(Type type)
 		{
