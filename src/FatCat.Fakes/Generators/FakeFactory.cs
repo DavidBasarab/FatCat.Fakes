@@ -43,6 +43,8 @@ namespace FatCat.Fakes.Generators
 			TypeGenerators.Add(typeof(uint?), new UIntGenerator());
 		}
 
+		public void AddGenerator(Type generatorType, FakeGenerator generator) => TypeGenerators.Add(generatorType, generator);
+
 		public object GetValue(Type type)
 		{
 			var fakeType = GetTypeForFake(type);
@@ -58,11 +60,5 @@ namespace FatCat.Fakes.Generators
 		}
 
 		private Type GetTypeForFake(Type type) => type;
-
-		// if (!type.IsGenericType) return type;
-		//
-		// var genericType = type.GetGenericTypeDefinition();
-		//
-		// return genericType == typeof(Nullable<>) ? type : genericType;
 	}
 }

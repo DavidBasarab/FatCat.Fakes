@@ -2,7 +2,7 @@ using System;
 
 namespace FatCat.Fakes.Generators
 {
-	internal abstract class FakeGenerator
+	public abstract class FakeGenerator
 	{
 		private static Random random;
 

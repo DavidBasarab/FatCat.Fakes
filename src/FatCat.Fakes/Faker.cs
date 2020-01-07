@@ -10,6 +10,8 @@ namespace FatCat.Fakes
 {
 	public static class Faker
 	{
+		public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
+
 		internal static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
 
 		private static Random Random { get; } = new Random();
