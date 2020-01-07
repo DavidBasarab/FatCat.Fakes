@@ -42,12 +42,12 @@ namespace FatCat.Fakes.Tests
 
 		public class TestingGenerator : FakeGenerator
 		{
-			public override object Generate() => new ItemForGenerator
-												{
-													SomeDate = new DateTime(1969, 07, 20),
-													SomeNumber = 11,
-													SomeString = "Moon"
-												};
+			public override object Generate(Type typeToGenerate) => new ItemForGenerator
+																	{
+																		SomeDate = new DateTime(1969, 07, 20),
+																		SomeNumber = 11,
+																		SomeString = "Moon"
+																	};
 		}
 	}
 }

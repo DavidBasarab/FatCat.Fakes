@@ -1,8 +1,10 @@
+using System;
+
 namespace FatCat.Fakes.Generators
 {
 	internal class ByteArrayGenerator : FakeGenerator
 	{
-		public override object Generate()
+		public override object Generate(Type typeToGenerate)
 		{
 			var length = Random.Next(12, 39);
 
@@ -10,7 +12,7 @@ namespace FatCat.Fakes.Generators
 
 			var byteGenerator = new ByteGenerator();
 
-			for (var i = 0; i < length; i++) array[i] = (byte)byteGenerator.Generate();
+			for (var i = 0; i < length; i++) array[i] = (byte)byteGenerator.Generate(typeToGenerate);
 
 			return array;
 		}

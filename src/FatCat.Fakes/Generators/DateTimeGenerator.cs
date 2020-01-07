@@ -4,7 +4,7 @@ namespace FatCat.Fakes.Generators
 {
 	internal class DateTimeGenerator : FakeGenerator
 	{
-		public override object Generate()
+		public override object Generate(Type typeToGenerate)
 		{
 			var now = DateTime.Now;
 
@@ -21,7 +21,7 @@ namespace FatCat.Fakes.Generators
 		{
 			var timeSpanGenerator = new TimespanGenerator();
 
-			for (var i = 0; i < Random.Next(3, 11); i++) now = now + (TimeSpan)timeSpanGenerator.Generate();
+			for (var i = 0; i < Random.Next(3, 11); i++) now = now + (TimeSpan)timeSpanGenerator.Generate(typeof(TimeSpan));
 
 			return now;
 		}

@@ -41,6 +41,7 @@ namespace FatCat.Fakes.Generators
 			TypeGenerators.Add(typeof(ulong?), new ULongGenerator());
 			TypeGenerators.Add(typeof(uint), new UIntGenerator());
 			TypeGenerators.Add(typeof(uint?), new UIntGenerator());
+			TypeGenerators.Add(typeof(Enum), new EnumGenerator());
 		}
 
 		public void AddGenerator(Type generatorType, FakeGenerator generator)
@@ -51,18 +52,11 @@ namespace FatCat.Fakes.Generators
 
 		public object GetValue(Type type)
 		{
-			var fakeType = GetTypeForFake(type);
+			if (type.IsEnum) return new EnumGenerator().Generate(type);
 
-			return TypeGenerators.TryGetValue(fakeType, out var faker) ? faker.Generate() : null;
+			return TypeGenerators.TryGetValue(type, out var faker) ? faker.Generate(type) : null;
 		}
 
-		public bool IsTypeFaked(Type type)
-		{
-			var fakeType = GetTypeForFake(type);
-
-			return TypeGenerators.ContainsKey(fakeType);
-		}
-
-		private Type GetTypeForFake(Type type) => type;
+		public bool IsTypeFaked(Type type) => type.IsEnum || TypeGenerators.ContainsKey(type);
 	}
 }

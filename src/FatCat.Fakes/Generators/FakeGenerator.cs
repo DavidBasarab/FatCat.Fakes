@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace FatCat.Fakes.Generators
 {
@@ -8,6 +9,6 @@ namespace FatCat.Fakes.Generators
 
 		protected static Random Random => random ??= new Random();
 
-		public abstract object Generate();
+		public abstract object Generate(Type typeToGenerate);
 	}
 }

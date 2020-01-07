@@ -71,7 +71,7 @@ namespace FatCat.Fakes
 		{
 			var stringGenerator = new StringGenerator();
 
-			return length.HasValue ? stringGenerator.Generate(length.Value) : (string)stringGenerator.Generate();
+			return length.HasValue ? stringGenerator.Generate(length.Value) : (string)stringGenerator.Generate(typeof(string));
 		}
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
