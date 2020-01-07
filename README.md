@@ -19,7 +19,6 @@ Install-Package FatCat.Fakes -Version 1.0.0
 ### *Future Features*
 
 * Ignore properties from faking
-* Custom Type Fake Generators
 
 # Examples
 
@@ -178,6 +177,39 @@ Install-Package FatCat.Fakes -Version 1.0.0
         "Name":"I like fakes",
         "NumberOfTimes":958091195
     }
+```
+
+#### *Can define custom type generator*
+
+```C#
+    public class ItemForGenerator
+    {
+        public DateTime SomeDate { get; set; }
+
+        public int SomeNumber { get; set; }
+
+        public string SomeString { get; set; }
+    }
+
+    public class TestingGenerator : FakeGenerator
+    {
+        public override object Generate() => new ItemForGenerator
+                                            {
+                                                SomeDate = new DateTime(1969, 07, 20),
+                                                SomeNumber = 11,
+                                                SomeString = "Moon"
+                                            };
+    }
+
+    var typeToFake = typeof(ItemForGenerator);
+
+    Faker.AddGenerator(typeToFake, new TestingGenerator());
+
+    var item = Faker.Create<ItemForGenerator>();
+
+    item.SomeDate.Should().Be(new DateTime(1969, 07, 20));
+    item.SomeNumber.Should().Be(11);
+    item.SomeString.Should().Be("Moon");
 ```
 
 Please explore the unit tests for examples currently supported.  *Happy faking.*
