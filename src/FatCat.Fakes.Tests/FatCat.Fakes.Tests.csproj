@@ -4,6 +4,9 @@
     <DebugType>full</DebugType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\FatCat.Fakes\FakerRelease.snk</AssemblyOriginatorKeyFile>
+    <PublicSign>false</PublicSign>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +17,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\FatCat.Fakes\FakerRelease.snk">
+      <Link>FakerRelease.snk</Link>
+    </None>
   </ItemGroup>
 
 </Project>

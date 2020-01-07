@@ -10,7 +10,7 @@ namespace FatCat.Fakes
 {
 	public static class Faker
 	{
-		private static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
+		internal static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
 
 		private static Random Random { get; } = new Random();
 

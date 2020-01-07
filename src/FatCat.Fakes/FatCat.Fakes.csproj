@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/DavidBasarab/FatCat.Fakes</RepositoryUrl>
-    <NoWarn>CS8002</NoWarn>
+    <NoWarn>CS8002,CS1700</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
