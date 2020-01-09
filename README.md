@@ -179,6 +179,26 @@ Install-Package FatCat.Fakes -Version 1.0.0
     }
 ```
 
+#### *Can randomly generate a string*
+
+```C#
+    var randomString = Faker.RandomString();
+
+    randomString.Length.Should().BeGreaterThan(7);
+    randomString.Should().NotBeNullOrWhiteSpace();
+
+    // Can create a string of a given length
+    var randomString = Faker.RandomString(length: 17);
+
+    randomString.Length.Should().Be(17);
+    randomString.Should().NotBeNullOrWhiteSpace();
+
+    // can provide a prefix for the random string
+    var stringWithPrefix = Faker.RandomString("ShouldStartWithThis");
+
+    stringWithPrefix.Should().StartWith("ShouldStartWithThis");
+```
+
 #### *Can define custom type generator*
 
 ```C#
