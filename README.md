@@ -15,6 +15,8 @@ Install-Package FatCat.Fakes -Version 1.0.0
 * Will create a random interface/abstract implementation from the assembly of the type asked to be created.
 * Create List, Arrays, and Dictionaries
 * Callback to change object after creation before Faker returns
+* Create random int and string with prefixes
+* Define your own fake generator for a given type
 
 ### *Future Features*
 
@@ -179,7 +181,7 @@ Install-Package FatCat.Fakes -Version 1.0.0
     }
 ```
 
-#### *Can randomly generate a string*
+#### *Randomly generate a string*
 
 ```C#
     var randomString = Faker.RandomString();
@@ -199,7 +201,7 @@ Install-Package FatCat.Fakes -Version 1.0.0
     stringWithPrefix.Should().StartWith("ShouldStartWithThis");
 ```
 
-#### *Can define custom type generator*
+#### *Define custom type generator*
 
 ```C#
     public class ItemForGenerator
