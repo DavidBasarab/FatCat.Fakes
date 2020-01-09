@@ -67,11 +67,13 @@ namespace FatCat.Fakes
 
 		public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
 
-		public static string RandomString(int? length = null)
+		public static string RandomString(string prefix = null, int? length = null)
 		{
 			var stringGenerator = new StringGenerator();
 
-			return length.HasValue ? stringGenerator.Generate(length.Value) : (string)stringGenerator.Generate(typeof(string));
+			var randomString = length.HasValue ? stringGenerator.Generate(length.Value) : (string)stringGenerator.Generate(typeof(string));
+
+			return $"{prefix}{randomString}";
 		}
 
 		private static object CreateArray(int? lengthOfList, Type fakeType)
