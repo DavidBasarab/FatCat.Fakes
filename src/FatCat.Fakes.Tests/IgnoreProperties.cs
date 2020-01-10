@@ -22,6 +22,14 @@ namespace FatCat.Fakes.Tests
 		}
 
 		[Fact]
+		public void CanIgnoreAType()
+		{
+			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.SubObject);
+
+			item.SubObject.Should().BeNull();
+		}
+
+		[Fact]
 		public void WillNotSetTheIgnoredProperty()
 		{
 			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.SomeString);
