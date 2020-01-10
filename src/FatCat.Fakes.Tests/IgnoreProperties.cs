@@ -39,11 +39,21 @@ namespace FatCat.Fakes.Tests
 			item.FindMe.Should().BeNull();
 		}
 
-		// [Fact]
-		// public void CanIgnoreMultipleLevel()
-		// {
-		// 	var item = Faker.Create<TestFakingItem>(i => i.FindMe.DiveDive.SomeString, i => i.FindMe.DiveDive.GoLow.SomeString);
-		// }
+		[Fact]
+		public void CanIgnoreMultipleLevel()
+		{
+			var item = Faker.Create<TestFakingItem>(i => i.FindMe.DiveDive.SomeString, i => i.FindMe.DiveDive.GoLow.SomeString);
+
+			item.FindMe.Should().NotBeNull();
+
+			item.FindMe.DiveDive.GoLow.Should().NotBeNull();
+
+			item.FindMe.DiveDive.SomeString.Should().BeNullOrWhiteSpace();
+
+			item.FindMe.DiveDive.GoLow.SomeString.Should().BeNullOrWhiteSpace();
+
+			item.FindMe.DiveDive.GoLow.SomeNumber.Should().NotBe(default);
+		}
 
 		[Fact]
 		public void WillNotSetTheIgnoredProperty()
@@ -69,9 +79,9 @@ namespace FatCat.Fakes.Tests
 
 		public class LowestClass
 		{
-			public string SomeString { get; set; }
-
 			public int SomeNumber { get; set; }
+
+			public string SomeString { get; set; }
 		}
 
 		public class SubObject

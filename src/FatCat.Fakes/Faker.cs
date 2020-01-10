@@ -23,6 +23,7 @@ namespace FatCat.Fakes
 
 		public static T Create<T>(int? length, params Expression<Func<T, object>>[] propertiesToIgnore) => Create(i => { }, length, propertiesToIgnore);
 
+		// ReSharper disable once MemberCanBePrivate.Global
 		public static T Create<T>(Action<T> afterCreate, int? length, IEnumerable<Expression<Func<T, object>>> propertiesToIgnore)
 		{
 			var fakeType = typeof(T);
@@ -41,17 +42,20 @@ namespace FatCat.Fakes
 				if (propertyInfo.DeclaringType == item.GetType()) propertyInfo.SetValue(item, null);
 				else
 				{
-					//propertyInfo.SetMethod(null)
+					var parts = memberExpression.ToString().Split('.').Skip(1).ToList();
 
-					var parts = memberExpression.ToString().Split('.');
+					object subValue = item;
 
-					// i.FindMe.SomeString
-					var subPropertyInfo = item.GetType().GetProperty(parts[1]);
-					var subValue = subPropertyInfo.GetValue(item);
+					for (var i = 0; i < parts.Count - 1; i++)
+					{
+						var expressionPart = parts[i];
+						
+						var subPropertyInfo = subValue.GetType().GetProperty(expressionPart);
 
-					propertyInfo.SetValue(subValue, null);
+						if (subPropertyInfo != null) subValue = subPropertyInfo.GetValue(subValue);
+					}
 
-					// propertyInfo.SetMethod.Invoke(item, new object[0]);
+					if (subValue != null) propertyInfo.SetValue(subValue, null);
 				}
 			}
 
