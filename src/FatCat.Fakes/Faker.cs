@@ -17,12 +17,24 @@ namespace FatCat.Fakes
 
 		public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
 
-		public static T Create<T>(Action<T> afterCreate = null, int? length = null)
+		public static T Create<T>(Action<T> afterCreate = null, int? length = null, params Expression<Func<T, object>>[] propertiesToIgnore)
 		{
 			var fakeType = typeof(T);
 
 			var item = (T)Create(fakeType, length: length);
 
+			foreach (var expression in propertiesToIgnore)
+			{
+				MemberExpression memberExpression;
+
+				if (expression.Body is UnaryExpression unaryExpression) memberExpression = (MemberExpression)unaryExpression.Operand;
+				else memberExpression = (MemberExpression)expression.Body;
+
+				var propertyInfo = (PropertyInfo)memberExpression.Member;
+
+				propertyInfo.SetValue(item, null);
+			}
+			
 			afterCreate?.Invoke(item);
 
 			return item;
