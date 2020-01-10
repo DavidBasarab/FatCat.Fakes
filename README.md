@@ -229,6 +229,51 @@ Install-Package FatCat.Fakes -Version 1.0.0
     item.SomeNumber.Should().Be(11);
     item.SomeString.Should().Be("Moon");
 ```
+#### *Ignore properites on fake*
 
+```C#
+    public class DeeperClass
+    {
+        public LowestClass GoLow { get; set; }
+
+        public string SomeString { get; set; }
+    }
+
+    public class LowestClass
+    {
+        public int SomeNumber { get; set; }
+
+        public string SomeString { get; set; }
+    }
+
+    public class SubObject
+    {
+        public DateTime Date { get; set; }
+
+        public DeeperClass DiveDive { get; set; }
+
+        public int First { get; set; }
+
+        public int Second { get; set; }
+
+        public string SomeString { get; set; }
+    }
+
+    public class TestFakingItem
+    {
+        public SubObject FindMe { get; set; }
+
+        public int SomeNumber { get; set; }
+
+        public string SomeString { get; set; }
+    }
+
+
+    // Will not set the property given
+    var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.SomeString);
+
+    // Will work with nested properties
+    var item = Faker.Create<TestFakingItem>(i => i.FindMe.DiveDive.SomeString, i => i.FindMe.DiveDive.GoLow.SomeString);
+```
 
 Please explore the unit tests for examples currently supported.  *Happy faking.*
