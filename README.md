@@ -17,6 +17,12 @@ Install-Package FatCat.Fakes -Version 1.0.0
 * Callback to change object after creation before Faker returns
 * Create random int and string with prefixes
 * Define your own fake generator for a given type
+* A random string with starting prefix
+* Ignore properties from being faed
+
+### **Future Features**
+
+* Fake an existing object
 
 # Examples
 
