@@ -17,7 +17,13 @@ namespace FatCat.Fakes
 
 		public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
 
-		public static T Create<T>(Action<T> afterCreate = null, int? length = null, params Expression<Func<T, object>>[] propertiesToIgnore)
+		public static T Create<T>(params Expression<Func<T, object>>[] propertiesToIgnore) => Create(i => { }, null, propertiesToIgnore);
+
+		public static T Create<T>(Action<T> afterCreate, params Expression<Func<T, object>>[] propertiesToIgnore) => Create(afterCreate, null, propertiesToIgnore);
+
+		public static T Create<T>(int? length, params Expression<Func<T, object>>[] propertiesToIgnore) => Create(i => { }, length, propertiesToIgnore);
+
+		public static T Create<T>(Action<T> afterCreate, int? length, IEnumerable<Expression<Func<T, object>>> propertiesToIgnore)
 		{
 			var fakeType = typeof(T);
 
@@ -32,29 +38,23 @@ namespace FatCat.Fakes
 
 				var propertyInfo = (PropertyInfo)memberExpression.Member;
 
-				if (propertyInfo.DeclaringType == item.GetType())
-				{
-					propertyInfo.SetValue(item, null);	
-				}
+				if (propertyInfo.DeclaringType == item.GetType()) propertyInfo.SetValue(item, null);
 				else
 				{
 					//propertyInfo.SetMethod(null)
 
 					var parts = memberExpression.ToString().Split('.');
-					
+
 					// i.FindMe.SomeString
 					var subPropertyInfo = item.GetType().GetProperty(parts[1]);
 					var subValue = subPropertyInfo.GetValue(item);
-					
-					propertyInfo.SetValue(subValue, null);
 
+					propertyInfo.SetValue(subValue, null);
 
 					// propertyInfo.SetMethod.Invoke(item, new object[0]);
 				}
-
-				
 			}
-			
+
 			afterCreate?.Invoke(item);
 
 			return item;

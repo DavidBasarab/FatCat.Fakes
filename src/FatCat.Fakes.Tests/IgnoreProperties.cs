@@ -20,12 +20,12 @@ namespace FatCat.Fakes.Tests
 			item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);
 			item.FindMe.Date.Should().BeAfter(DateTime.MinValue);
 		}
-		
+
 		[Fact]
 		public void CanIgnoreASubTypeProperty()
 		{
 			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.FindMe.SomeString);
-			
+
 			item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
 			item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);
 			item.FindMe.SomeString.Should().BeNull();
@@ -38,6 +38,12 @@ namespace FatCat.Fakes.Tests
 
 			item.FindMe.Should().BeNull();
 		}
+
+		// [Fact]
+		// public void CanIgnoreMultipleLevel()
+		// {
+		// 	var item = Faker.Create<TestFakingItem>(i => i.FindMe.DiveDive.SomeString, i => i.FindMe.DiveDive.GoLow.SomeString);
+		// }
 
 		[Fact]
 		public void WillNotSetTheIgnoredProperty()
@@ -54,9 +60,25 @@ namespace FatCat.Fakes.Tests
 			item.FindMe.Date.Should().BeAfter(DateTime.MinValue);
 		}
 
+		public class DeeperClass
+		{
+			public LowestClass GoLow { get; set; }
+
+			public string SomeString { get; set; }
+		}
+
+		public class LowestClass
+		{
+			public string SomeString { get; set; }
+
+			public int SomeNumber { get; set; }
+		}
+
 		public class SubObject
 		{
 			public DateTime Date { get; set; }
+
+			public DeeperClass DiveDive { get; set; }
 
 			public int First { get; set; }
 
@@ -67,11 +89,11 @@ namespace FatCat.Fakes.Tests
 
 		public class TestFakingItem
 		{
+			public SubObject FindMe { get; set; }
+
 			public int SomeNumber { get; set; }
 
 			public string SomeString { get; set; }
-
-			public SubObject FindMe { get; set; }
 		}
 	}
 }
