@@ -27,7 +27,7 @@ namespace OneOff
     {
         static void Main(string[] args)
         {
-            Faker.PlayWithIdea<TestFakingItem>(p => p.SubObject.Date);
+            Faker.PlayWithIdea<TestFakingItem>(p => p.SubObject.Date, p => p.SomeNumber);
         }
     }
 }

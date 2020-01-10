@@ -48,17 +48,20 @@ namespace FatCat.Fakes
 			return item;
 		}
 
-		public static void PlayWithIdea<T>(Expression<Func<T, object>> property) where T : class
+		public static void PlayWithIdea<T>(params Expression<Func<T, object>>[] items) where T : class
 		{
-			var lambda = property;
-			MemberExpression memberExpression;
+			foreach (var property in items)
+			{
+				var lambda = property;
+				MemberExpression memberExpression;
 
-			if (lambda.Body is UnaryExpression unaryExpression) memberExpression = (MemberExpression)unaryExpression.Operand;
-			else memberExpression = (MemberExpression)lambda.Body;
+				if (lambda.Body is UnaryExpression unaryExpression) memberExpression = (MemberExpression)unaryExpression.Operand;
+				else memberExpression = (MemberExpression)lambda.Body;
 
-			var propertyInfo = (PropertyInfo)memberExpression.Member;
+				var propertyInfo = (PropertyInfo)memberExpression.Member;
 
-			Console.WriteLine($"  PropertyInfo.FullName := {propertyInfo.Name} | Type := {propertyInfo.PropertyType}");
+				Console.WriteLine($"  PropertyInfo.FullName := {propertyInfo.Name} | Type := {propertyInfo.PropertyType} | DeclaringType := {propertyInfo.DeclaringType}");
+			}
 		}
 
 		public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
