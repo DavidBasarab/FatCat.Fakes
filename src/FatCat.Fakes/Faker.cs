@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using Fasterflect;
 using FatCat.Fakes.Generators;
@@ -10,11 +11,11 @@ namespace FatCat.Fakes
 {
 	public static class Faker
 	{
-		public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
-
 		internal static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
 
 		private static Random Random { get; } = new Random();
+
+		public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
 
 		public static T Create<T>(Action<T> afterCreate = null, int? length = null)
 		{
@@ -45,6 +46,19 @@ namespace FatCat.Fakes
 			afterCreate?.Invoke(item);
 
 			return item;
+		}
+
+		public static void PlayWithIdea<T>(Expression<Func<T, object>> property) where T : class
+		{
+			var lambda = property;
+			MemberExpression memberExpression;
+
+			if (lambda.Body is UnaryExpression unaryExpression) memberExpression = (MemberExpression)unaryExpression.Operand;
+			else memberExpression = (MemberExpression)lambda.Body;
+
+			var propertyInfo = (PropertyInfo)memberExpression.Member;
+
+			Console.WriteLine($"  PropertyInfo.FullName := {propertyInfo.Name} | Type := {propertyInfo.PropertyType}");
 		}
 
 		public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
