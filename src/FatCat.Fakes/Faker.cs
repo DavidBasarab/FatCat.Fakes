@@ -32,7 +32,27 @@ namespace FatCat.Fakes
 
 				var propertyInfo = (PropertyInfo)memberExpression.Member;
 
-				propertyInfo.SetValue(item, null);
+				if (propertyInfo.DeclaringType == item.GetType())
+				{
+					propertyInfo.SetValue(item, null);	
+				}
+				else
+				{
+					//propertyInfo.SetMethod(null)
+
+					var parts = memberExpression.ToString().Split('.');
+					
+					// i.FindMe.SomeString
+					var subPropertyInfo = item.GetType().GetProperty(parts[1]);
+					var subValue = subPropertyInfo.GetValue(item);
+					
+					propertyInfo.SetValue(subValue, null);
+
+
+					// propertyInfo.SetMethod.Invoke(item, new object[0]);
+				}
+
+				
 			}
 			
 			afterCreate?.Invoke(item);

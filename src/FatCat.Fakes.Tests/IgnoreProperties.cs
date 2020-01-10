@@ -14,19 +14,29 @@ namespace FatCat.Fakes.Tests
 			item.SomeString.Should().NotBeNullOrWhiteSpace();
 			item.SomeNumber.Should().Be(default);
 
-			item.SubObject.Should().NotBeNull();
+			item.FindMe.Should().NotBeNull();
 
-			item.SubObject.First.Should().BeInRange(int.MinValue, int.MaxValue);
-			item.SubObject.Second.Should().BeInRange(int.MinValue, int.MaxValue);
-			item.SubObject.Date.Should().BeAfter(DateTime.MinValue);
+			item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
+			item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);
+			item.FindMe.Date.Should().BeAfter(DateTime.MinValue);
+		}
+		
+		[Fact]
+		public void CanIgnoreASubTypeProperty()
+		{
+			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.FindMe.SomeString);
+			
+			item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
+			item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);
+			item.FindMe.SomeString.Should().BeNull();
 		}
 
 		[Fact]
 		public void CanIgnoreAType()
 		{
-			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.SubObject);
+			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.FindMe);
 
-			item.SubObject.Should().BeNull();
+			item.FindMe.Should().BeNull();
 		}
 
 		[Fact]
@@ -37,11 +47,11 @@ namespace FatCat.Fakes.Tests
 			item.SomeString.Should().BeNullOrWhiteSpace();
 			item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 
-			item.SubObject.Should().NotBeNull();
+			item.FindMe.Should().NotBeNull();
 
-			item.SubObject.First.Should().BeInRange(int.MinValue, int.MaxValue);
-			item.SubObject.Second.Should().BeInRange(int.MinValue, int.MaxValue);
-			item.SubObject.Date.Should().BeAfter(DateTime.MinValue);
+			item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
+			item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);
+			item.FindMe.Date.Should().BeAfter(DateTime.MinValue);
 		}
 
 		public class SubObject
@@ -51,6 +61,8 @@ namespace FatCat.Fakes.Tests
 			public int First { get; set; }
 
 			public int Second { get; set; }
+
+			public string SomeString { get; set; }
 		}
 
 		public class TestFakingItem
@@ -59,7 +71,7 @@ namespace FatCat.Fakes.Tests
 
 			public string SomeString { get; set; }
 
-			public SubObject SubObject { get; set; }
+			public SubObject FindMe { get; set; }
 		}
 	}
 }
