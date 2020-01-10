@@ -49,7 +49,7 @@ namespace FatCat.Fakes
 					for (var i = 0; i < parts.Count - 1; i++)
 					{
 						var expressionPart = parts[i];
-						
+
 						var subPropertyInfo = subValue.GetType().GetProperty(expressionPart);
 
 						if (subPropertyInfo != null) subValue = subPropertyInfo.GetValue(subValue);
