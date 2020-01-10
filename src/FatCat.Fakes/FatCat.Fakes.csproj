@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
-    <VersionPrefix>1.0.4</VersionPrefix>
+    <VersionPrefix>1.0.5</VersionPrefix>
     <Authors>David Basarab</Authors>
     <PackageTags>unittest;fakes;object</PackageTags>
     <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>

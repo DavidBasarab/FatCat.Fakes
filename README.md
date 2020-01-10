@@ -18,10 +18,6 @@ Install-Package FatCat.Fakes -Version 1.0.0
 * Create random int and string with prefixes
 * Define your own fake generator for a given type
 
-### *Future Features*
-
-* Ignore properties from faking
-
 # Examples
 
 #### *Create a basic primitive*
@@ -233,5 +229,6 @@ Install-Package FatCat.Fakes -Version 1.0.0
     item.SomeNumber.Should().Be(11);
     item.SomeString.Should().Be("Moon");
 ```
+
 
 Please explore the unit tests for examples currently supported.  *Happy faking.*
