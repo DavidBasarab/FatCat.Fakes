@@ -173,6 +173,8 @@ namespace FatCat.Fakes
 
 			if (fakeType.IsAbstract || fakeType.IsInterface) typeToCreate = FindImplementingType(fakeType);
 
+			if (DoesNotHaveParameterLessConstructor(typeToCreate)) return null;
+
 			var instance = Activator.CreateInstance(typeToCreate);
 
 			var properties = new List<PropertyInfo>(typeToCreate.GetProperties());
@@ -199,6 +201,8 @@ namespace FatCat.Fakes
 
 			return listAsInstance;
 		}
+
+		private static bool DoesNotHaveParameterLessConstructor(Type fakeType) => fakeType.GetConstructor(Type.EmptyTypes) == null;
 
 		private static Type FindImplementingType(Type fakeType)
 		{
