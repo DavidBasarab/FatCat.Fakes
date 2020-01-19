@@ -27,5 +27,13 @@ namespace FatCat.Fakes.Tests
 			item.ShouldNotBeFaked.Should().BeNull();
 			item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
+		
+		[Fact]
+		public void WillReturnNullIfTypeGivenDoesNotHaveAParameterLessConstructor()
+		{
+			var item = Faker.Create<ItemWithStuffInConstructor>();
+			
+			item.Should().BeNull();
+		}
 	}
 }
