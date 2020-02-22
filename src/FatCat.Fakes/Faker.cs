@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -99,6 +100,8 @@ namespace FatCat.Fakes
 				Console.WriteLine($"  PropertyInfo.FullName := {propertyInfo.Name} | Type := {propertyInfo.PropertyType} | DeclaringType := {propertyInfo.DeclaringType}");
 			}
 		}
+
+		public static Color RandomColor() => Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
 
 		public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
 
