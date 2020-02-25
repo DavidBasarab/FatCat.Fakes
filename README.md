@@ -6,7 +6,7 @@
 https://www.nuget.org/packages/FatCat.Fakes/
 
 ```
-Install-Package FatCat.Fakes -Version 1.0.0
+Install-Package FatCat.Fakes -Version 1.0.8
 ```
 
 ###  **Features include**
