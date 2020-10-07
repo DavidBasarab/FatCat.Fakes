@@ -22,7 +22,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void WillNotPopulateItemsWithoutAParameterLessConstructor()
 		{
-			var item = Faker.Create<ItemToFake>(i => i.ShouldNotBeFaked);
+			var item = Faker.Create<ItemToFake>();
 
 			item.ShouldNotBeFaked.Should().BeNull();
 			item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);

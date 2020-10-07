@@ -18,45 +18,50 @@ namespace FatCat.Fakes
 
 		public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
 
+		public static T Create<T>() => Create<T>(i => { }, null);
+
+		public static T Create<T>(Action<T> afterCreate) => Create(afterCreate, null);
+
+		public static T Create<T>(int? length) => Create<T>(i => { }, length);
+
 		public static T Create<T>(params Expression<Func<T, object>>[] propertiesToIgnore) => Create(i => { }, null, propertiesToIgnore);
 
-		public static T Create<T>(Action<T> afterCreate, params Expression<Func<T, object>>[] propertiesToIgnore) => Create(afterCreate, null, propertiesToIgnore);
-
-		public static T Create<T>(int? length, params Expression<Func<T, object>>[] propertiesToIgnore) => Create(i => { }, length, propertiesToIgnore);
-
 		// ReSharper disable once MemberCanBePrivate.Global
-		public static T Create<T>(Action<T> afterCreate, int? length, IEnumerable<Expression<Func<T, object>>> propertiesToIgnore)
+		public static T Create<T>(Action<T> afterCreate, int? length, IEnumerable<Expression<Func<T, object>>> propertiesToIgnore = null)
 		{
 			var fakeType = typeof(T);
 
 			var item = (T)Create(fakeType, length: length);
 
-			foreach (var expression in propertiesToIgnore)
+			if (propertiesToIgnore != null)
 			{
-				MemberExpression memberExpression;
-
-				if (expression.Body is UnaryExpression unaryExpression) memberExpression = (MemberExpression)unaryExpression.Operand;
-				else memberExpression = (MemberExpression)expression.Body;
-
-				var propertyInfo = (PropertyInfo)memberExpression.Member;
-
-				if (propertyInfo.DeclaringType == item.GetType()) propertyInfo.SetValue(item, null);
-				else
+				foreach (var expression in propertiesToIgnore)
 				{
-					var parts = memberExpression.ToString().Split('.').Skip(1).ToList();
+					MemberExpression memberExpression;
 
-					object subValue = item;
+					if (expression.Body is UnaryExpression unaryExpression) memberExpression = (MemberExpression)unaryExpression.Operand;
+					else memberExpression = (MemberExpression)expression.Body;
 
-					for (var i = 0; i < parts.Count - 1; i++)
+					var propertyInfo = (PropertyInfo)memberExpression.Member;
+
+					if (propertyInfo.DeclaringType == item.GetType()) propertyInfo.SetValue(item, null);
+					else
 					{
-						var expressionPart = parts[i];
+						var parts = memberExpression.ToString().Split('.').Skip(1).ToList();
 
-						var subPropertyInfo = subValue.GetType().GetProperty(expressionPart);
+						object subValue = item;
 
-						if (subPropertyInfo != null) subValue = subPropertyInfo.GetValue(subValue);
+						for (var i = 0; i < parts.Count - 1; i++)
+						{
+							var expressionPart = parts[i];
+
+							var subPropertyInfo = subValue.GetType().GetProperty(expressionPart);
+
+							if (subPropertyInfo != null) subValue = subPropertyInfo.GetValue(subValue);
+						}
+
+						if (subValue != null) propertyInfo.SetValue(subValue, null);
 					}
-
-					if (subValue != null) propertyInfo.SetValue(subValue, null);
 				}
 			}
 
