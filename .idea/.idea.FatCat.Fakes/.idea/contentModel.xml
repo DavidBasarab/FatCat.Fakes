@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Code\FatCat.Fakes\src" t="IncludeFlat">
+      <e p="FatCat.Fakes" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Faker.cs" t="Include" />
+        <e p="FakerRelease.snk" t="Include" />
+        <e p="FatCat.Fakes.1.0.10.nupkg" t="Include" />
+        <e p="FatCat.Fakes.csproj" t="IncludeRecursive" />
+        <e p="Generators" t="Include">
+          <e p="BoolGenerator.cs" t="Include" />
+          <e p="ByteArrayGenerator.cs" t="Include" />
+          <e p="ByteGenerator.cs" t="Include" />
+          <e p="DateTimeGenerator.cs" t="Include" />
+          <e p="DoubleGenerator.cs" t="Include" />
+          <e p="EnumGenerator.cs" t="Include" />
+          <e p="FakeFactory.cs" t="Include" />
+          <e p="FakeGenerator.cs" t="Include" />
+          <e p="FloatGenerator.cs" t="Include" />
+          <e p="GuidGenerator.cs" t="Include" />
+          <e p="IntGenerator.cs" t="Include" />
+          <e p="LongGenerator.cs" t="Include" />
+          <e p="ShortGenerator.cs" t="Include" />
+          <e p="StringGenerator.cs" t="Include" />
+          <e p="TimespanGenerator.cs" t="Include" />
+          <e p="UIntGenerator.cs" t="Include" />
+          <e p="ULongGenerator.cs" t="Include" />
+          <e p="UshortGenerator.cs" t="Include" />
+        </e>
+        <e p="InternalsVisibleToo.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="FatCat.Fakes.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="FatCat.Fakes.sln" t="IncludeFlat" />
+      <e p="FatCat.Fakes.Tests" t="IncludeRecursive">
+        <e p="ActionAfterItemCreate.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CanFakeAnInterface.cs" t="Include" />
+        <e p="CustomGenerator.cs" t="Include" />
+        <e p="DictionaryFaking.cs" t="Include" />
+        <e p="EnumGenerator.cs" t="Include" />
+        <e p="FatCat.Fakes.Tests.csproj" t="IncludeRecursive" />
+        <e p="IgnoreProperties.cs" t="Include" />
+        <e p="ListFakeItems.cs" t="Include" />
+        <e p="MultiLevelObjectTests.cs" t="Include" />
+        <e p="MultipleImplementationOfInterface.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="FatCat.Fakes.Tests.AssemblyInfo.cs" t="Include" />
+              <e p="FatCat.Fakes.Tests.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ObjectWithListOfSubObjects.cs" t="Include" />
+        <e p="OneLevelTypeFake.cs" t="Include" />
+        <e p="Primitives" t="Include">
+          <e p="BoolFakeItem.cs" t="Include" />
+          <e p="ByteArrayFakeItem.cs" t="Include" />
+          <e p="ByteFakeItem.cs" t="Include" />
+          <e p="DoubleFakeItems.cs" t="Include" />
+          <e p="FakeDateTime.cs" t="Include" />
+          <e p="FakeNumberItems.cs" t="Include" />
+          <e p="FloatFakeItems.cs" t="Include" />
+          <e p="GuidFake.cs" t="Include" />
+          <e p="IntFakeItems.cs" t="Include" />
+          <e p="LongFakeItem.cs" t="Include" />
+          <e p="PrimitiveTests.cs" t="Include" />
+          <e p="ShortFakeItems.cs" t="Include" />
+          <e p="StringFakeItem.cs" t="Include" />
+          <e p="TimeSpanFakeDateTime.cs" t="Include" />
+          <e p="UIntFakeItem.cs" t="Include" />
+          <e p="UlongFakeItem.cs" t="Include" />
+          <e p="UshortFakeItem.cs" t="Include" />
+        </e>
+        <e p="RandomTests" t="Include">
+          <e p="RandomColor.cs" t="Include" />
+          <e p="RandomNumber.cs" t="Include" />
+          <e p="RandomString.cs" t="Include" />
+        </e>
+        <e p="WillNotTryToFakeItemsWithoutAParameterLessConstructor.cs" t="Include" />
+        <e p="WithMultipleAbstractClass.cs" t="Include" />
+        <e p="WithOneAbstractClass.cs" t="Include" />
+      </e>
+      <e p="OneOff" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="OneOff.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="OneOff.csproj" t="IncludeRecursive" />
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+    <e p="C:\Users\dbasa\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\dbasa\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\dbasa\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\dbasa\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\dbasa\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_FatCat.Fakes.-1622254178.00" t="ExcludeRecursive" />
+  </component>
+</project>
