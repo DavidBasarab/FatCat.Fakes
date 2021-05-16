@@ -6,7 +6,7 @@ namespace OneOff.Models
 	{
 		// public List<Mission> CompletedMissions { get; set; }
 
-		// public List<PadFeature> Features { get; set; }
+		public List<PadFeature> Features { get; set; }
 
 		public int Latitude { get; set; }
 
