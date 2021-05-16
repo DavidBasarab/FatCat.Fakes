@@ -12,29 +12,24 @@ namespace OneOff
 		{
 			Console.WriteLine("Going to test how fast Faker is");
 
-			var numberOfFakesToCreate = 12;
+			var numberOfFakesToCreate = 50;
 
 			var totalTime = TimeSpan.Zero;
 
-			var tasks = new Task[numberOfFakesToCreate];
+			// var tasks = new Task[numberOfFakesToCreate];
 
 			for (var i = 0; i < numberOfFakesToCreate; i++)
 			{
-				tasks[i] = Task.Run(async () =>
-									{
-										var watch = Stopwatch.StartNew();
+				var watch = Stopwatch.StartNew();
 
-										var nasaFake = Faker.Create<Nasa>();
+				var nasaFake = Faker.Create<Nasa>();
 
-										watch.Stop();
+				watch.Stop();
 
-										totalTime += watch.Elapsed;
-
-										await Task.CompletedTask;
-									});
+				totalTime += watch.Elapsed;
 			}
 
-			Task.WaitAll(tasks);
+			// Task.WaitAll(tasks);
 
 			var avgMs = totalTime.TotalMilliseconds / 12;
 			var avgTime = TimeSpan.FromMilliseconds(avgMs);
