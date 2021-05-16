@@ -1,28 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using FatCat.Fakes;
+using FatCat.Fakes.Tests.SpeedUp.Models;
 
 namespace OneOff
 {
-	public class SubObject
-	{
-		public DateTime Date { get; set; }
-
-		public int First { get; set; }
-
-		public int Second { get; set; }
-	}
-
-	public class TestFakingItem
-	{
-		public int SomeNumber { get; set; }
-
-		public string SomeString { get; set; }
-
-		public SubObject SubObject { get; set; }
-	}
-
 	internal class Program
 	{
-		private static void Main(string[] args) { Faker.PlayWithIdea<TestFakingItem>(p => p.SubObject.Date, p => p.SomeNumber); }
+		private static void Main(string[] args)
+		{
+			Console.WriteLine("Going to test how fast Faker is");
+
+			var watch = Stopwatch.StartNew();
+
+			var nasaFake = Faker.Create<Nasa>();
+			
+			watch.Stop();
+			
+			Console.WriteLine($"Took <{watch.Elapsed}> to create | TotalMS <{watch.Elapsed.TotalMilliseconds}>");
+		}
 	}
 }

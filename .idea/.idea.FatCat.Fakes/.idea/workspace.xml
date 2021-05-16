@@ -24,7 +24,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb8e7c24-edb0-405c-8dad-951c61d810df" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/riderModule.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FatCat.Fakes.Tests/IgnoreProperties.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes.Tests/IgnoreProperties.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FatCat.Fakes.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneOff/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OneOff/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,19 +41,30 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/WillNotTryToFakeItemsWithoutAParameterLessConstructor.cs" />
-        <option value="$PROJECT_DIR$/FatCat.Fakes/Faker.cs" />
-        <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/IgnoreProperties.cs" />
-      </list>
-    </option>
+    <changedPaths>
+      <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/IgnoreProperties.cs" />
+      <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/SpeedUp/Models/Mission.cs" />
+      <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/SpeedUp/Models/SpaceLaunchCenter.cs" />
+      <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/SpeedUp/Models/LaunchPad.cs" />
+      <option value="$PROJECT_DIR$/FatCat.Fakes.Tests/SpeedUp/Models/Nasa.cs" />
+      <option value="$PROJECT_DIR$/OneOff/Program.cs" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1gutnoiSVSv5wVlezHcbZZEaXZJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -113,6 +133,7 @@
       <workItem from="1598978710744" duration="585000" />
       <workItem from="1602097522393" duration="1257000" />
       <workItem from="1602099517575" duration="78000" />
+      <workItem from="1621113747625" duration="4545000" />
     </task>
     <servers />
   </component>
@@ -135,11 +156,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1336" y="325" width="672" height="678" key="search.everywhere.popup" timestamp="1602097687360">
-      <screen x="0" y="0" width="3347" height="1440" />
-    </state>
-    <state x="1336" y="325" width="672" height="678" key="search.everywhere.popup/-1573.-1463.3347.1440/1867.-1440.3378.1440/0.0.3347.1440/-3840.0.3010.1728@0.0.3347.1440" timestamp="1602097687360" />
   </component>
 </project>
