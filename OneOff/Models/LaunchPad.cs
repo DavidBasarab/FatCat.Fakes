@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-namespace FatCat.Fakes.Tests.SpeedUp.Models
+namespace OneOff.Models
 {
 	public class LaunchPad
 	{
-		public List<Mission> CompletedMissions { get; set; }
+		// public List<Mission> CompletedMissions { get; set; }
 
-		public List<PadFeature> Features { get; set; }
+		// public List<PadFeature> Features { get; set; }
 
 		public int Latitude { get; set; }
 

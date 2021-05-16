@@ -1,4 +1,4 @@
-namespace FatCat.Fakes.Tests.SpeedUp.Models
+namespace OneOff.Models
 {
 	public class Resolution
 	{

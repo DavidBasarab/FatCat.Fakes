@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FatCat.Fakes.Tests.SpeedUp.Models
+namespace OneOff.Models
 {
 	public class PadCleanRoom : PadFeature
 	{

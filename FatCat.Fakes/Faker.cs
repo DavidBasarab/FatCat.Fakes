@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace FatCat.Fakes
 	public static class Faker
 	{
 		internal static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
+
+		private static ConcurrentDictionary<string, List<Type>> CacheOfImplementingTypes { get; } = new();
 
 		private static Random Random { get; } = new Random();
 
@@ -203,7 +206,7 @@ namespace FatCat.Fakes
 
 			var addMethod = listAsInstance.GetType().GetMethod("Add");
 
-			var numberOfItems = lengthOfList ?? Random.Next(3, 9);
+			var numberOfItems = lengthOfList ?? Random.Next(2, 4);
 
 			for (var i = 0; i < numberOfItems; i++) addMethod.Invoke(listAsInstance, new[] { Create(itemType) });
 
@@ -214,11 +217,18 @@ namespace FatCat.Fakes
 
 		private static Type FindImplementingType(Type fakeType)
 		{
-			var assembly = fakeType.Assembly;
+			var foundTypes = CacheOfImplementingTypes.TryGetValue(fakeType.FullName, out var types);
 
-			var types = assembly.GetTypes()
+			if (!foundTypes)
+			{
+				var assembly = fakeType.Assembly;
+
+				types = assembly.GetTypes()
 								.Where(i => i.IsClass && !i.IsAbstract && (i.IsSubclassOf(fakeType) || i.Implements(fakeType)))
 								.ToList();
+
+				CacheOfImplementingTypes.TryAdd(fakeType.FullName, types);
+			}
 
 			var typeIndex = Random.Next(types.Count);
 

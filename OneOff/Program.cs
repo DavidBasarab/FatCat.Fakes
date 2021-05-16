@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using FatCat.Fakes;
-using FatCat.Fakes.Tests.SpeedUp.Models;
+using OneOff.Models;
 
 namespace OneOff
 {
