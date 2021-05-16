@@ -206,7 +206,7 @@ namespace FatCat.Fakes
 
 			var addMethod = listAsInstance.GetType().GetMethod("Add");
 
-			var numberOfItems = lengthOfList ?? Random.Next(1, 4);
+			var numberOfItems = lengthOfList ?? Random.Next(1, 3);
 
 			for (var i = 0; i < numberOfItems; i++) addMethod.Invoke(listAsInstance, new[] { Create(itemType) });
 
