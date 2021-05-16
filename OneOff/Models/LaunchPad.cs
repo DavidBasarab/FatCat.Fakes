@@ -4,7 +4,7 @@ namespace OneOff.Models
 {
 	public class LaunchPad
 	{
-		// public List<Mission> CompletedMissions { get; set; }
+		public List<Mission> CompletedMissions { get; set; }
 
 		public List<PadFeature> Features { get; set; }
 

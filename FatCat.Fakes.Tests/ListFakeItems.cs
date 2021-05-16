@@ -13,8 +13,8 @@ namespace FatCat.Fakes.Tests
 		{
 			var listOfInts = Faker.Create<List<int>>();
 
-			listOfInts.Count.Should().BeGreaterOrEqualTo(3);
-			listOfInts.Count.Should().BeLessOrEqualTo(9);
+			listOfInts.Count.Should().BeGreaterOrEqualTo(2);
+			listOfInts.Count.Should().BeLessOrEqualTo(4);
 
 			foreach (var listItem in listOfInts) listItem.Should().BeInRange(int.MinValue, int.MaxValue);
 		}
@@ -24,8 +24,8 @@ namespace FatCat.Fakes.Tests
 		{
 			var listOfDates = Faker.Create<List<DateTime>>();
 
-			listOfDates.Count.Should().BeGreaterOrEqualTo(3);
-			listOfDates.Count.Should().BeLessOrEqualTo(9);
+			listOfDates.Count.Should().BeGreaterOrEqualTo(2);
+			listOfDates.Count.Should().BeLessOrEqualTo(4);
 
 			foreach (var dateItem in listOfDates)
 			{
