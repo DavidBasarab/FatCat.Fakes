@@ -24,7 +24,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanIgnoreASubTypeProperty()
 		{
-			var item = Faker.Create<TestFakingItem>(afterCreate: i => { }, length: null, propertiesToIgnore: i => i.FindMe.SomeString);
+			var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.FindMe.SomeString);
 
 			item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
 			item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);

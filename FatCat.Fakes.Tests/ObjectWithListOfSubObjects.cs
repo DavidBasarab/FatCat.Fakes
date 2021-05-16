@@ -12,7 +12,7 @@ namespace FatCat.Fakes.Tests
 			var upperObject = Faker.Create<UpperObject>();
 
 			upperObject.LowerList.Should().NotBeNull();
-			upperObject.LowerList.Count.Should().BeInRange(3, 9);
+			upperObject.LowerList.Count.Should().BeInRange(1, 4);
 
 			upperObject.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 			upperObject.SomeString.Length.Should().BeGreaterThan(6);

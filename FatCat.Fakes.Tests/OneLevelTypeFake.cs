@@ -26,7 +26,7 @@ namespace FatCat.Fakes.Tests
 			item.SomeTimeSpan.Should().BeGreaterThan(TimeSpan.MinValue);
 			item.SomeTimeSpan.Should().BeLessThan(TimeSpan.MaxValue);
 
-			item.SomeList.Count.Should().BeInRange(3, 9);
+			item.SomeList.Count.Should().BeInRange(1, 3);
 
 			item.PrivateSetInt.Should().BeInRange(int.MinValue, int.MaxValue);
 
