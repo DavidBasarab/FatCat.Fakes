@@ -24,15 +24,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb8e7c24-edb0-405c-8dad-951c61d810df" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FatCat.Fakes/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FatCat.Fakes.Tests/IgnoreProperties.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes.Tests/IgnoreProperties.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FatCat.Fakes.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes.sln.DotSettings" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OneOff/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OneOff/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +124,7 @@
       <workItem from="1598978710744" duration="585000" />
       <workItem from="1602097522393" duration="1257000" />
       <workItem from="1602099517575" duration="78000" />
-      <workItem from="1621113747625" duration="4545000" />
+      <workItem from="1621113747625" duration="4962000" />
     </task>
     <servers />
   </component>
