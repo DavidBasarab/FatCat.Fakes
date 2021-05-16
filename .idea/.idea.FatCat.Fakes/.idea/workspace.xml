@@ -24,7 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb8e7c24-edb0-405c-8dad-951c61d810df" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/FatCat.Fakes/Faker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes/Faker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FatCat.Fakes.Tests/FatCat.Fakes.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes.Tests/FatCat.Fakes.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FatCat.Fakes/FatCat.Fakes.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FatCat.Fakes/FatCat.Fakes.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +135,7 @@
       <workItem from="1598978710744" duration="585000" />
       <workItem from="1602097522393" duration="1257000" />
       <workItem from="1602099517575" duration="78000" />
-      <workItem from="1621113747625" duration="6087000" />
+      <workItem from="1621113747625" duration="6407000" />
     </task>
     <servers />
   </component>
