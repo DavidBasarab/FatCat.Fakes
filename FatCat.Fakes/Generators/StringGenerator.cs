@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using System.Text;
 
 namespace FatCat.Fakes.Generators
 {
@@ -14,9 +14,22 @@ namespace FatCat.Fakes.Generators
 
 		public string Generate(int length)
 		{
+			var builder = new StringBuilder();
+
 			var characters = Guid.NewGuid().ToString();
 
-			return new string(Enumerable.Repeat(characters, length).Select(s => s[Random.Next() % s.Length]).ToArray());
+			var characterIndex = 0;
+
+			for (var i = 0; i < length; i++)
+			{
+				builder.Append(characters[characterIndex]);
+
+				characterIndex++;
+
+				if (characterIndex > characters.Length) characterIndex = 0;
+			}
+
+			return builder.ToString();
 		}
 	}
 }
