@@ -13,6 +13,9 @@ namespace FatCat.Fakes.Tests.RandomTests
 			randomString.Length.Should().BeGreaterThan(7);
 			randomString.Should().NotBeNullOrWhiteSpace();
 		}
+		
+		[Fact]
+		public void TwoRandomStringsShouldNotBeTheSame() => Faker.RandomString().Should().NotBe("AAAAAAAA");
 
 		[Fact]
 		public void CanCreateARandomStringOfGivenLength()

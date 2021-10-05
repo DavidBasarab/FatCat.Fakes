@@ -5,7 +5,7 @@ namespace FatCat.Fakes.Generators
 {
 	internal class StringGenerator : FakeGenerator
 	{
-		private const string StringCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+		private const string StringCharacters = "TUV345ABCmnoSWXYpqrstuDEFZ01LMNOPQ26789abcdefghijklvwxyzGHIJKR";
 
 		public override object Generate(Type typeToGenerate)
 		{
@@ -14,6 +14,11 @@ namespace FatCat.Fakes.Generators
 			return Generate(length);
 		}
 
-		public string Generate(int length) => new string(Enumerable.Repeat(StringCharacters, length).Select(s => s[Random.Next(s.Length)]).ToArray());
+		public string Generate(int length)
+		{
+			
+			
+			return new(Enumerable.Repeat(StringCharacters, length).Select(s => s[Random.Next() % s.Length]).ToArray());
+		}
 	}
 }
