@@ -16,7 +16,9 @@ namespace FatCat.Fakes.Generators
 		{
 			var builder = new StringBuilder();
 
-			var characters = Guid.NewGuid().ToString();
+			var characters = Guid.NewGuid()
+								.ToString()
+								.Replace("-", string.Empty);
 
 			var characterIndex = 0;
 
@@ -26,7 +28,7 @@ namespace FatCat.Fakes.Generators
 
 				characterIndex++;
 
-				if (characterIndex > characters.Length) characterIndex = 0;
+				if (characterIndex >= characters.Length) characterIndex = 0;
 			}
 
 			return builder.ToString();
