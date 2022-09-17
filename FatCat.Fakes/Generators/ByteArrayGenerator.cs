@@ -6,7 +6,7 @@ namespace FatCat.Fakes.Generators
 	{
 		public override object Generate(Type typeToGenerate)
 		{
-			var length = Random.Next(12, 39);
+			var length = Random.Next(1, 4);
 
 			var array = new byte[length];
 

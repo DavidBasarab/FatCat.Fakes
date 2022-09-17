@@ -10,7 +10,7 @@ namespace FatCat.Fakes.Tests.Primitives
 		{
 			var value = Faker.Create<byte[]>();
 
-			value.Length.Should().BeGreaterThan(11);
+			value.Length.Should().BeGreaterThan(0);
 
 			foreach (var byteValue in value) byteValue.Should().BeInRange(byte.MinValue, byte.MaxValue);
 		}

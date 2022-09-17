@@ -9,6 +9,19 @@ namespace FatCat.Fakes.Tests
 	public class ListFakeItems
 	{
 		[Fact]
+		public void ArrayShouldNotBeGreaterThan3()
+		{
+			for (var i = 0; i < 10; i++)
+			{
+				var bytes = Faker.Create<byte[]>();
+
+				bytes.Length
+					.Should()
+					.BeLessThan(4);
+			}
+		}
+
+		[Fact]
 		public void CanCreateAListOfAnyPrimitive()
 		{
 			var listOfInts = Faker.Create<List<int>>();
@@ -37,7 +50,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateAListOfGivenLength()
 		{
-			var list = Faker.Create<List<string>>(length: 17);
+			var list = Faker.Create<List<string>>(17);
 
 			list.Count.Should().Be(17);
 		}
@@ -45,7 +58,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateAnArray()
 		{
-			var array = Faker.Create<short[]>(length: 7);
+			var array = Faker.Create<short[]>(7);
 
 			var testList = array.ToList();
 
@@ -55,7 +68,7 @@ namespace FatCat.Fakes.Tests
 		[Fact]
 		public void CanCreateAnIEnumerable()
 		{
-			var enumerableOfItems = Faker.Create<IEnumerable<short>>(length:7);
+			var enumerableOfItems = Faker.Create<IEnumerable<short>>(7);
 
 			var testList = enumerableOfItems.ToList();
 
