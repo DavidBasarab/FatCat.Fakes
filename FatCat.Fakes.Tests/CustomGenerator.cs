@@ -16,6 +16,16 @@ namespace FatCat.Fakes.Tests
 
 			Faker.FakeFactory.IsTypeFaked(typeToFake).Should().BeTrue();
 		}
+		
+		[Fact]
+		public void AddingMultipleGeneratorsWillNotError()
+		{
+			var typeToFake = typeof(ItemForGenerator);
+
+			Faker.AddGenerator(typeToFake, new TestingGenerator());
+			Faker.AddGenerator(typeToFake, new TestingGenerator());
+			Faker.AddGenerator(typeToFake, new TestingGenerator());
+		}
 
 		[Fact]
 		public void WillUseTheNewGenerator()

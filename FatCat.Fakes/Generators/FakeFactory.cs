@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace FatCat.Fakes.Generators
@@ -9,45 +10,45 @@ namespace FatCat.Fakes.Generators
 
 		public static FakeFactory Instance => instance.Value;
 
-		private Dictionary<Type, FakeGenerator> TypeGenerators { get; } = new Dictionary<Type, FakeGenerator>();
+		private ConcurrentDictionary<Type, FakeGenerator> TypeGenerators { get; } = new ConcurrentDictionary<Type, FakeGenerator>();
 
 		private FakeFactory()
 		{
-			TypeGenerators.Add(typeof(int), new IntGenerator());
-			TypeGenerators.Add(typeof(int?), new IntGenerator());
-			TypeGenerators.Add(typeof(DateTime), new DateTimeGenerator());
-			TypeGenerators.Add(typeof(DateTime?), new DateTimeGenerator());
-			TypeGenerators.Add(typeof(TimeSpan), new TimespanGenerator());
-			TypeGenerators.Add(typeof(TimeSpan?), new TimespanGenerator());
-			TypeGenerators.Add(typeof(double), new DoubleGenerator());
-			TypeGenerators.Add(typeof(double?), new DoubleGenerator());
-			TypeGenerators.Add(typeof(byte), new ByteGenerator());
-			TypeGenerators.Add(typeof(byte?), new ByteGenerator());
-			TypeGenerators.Add(typeof(short), new ShortGenerator());
-			TypeGenerators.Add(typeof(short?), new ShortGenerator());
-			TypeGenerators.Add(typeof(ushort), new UshortGenerator());
-			TypeGenerators.Add(typeof(ushort?), new UshortGenerator());
-			TypeGenerators.Add(typeof(float), new FloatGenerator());
-			TypeGenerators.Add(typeof(float?), new FloatGenerator());
-			TypeGenerators.Add(typeof(long), new LongGenerator());
-			TypeGenerators.Add(typeof(long?), new LongGenerator());
-			TypeGenerators.Add(typeof(Guid), new GuidGenerator());
-			TypeGenerators.Add(typeof(Guid?), new GuidGenerator());
-			TypeGenerators.Add(typeof(bool), new BoolGenerator());
-			TypeGenerators.Add(typeof(bool?), new BoolGenerator());
-			TypeGenerators.Add(typeof(string), new StringGenerator());
-			TypeGenerators.Add(typeof(byte[]), new ByteArrayGenerator());
-			TypeGenerators.Add(typeof(ulong), new ULongGenerator());
-			TypeGenerators.Add(typeof(ulong?), new ULongGenerator());
-			TypeGenerators.Add(typeof(uint), new UIntGenerator());
-			TypeGenerators.Add(typeof(uint?), new UIntGenerator());
-			TypeGenerators.Add(typeof(Enum), new EnumGenerator());
+			TypeGenerators.TryAdd(typeof(int), new IntGenerator());
+			TypeGenerators.TryAdd(typeof(int?), new IntGenerator());
+			TypeGenerators.TryAdd(typeof(DateTime), new DateTimeGenerator());
+			TypeGenerators.TryAdd(typeof(DateTime?), new DateTimeGenerator());
+			TypeGenerators.TryAdd(typeof(TimeSpan), new TimespanGenerator());
+			TypeGenerators.TryAdd(typeof(TimeSpan?), new TimespanGenerator());
+			TypeGenerators.TryAdd(typeof(double), new DoubleGenerator());
+			TypeGenerators.TryAdd(typeof(double?), new DoubleGenerator());
+			TypeGenerators.TryAdd(typeof(byte), new ByteGenerator());
+			TypeGenerators.TryAdd(typeof(byte?), new ByteGenerator());
+			TypeGenerators.TryAdd(typeof(short), new ShortGenerator());
+			TypeGenerators.TryAdd(typeof(short?), new ShortGenerator());
+			TypeGenerators.TryAdd(typeof(ushort), new UshortGenerator());
+			TypeGenerators.TryAdd(typeof(ushort?), new UshortGenerator());
+			TypeGenerators.TryAdd(typeof(float), new FloatGenerator());
+			TypeGenerators.TryAdd(typeof(float?), new FloatGenerator());
+			TypeGenerators.TryAdd(typeof(long), new LongGenerator());
+			TypeGenerators.TryAdd(typeof(long?), new LongGenerator());
+			TypeGenerators.TryAdd(typeof(Guid), new GuidGenerator());
+			TypeGenerators.TryAdd(typeof(Guid?), new GuidGenerator());
+			TypeGenerators.TryAdd(typeof(bool), new BoolGenerator());
+			TypeGenerators.TryAdd(typeof(bool?), new BoolGenerator());
+			TypeGenerators.TryAdd(typeof(string), new StringGenerator());
+			TypeGenerators.TryAdd(typeof(byte[]), new ByteArrayGenerator());
+			TypeGenerators.TryAdd(typeof(ulong), new ULongGenerator());
+			TypeGenerators.TryAdd(typeof(ulong?), new ULongGenerator());
+			TypeGenerators.TryAdd(typeof(uint), new UIntGenerator());
+			TypeGenerators.TryAdd(typeof(uint?), new UIntGenerator());
+			TypeGenerators.TryAdd(typeof(Enum), new EnumGenerator());
 		}
 
 		public void AddGenerator(Type generatorType, FakeGenerator generator)
 		{
 			if (TypeGenerators.ContainsKey(generatorType)) TypeGenerators[generatorType] = generator;
-			else TypeGenerators.Add(generatorType, generator);
+			else TypeGenerators.TryAdd(generatorType, generator);
 		}
 
 		public object GetValue(Type type)
