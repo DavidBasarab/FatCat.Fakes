@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <DebugType>full</DebugType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
     <VersionPrefix>1.0.18</VersionPrefix>
