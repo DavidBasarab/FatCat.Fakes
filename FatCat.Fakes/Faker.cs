@@ -181,12 +181,12 @@ public static class Faker
 	private static object CreateGenericType(Type typeToCreate)
 	{
 		var genericArguments = typeToCreate.GetGenericArguments();
-		
+
 		var genericType = genericArguments[0];
 
-		var typeImplementingGeneric = FindImplementingType(genericType);
+		var typeImplementingGeneric = FindImplementingType(genericType.BaseType);
 
-		var combinedType = genericType.MakeGenericType(typeImplementingGeneric);
+		var combinedType = typeToCreate.MakeGenericType(typeImplementingGeneric);
 
 		return Activator.CreateInstance(combinedType);
 	}
@@ -196,6 +196,8 @@ public static class Faker
 		var typeToCreate = fakeType;
 
 		if (fakeType.IsAbstract || fakeType.IsInterface) typeToCreate = FindImplementingType(fakeType);
+
+		if (string.IsNullOrEmpty(fakeType.FullName)) typeToCreate = FindImplementingType(fakeType.BaseType);
 
 		if (DoesNotHaveParameterLessConstructor(typeToCreate)) return null;
 
@@ -230,7 +232,7 @@ public static class Faker
 
 	private static Type FindImplementingType(Type fakeType)
 	{
-		var foundTypes = CacheOfImplementingTypes.TryGetValue(fakeType.FullName ?? fakeType.BaseType.FullName, out var types);
+		var foundTypes = CacheOfImplementingTypes.TryGetValue(fakeType.FullName, out var types);
 
 		if (!foundTypes)
 		{
@@ -240,7 +242,7 @@ public static class Faker
 							.Where(i => i.IsClass && !i.IsAbstract && (i.IsSubclassOf(fakeType) || i.Implements(fakeType)))
 							.ToList();
 
-			CacheOfImplementingTypes.TryAdd(fakeType.FullName ?? fakeType.BaseType.FullName, types);
+			CacheOfImplementingTypes.TryAdd(fakeType.FullName, types);
 		}
 
 		var typeIndex = Random.Next(types.Count);
