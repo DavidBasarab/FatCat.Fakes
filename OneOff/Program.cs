@@ -1,40 +1,45 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using FatCat.Fakes;
 using OneOff.Models;
 
-namespace OneOff
+namespace OneOff;
+
+public abstract class ModuleItem
 {
-	internal class Program
+	public string Room { get; set; }
+
+	public int Times { get; set; }
+}
+
+public class GenericClass<T> : ModuleItem where T : BaseItem
+{
+	public T Value { get; set; }
+}
+
+public abstract class BaseItem
+{
+	// public string Name { get; set; }
+	//
+	// public int Number { get; set; }
+}
+
+public class ItemOne : BaseItem
+{
+	// public string ItemOneProperty { get; set; }
+}
+
+public class ItemTwo : BaseItem
+{
+	// public int ItemTwoProperty { get; set; }
+}
+
+internal class Program
+{
+	private static void Main(string[] args)
 	{
-		private static void Main(string[] args)
-		{
-			Console.WriteLine("Going to test how fast Faker is");
+		var moduleFake = Faker.Create<ModuleItem>();
 
-			var numberOfFakesToCreate = 50;
-
-			var totalTime = TimeSpan.Zero;
-
-			// var tasks = new Task[numberOfFakesToCreate];
-
-			for (var i = 0; i < numberOfFakesToCreate; i++)
-			{
-				var watch = Stopwatch.StartNew();
-
-				var nasaFake = Faker.Create<Nasa>();
-
-				watch.Stop();
-
-				totalTime += watch.Elapsed;
-			}
-
-			// Task.WaitAll(tasks);
-
-			var avgMs = totalTime.TotalMilliseconds / 12;
-			var avgTime = TimeSpan.FromMilliseconds(avgMs);
-
-			Console.WriteLine($"Number Of Attempts <{numberOfFakesToCreate}> | Total Time {totalTime} | Average Time {avgTime} | Average Ms {avgMs}");
-		}
+		Console.WriteLine($"ModuleFake Type {moduleFake.GetType().FullName}");
 	}
 }
