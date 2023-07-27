@@ -203,9 +203,14 @@ public static class Faker
 
 		var instance = typeToCreate.IsGenericType ? CreateGenericType(typeToCreate) : Activator.CreateInstance(typeToCreate);
 
-		var properties = new List<PropertyInfo>(typeToCreate.GetProperties());
+		var properties = new List<PropertyInfo>(instance.GetType().GetProperties());
 
-		foreach (var propertyInfo in properties.Where(i => i.CanWrite)) propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
+		foreach (var propertyInfo in properties.Where(i => i.CanWrite))
+		{
+			var value = Create(propertyInfo.PropertyType);
+
+			propertyInfo.SetValue(instance, value);
+		}
 
 		return instance;
 	}
