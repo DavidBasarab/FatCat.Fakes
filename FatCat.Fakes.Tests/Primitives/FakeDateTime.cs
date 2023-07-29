@@ -14,6 +14,15 @@ namespace FatCat.Fakes.Tests.Primitives
 			value.Should().BeAfter(DateTime.MinValue);
 			value.Should().BeBefore(DateTime.MaxValue);
 		}
+		
+		[Fact]
+		public void CanCreateAFakeDateTimeFromStaticMethod()
+		{
+			var value = Faker.RandomDateTime();
+
+			value.Should().BeAfter(DateTime.MinValue);
+			value.Should().BeBefore(DateTime.MaxValue);
+		}
 
 		[Fact]
 		public void CanFakeADateTime()
