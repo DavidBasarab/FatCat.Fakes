@@ -111,8 +111,6 @@ public static class Faker
 
 	public static Color RandomColor() => Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
 
-	public static DateTime RandomDateTime() => Create<DateTime>();
-
 	public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
 
 	public static int RandomInt(int? minValue = null, int? maxValue = null)
@@ -180,19 +178,39 @@ public static class Faker
 		return dictionary;
 	}
 
+	private static object CreateGenericType(Type typeToCreate)
+	{
+		var genericArguments = typeToCreate.GetGenericArguments();
+
+		var genericType = genericArguments[0];
+
+		var typeImplementingGeneric = FindImplementingType(genericType.BaseType);
+
+		var combinedType = typeToCreate.MakeGenericType(typeImplementingGeneric);
+
+		return Activator.CreateInstance(combinedType);
+	}
+
 	private static object CreateInstance(Type fakeType)
 	{
 		var typeToCreate = fakeType;
 
 		if (fakeType.IsAbstract || fakeType.IsInterface) typeToCreate = FindImplementingType(fakeType);
 
+		if (string.IsNullOrEmpty(fakeType.FullName)) typeToCreate = FindImplementingType(fakeType.BaseType);
+
 		if (DoesNotHaveParameterLessConstructor(typeToCreate)) return null;
 
-		var instance = Activator.CreateInstance(typeToCreate);
+		var instance = typeToCreate.IsGenericType ? CreateGenericType(typeToCreate) : Activator.CreateInstance(typeToCreate);
 
-		var properties = new List<PropertyInfo>(typeToCreate.GetProperties());
+		var properties = new List<PropertyInfo>(instance.GetType().GetProperties());
 
-		foreach (var propertyInfo in properties.Where(i => i.CanWrite)) propertyInfo.SetValue(instance, Create(propertyInfo.PropertyType));
+		foreach (var propertyInfo in properties.Where(i => i.CanWrite))
+		{
+			var value = Create(propertyInfo.PropertyType);
+
+			propertyInfo.SetValue(instance, value);
+		}
 
 		return instance;
 	}
