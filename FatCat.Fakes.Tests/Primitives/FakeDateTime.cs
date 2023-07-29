@@ -20,8 +20,13 @@ namespace FatCat.Fakes.Tests.Primitives
 		{
 			var value = Faker.RandomDateTime();
 
-			value.Should().BeAfter(DateTime.MinValue);
-			value.Should().BeBefore(DateTime.MaxValue);
+			value
+				.Should()
+				.BeAfter(DateTime.MinValue);
+			
+			value
+				.Should()
+				.BeBefore(DateTime.MaxValue);
 		}
 
 		[Fact]

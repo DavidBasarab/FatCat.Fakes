@@ -111,6 +111,8 @@ public static class Faker
 
 	public static Color RandomColor() => Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
 
+	public static DateTime RandomDateTime() => Create<DateTime>();
+
 	public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
 
 	public static int RandomInt(int? minValue = null, int? maxValue = null)
