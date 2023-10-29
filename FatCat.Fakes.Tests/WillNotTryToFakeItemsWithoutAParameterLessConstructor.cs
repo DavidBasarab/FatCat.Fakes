@@ -1,39 +1,38 @@
 using FluentAssertions;
 using Xunit;
 
-namespace FatCat.Fakes.Tests
+namespace FatCat.Fakes.Tests;
+
+public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
 {
-    public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
+    [Fact]
+    public void WillNotPopulateItemsWithoutAParameterLessConstructor()
     {
-        private class ItemWithStuffInConstructor
-        {
-            public string SomeData { get; }
+        var item = Faker.Create<ItemToFake>();
 
-            public ItemWithStuffInConstructor(string someData) => SomeData = someData;
-        }
+        item.ShouldNotBeFaked.Should().BeNull();
+        item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
+    }
 
-        private class ItemToFake
-        {
-            public ItemWithStuffInConstructor ShouldNotBeFaked { get; set; }
+    [Fact]
+    public void WillReturnNullIfTypeGivenDoesNotHaveAParameterLessConstructor()
+    {
+        var item = Faker.Create<ItemWithStuffInConstructor>();
 
-            public int SomeNumber { get; set; }
-        }
+        item.Should().BeNull();
+    }
 
-        [Fact]
-        public void WillNotPopulateItemsWithoutAParameterLessConstructor()
-        {
-            var item = Faker.Create<ItemToFake>();
+    private class ItemToFake
+    {
+        public ItemWithStuffInConstructor ShouldNotBeFaked { get; set; }
 
-            item.ShouldNotBeFaked.Should().BeNull();
-            item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
-        }
+        public int SomeNumber { get; set; }
+    }
 
-        [Fact]
-        public void WillReturnNullIfTypeGivenDoesNotHaveAParameterLessConstructor()
-        {
-            var item = Faker.Create<ItemWithStuffInConstructor>();
+    private class ItemWithStuffInConstructor
+    {
+        public string SomeData { get; }
 
-            item.Should().BeNull();
-        }
+        public ItemWithStuffInConstructor(string someData) => SomeData = someData;
     }
 }

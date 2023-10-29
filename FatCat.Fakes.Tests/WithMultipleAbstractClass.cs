@@ -2,69 +2,76 @@ using System;
 using FluentAssertions;
 using Xunit;
 
-namespace FatCat.Fakes.Tests
+namespace FatCat.Fakes.Tests;
+
+public class WithMultipleAbstractClass
 {
-    public class WithMultipleAbstractClass
+    [Fact]
+    public void CanFakeAnAbstractClass()
     {
-        [Fact]
-        public void WillPickTypeAtRandom()
+        var item = Faker.Create<AbstractClass>();
+
+        item.Should().NotBeNull();
+
+        item.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
+    }
+
+    [Fact]
+    public void WillPickTypeAtRandom()
+    {
+        var realClassFound = false;
+        var anotherClassFound = false;
+        var evenAnotherClassFound = false;
+
+        for (var i = 0; i < 35; i++)
         {
-            var realClassFound = false;
-            var anotherClassFound = false;
-            var evenAnotherClassFound = false;
+            var item = Faker.Create<SomeClass>();
 
-            for (var i = 0; i < 35; i++)
+            if (item.ThisIsNotReal is RealClass)
             {
-                var item = Faker.Create<SomeClass>();
-
-                if (item.ThisIsNotReal is RealClass)
-                    realClassFound = true;
-                if (item.ThisIsNotReal is AnotherClass)
-                    anotherClassFound = true;
-                if (item.ThisIsNotReal is EvenAnotherClass)
-                    evenAnotherClassFound = true;
+                realClassFound = true;
             }
 
-            realClassFound.Should().BeTrue();
-            anotherClassFound.Should().BeTrue();
-            evenAnotherClassFound.Should().BeTrue();
+            if (item.ThisIsNotReal is AnotherClass)
+            {
+                anotherClassFound = true;
+            }
+
+            if (item.ThisIsNotReal is EvenAnotherClass)
+            {
+                evenAnotherClassFound = true;
+            }
         }
 
-        [Fact]
-        public void CanFakeAnAbstractClass()
-        {
-            var item = Faker.Create<AbstractClass>();
+        realClassFound.Should().BeTrue();
+        anotherClassFound.Should().BeTrue();
+        evenAnotherClassFound.Should().BeTrue();
+    }
 
-            item.Should().NotBeNull();
+    private abstract class AbstractClass
+    {
+        public int SomeInt { get; set; }
 
-            item.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
-        }
+        public string SomeString { get; set; }
+    }
 
-        private abstract class AbstractClass
-        {
-            public int SomeInt { get; set; }
+    private class AnotherClass : AbstractClass
+    {
+        public int ANewNumber { get; set; }
+    }
 
-            public string SomeString { get; set; }
-        }
+    private class EvenAnotherClass : AbstractClass
+    {
+        public string SomeName { get; set; }
+    }
 
-        private class AnotherClass : AbstractClass
-        {
-            public int ANewNumber { get; set; }
-        }
+    private class RealClass : AbstractClass
+    {
+        public DateTime SomeDateTime { get; set; }
+    }
 
-        private class EvenAnotherClass : AbstractClass
-        {
-            public string SomeName { get; set; }
-        }
-
-        private class RealClass : AbstractClass
-        {
-            public DateTime SomeDateTime { get; set; }
-        }
-
-        private class SomeClass
-        {
-            public AbstractClass ThisIsNotReal { get; set; }
-        }
+    private class SomeClass
+    {
+        public AbstractClass ThisIsNotReal { get; set; }
     }
 }
