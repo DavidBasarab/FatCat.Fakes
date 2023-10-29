@@ -52,12 +52,14 @@ public class CustomGenerator
 
     public class TestingGenerator : FakeGenerator
     {
-        public override object Generate(Type typeToGenerate) =>
-            new ItemForGenerator
+        public override object Generate(Type typeToGenerate)
+        {
+            return new ItemForGenerator
             {
                 SomeDate = new DateTime(1969, 07, 20),
                 SomeNumber = 11,
                 SomeString = "Moon"
             };
+        }
     }
 }

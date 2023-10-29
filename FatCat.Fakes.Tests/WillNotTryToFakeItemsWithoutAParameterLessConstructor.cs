@@ -33,6 +33,9 @@ public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
     {
         public string SomeData { get; }
 
-        public ItemWithStuffInConstructor(string someData) => SomeData = someData;
+        public ItemWithStuffInConstructor(string someData)
+        {
+            SomeData = someData;
+        }
     }
 }

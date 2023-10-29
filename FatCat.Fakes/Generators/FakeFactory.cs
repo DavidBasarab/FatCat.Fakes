@@ -69,6 +69,9 @@ namespace FatCat.Fakes.Generators
             return TypeGenerators.TryGetValue(type, out var faker) ? faker.Generate(type) : null;
         }
 
-        public bool IsTypeFaked(Type type) => type.IsEnum || TypeGenerators.ContainsKey(type);
+        public bool IsTypeFaked(Type type)
+        {
+            return type.IsEnum || TypeGenerators.ContainsKey(type);
+        }
     }
 }

@@ -65,6 +65,9 @@ public class OneLevelTypeFake
 
         public TimeSpan SomeTimeSpan { get; set; }
 
-        public int GetPrivateItemValue() => aPrivateItem;
+        public int GetPrivateItemValue()
+        {
+            return aPrivateItem;
+        }
     }
 }

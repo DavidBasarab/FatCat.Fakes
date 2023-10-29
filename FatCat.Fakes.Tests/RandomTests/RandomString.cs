@@ -32,7 +32,9 @@ namespace FatCat.Fakes.Tests.RandomTests
         }
 
         [Fact]
-        public void TwoRandomStringsShouldNotBeTheSame() =>
+        public void TwoRandomStringsShouldNotBeTheSame()
+        {
             Faker.RandomString().Should().NotBe("AAAAAAAA");
+        }
     }
 }
