@@ -153,15 +153,6 @@ namespace FatCat.Fakes
             }
         }
 
-        public static Span<byte> RandomBytes(int length)
-        {
-            byte[] bytes = new();
-
-            Random.NextBytes(bytes);
-
-            return bytes;
-        }
-
         public static Color RandomColor() =>
             Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
 
