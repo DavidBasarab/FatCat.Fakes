@@ -1,21 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <DebugType>full</DebugType>
-    <TargetFramework>net7.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
-    <VersionPrefix>1.0.22</VersionPrefix>
-    <Authors>David Basarab</Authors>
-    <PackageTags>unittest;fakes;object</PackageTags>
-    <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/DavidBasarab/FatCat.Fakes</RepositoryUrl>
-    <NoWarn>CS8002,CS1700</NoWarn>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
+    <PropertyGroup>
+        <DebugType>full</DebugType>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
+        <VersionPrefix>1.0.22</VersionPrefix>
+        <Authors>David Basarab</Authors>
+        <PackageTags>unittest;fakes;object</PackageTags>
+        <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/DavidBasarab/FatCat.Fakes</RepositoryUrl>
+        <NoWarn>CS8002,CS1700</NoWarn>
+        <SignAssembly>true</SignAssembly>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="fasterflect" Version="3.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="fasterflect" Version="3.0.0"/>
+    </ItemGroup>
 </Project>
