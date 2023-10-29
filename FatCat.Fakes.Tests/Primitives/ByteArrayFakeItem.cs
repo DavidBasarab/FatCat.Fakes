@@ -17,5 +17,20 @@ namespace FatCat.Fakes.Tests.Primitives
                 byteValue.Should().BeInRange(byte.MinValue, byte.MaxValue);
             }
         }
+
+        [Fact]
+        public void CanGenerateARandomByteArray()
+        {
+            var length = 1034;
+
+            var value = Faker.RandomBytes(length);
+
+            value.Length.Should().Be(length);
+
+            foreach (var byteValue in value)
+            {
+                byteValue.Should().BeInRange(byte.MinValue, byte.MaxValue);
+            }
+        }
     }
 }
