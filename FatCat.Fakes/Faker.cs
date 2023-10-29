@@ -11,276 +11,339 @@ using FatCat.Fakes.Generators;
 
 namespace FatCat.Fakes
 {
-public static class Faker
-{
-	public static Random Random { get; } = new Random();
+    public static class Faker
+    {
+        public static Random Random { get; } = new Random();
+
+        internal static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
+
+        private static ConcurrentDictionary<string, List<Type>> CacheOfImplementingTypes { get; } =
+            new();
+
+        public static void AddGenerator(Type generatorType, FakeGenerator generator) =>
+            FakeFactory.Instance.AddGenerator(generatorType, generator);
+
+        public static T Create<T>() => Create<T>(i => { }, null);
+
+        public static T Create<T>(Action<T> afterCreate) => Create(afterCreate, null);
+
+        public static T Create<T>(int? length) => Create<T>(i => { }, length);
+
+        public static T Create<T>(params Expression<Func<T, object>>[] propertiesToIgnore) =>
+            Create(i => { }, null, propertiesToIgnore);
+
+        // ReSharper disable once MemberCanBePrivate.Global
+        public static T Create<T>(
+            Action<T> afterCreate,
+            int? length,
+            IEnumerable<Expression<Func<T, object>>> propertiesToIgnore = null
+        )
+        {
+            var fakeType = typeof(T);
+
+            var item = (T)Create(fakeType, length: length);
+
+            if (propertiesToIgnore != null)
+            {
+                foreach (var expression in propertiesToIgnore)
+                {
+                    MemberExpression memberExpression;
+
+                    if (expression.Body is UnaryExpression unaryExpression)
+                    {
+                        memberExpression = (MemberExpression)unaryExpression.Operand;
+                    }
+                    else
+                    {
+                        memberExpression = (MemberExpression)expression.Body;
+                    }
+
+                    var propertyInfo = (PropertyInfo)memberExpression.Member;
+
+                    if (propertyInfo.DeclaringType == item.GetType())
+                    {
+                        propertyInfo.SetValue(item, null);
+                    }
+                    else
+                    {
+                        var parts = memberExpression.ToString().Split('.').Skip(1).ToList();
+
+                        object subValue = item;
+
+                        for (var i = 0; i < parts.Count - 1; i++)
+                        {
+                            var expressionPart = parts[i];
+
+                            var subPropertyInfo = subValue.GetType().GetProperty(expressionPart);
+
+                            if (subPropertyInfo != null)
+                            {
+                                subValue = subPropertyInfo.GetValue(subValue);
+                            }
+                        }
+
+                        if (subValue != null)
+                        {
+                            propertyInfo.SetValue(subValue, null);
+                        }
+                    }
+                }
+            }
+
+            afterCreate?.Invoke(item);
+
+            return item;
+        }
+
+        public static object Create(
+            Type fakeType,
+            Action<object> afterCreate = null,
+            int? length = null
+        )
+        {
+            if (FakeFactory.IsTypeFaked(fakeType))
+            {
+                return FakeFactory.GetValue(fakeType);
+            }
+
+            if (fakeType.IsArray)
+            {
+                return CreateArray(length, fakeType);
+            }
+
+            if (IsList(fakeType))
+            {
+                if (IsDictionary(fakeType))
+                {
+                    return CreateDictionary(length, fakeType);
+                }
+
+                return CreateList(length, fakeType);
+            }
+
+            var item = CreateInstance(fakeType);
 
-	internal static FakeFactory FakeFactory { get; } = FakeFactory.Instance;
+            afterCreate?.Invoke(item);
 
-	private static ConcurrentDictionary<string, List<Type>> CacheOfImplementingTypes { get; } =
-		new();
+            return item;
+        }
 
-	public static void AddGenerator(Type generatorType, FakeGenerator generator) => FakeFactory.Instance.AddGenerator(generatorType, generator);
+        public static void PlayWithIdea<T>(params Expression<Func<T, object>>[] items)
+            where T : class
+        {
+            foreach (var property in items)
+            {
+                var lambda = property;
+                MemberExpression memberExpression;
 
-	public static T Create<T>() => Create<T>(i => { }, null);
+                if (lambda.Body is UnaryExpression unaryExpression)
+                {
+                    memberExpression = (MemberExpression)unaryExpression.Operand;
+                }
+                else
+                {
+                    memberExpression = (MemberExpression)lambda.Body;
+                }
+
+                var propertyInfo = (PropertyInfo)memberExpression.Member;
 
-	public static T Create<T>(Action<T> afterCreate) => Create(afterCreate, null);
+                Console.WriteLine(
+                    $"  PropertyInfo.FullName := {propertyInfo.Name} | Type := {propertyInfo.PropertyType} | DeclaringType := {propertyInfo.DeclaringType}"
+                );
+            }
+        }
 
-	public static T Create<T>(int? length) => Create<T>(i => { }, length);
+        public static Color RandomColor() =>
+            Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
 
-	public static T Create<T>(params Expression<Func<T, object>>[] propertiesToIgnore) => Create(i => { }, null, propertiesToIgnore);
+        public static DateTime RandomDateTime() => Create<DateTime>();
 
-	// ReSharper disable once MemberCanBePrivate.Global
-	public static T Create<T>(
-		Action<T> afterCreate,
-		int? length,
-		IEnumerable<Expression<Func<T, object>>> propertiesToIgnore = null
-	)
-	{
-		var fakeType = typeof(T);
+        public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
 
-		var item = (T)Create(fakeType, length: length);
+        public static int RandomInt(int? minValue = null, int? maxValue = null)
+        {
+            if (minValue.HasValue && maxValue.HasValue)
+            {
+                return Random.Next(minValue.Value, maxValue.Value);
+            }
 
-		if (propertiesToIgnore != null)
-		{
-			foreach (var expression in propertiesToIgnore)
-			{
-				MemberExpression memberExpression;
+            if (maxValue.HasValue)
+            {
+                return Random.Next(maxValue.Value);
+            }
 
-				if (expression.Body is UnaryExpression unaryExpression) { memberExpression = (MemberExpression)unaryExpression.Operand; }
-				else { memberExpression = (MemberExpression)expression.Body; }
+            return Random.Next();
+        }
 
-				var propertyInfo = (PropertyInfo)memberExpression.Member;
+        public static long RandomLong(int? minValue = null, int? maxValue = null)
+        {
+            if (minValue.HasValue && maxValue.HasValue)
+            {
+                return Random.Next(minValue.Value, maxValue.Value);
+            }
 
-				if (propertyInfo.DeclaringType == item.GetType()) { propertyInfo.SetValue(item, null); }
-				else
-				{
-					var parts = memberExpression.ToString().Split('.').Skip(1).ToList();
+            return (long)Random.NextDouble();
+        }
 
-					object subValue = item;
+        public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
 
-					for (var i = 0; i < parts.Count - 1; i++)
-					{
-						var expressionPart = parts[i];
+        public static string RandomString(string prefix = null, int? length = null)
+        {
+            var stringGenerator = new StringGenerator();
 
-						var subPropertyInfo = subValue.GetType().GetProperty(expressionPart);
+            var randomString = length.HasValue
+                ? stringGenerator.Generate(length.Value)
+                : (string)stringGenerator.Generate(typeof(string));
 
-						if (subPropertyInfo != null) { subValue = subPropertyInfo.GetValue(subValue); }
-					}
+            return $"{prefix}{randomString}";
+        }
 
-					if (subValue != null) { propertyInfo.SetValue(subValue, null); }
-				}
-			}
-		}
+        private static object CreateArray(int? lengthOfList, Type fakeType)
+        {
+            var length = lengthOfList ?? Random.Next(3, 9);
 
-		afterCreate?.Invoke(item);
+            var array = Array.CreateInstance(fakeType.GetElementType(), length);
 
-		return item;
-	}
+            for (var i = 0; i < length; i++)
+            {
+                array.SetValue(Create(fakeType.GetElementType()), i);
+            }
 
-	public static object Create(
-		Type fakeType,
-		Action<object> afterCreate = null,
-		int? length = null
-	)
-	{
-		if (FakeFactory.IsTypeFaked(fakeType)) { return FakeFactory.GetValue(fakeType); }
+            return array;
+        }
 
-		if (fakeType.IsArray) { return CreateArray(length, fakeType); }
+        private static object CreateDictionary(int? lengthOfList, Type fakeType)
+        {
+            var keyType = fakeType.GetGenericArguments()[0];
+            var valueType = fakeType.GetGenericArguments()[1];
 
-		if (IsList(fakeType))
-		{
-			if (IsDictionary(fakeType)) { return CreateDictionary(length, fakeType); }
+            var genericDictionary = typeof(Dictionary<,>);
 
-			return CreateList(length, fakeType);
-		}
+            var finalDictionaryType = genericDictionary.MakeGenericType(keyType, valueType);
 
-		var item = CreateInstance(fakeType);
+            var dictionary = Activator.CreateInstance(finalDictionaryType);
 
-		afterCreate?.Invoke(item);
+            var addMethod = dictionary.GetType().GetMethod("Add");
 
-		return item;
-	}
+            var numberOfItems = lengthOfList ?? Random.Next(3, 9);
 
-	public static void PlayWithIdea<T>(params Expression<Func<T, object>>[] items)
-		where T : class
-	{
-		foreach (var property in items)
-		{
-			var lambda = property;
-			MemberExpression memberExpression;
+            for (var i = 0; i < numberOfItems; i++)
+            {
+                try
+                {
+                    addMethod.Invoke(dictionary, new[] { Create(keyType), Create(valueType) });
+                }
+                catch (ArgumentException)
+                {
+                    // Added the same key, skipping entry
+                }
+            }
 
-			if (lambda.Body is UnaryExpression unaryExpression) { memberExpression = (MemberExpression)unaryExpression.Operand; }
-			else { memberExpression = (MemberExpression)lambda.Body; }
+            return dictionary;
+        }
 
-			var propertyInfo = (PropertyInfo)memberExpression.Member;
+        private static object CreateGenericType(Type typeToCreate)
+        {
+            var genericArguments = typeToCreate.GetGenericArguments();
 
-			Console.WriteLine(
-								$"  PropertyInfo.FullName := {propertyInfo.Name} | Type := {propertyInfo.PropertyType} | DeclaringType := {propertyInfo.DeclaringType}"
-							);
-		}
-	}
+            var genericType = genericArguments[0];
 
-	public static Color RandomColor() => Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
+            var typeImplementingGeneric = FindImplementingType(genericType.BaseType);
 
-	public static DateTime RandomDateTime() => Create<DateTime>();
+            var combinedType = typeToCreate.MakeGenericType(typeImplementingGeneric);
 
-	public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
+            return Activator.CreateInstance(combinedType);
+        }
 
-	public static int RandomInt(int? minValue = null, int? maxValue = null)
-	{
-		if (minValue.HasValue && maxValue.HasValue) { return Random.Next(minValue.Value, maxValue.Value); }
+        private static object CreateInstance(Type fakeType)
+        {
+            var typeToCreate = fakeType;
 
-		if (maxValue.HasValue) { return Random.Next(maxValue.Value); }
+            if (fakeType.IsAbstract || fakeType.IsInterface)
+            {
+                typeToCreate = FindImplementingType(fakeType);
+            }
 
-		return Random.Next();
-	}
+            if (string.IsNullOrEmpty(fakeType.FullName))
+            {
+                typeToCreate = FindImplementingType(fakeType.BaseType);
+            }
 
-	public static long RandomLong(int? minValue = null, int? maxValue = null)
-	{
-		if (minValue.HasValue && maxValue.HasValue) { return Random.Next(minValue.Value, maxValue.Value); }
+            if (DoesNotHaveParameterLessConstructor(typeToCreate))
+            {
+                return null;
+            }
 
-		return (long)Random.NextDouble();
-	}
+            var instance = typeToCreate.IsGenericType
+                ? CreateGenericType(typeToCreate)
+                : Activator.CreateInstance(typeToCreate);
 
-	public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
+            var properties = new List<PropertyInfo>(instance.GetType().GetProperties());
 
-	public static string RandomString(string prefix = null, int? length = null)
-	{
-		var stringGenerator = new StringGenerator();
+            foreach (var propertyInfo in properties.Where(i => i.CanWrite))
+            {
+                var value = Create(propertyInfo.PropertyType);
 
-		var randomString = length.HasValue
-								? stringGenerator.Generate(length.Value)
-								: (string)stringGenerator.Generate(typeof(string));
+                propertyInfo.SetValue(instance, value);
+            }
 
-		return $"{prefix}{randomString}";
-	}
+            return instance;
+        }
 
-	private static object CreateArray(int? lengthOfList, Type fakeType)
-	{
-		var length = lengthOfList ?? Random.Next(3, 9);
+        private static object CreateList(int? lengthOfList, Type fakeType)
+        {
+            var itemType = fakeType.GetGenericArguments()[0];
 
-		var array = Array.CreateInstance(fakeType.GetElementType(), length);
+            var genericListType = typeof(List<>);
 
-		for (var i = 0; i < length; i++) { array.SetValue(Create(fakeType.GetElementType()), i); }
+            var subCombinedType = genericListType.MakeGenericType(itemType);
+            var listAsInstance = Activator.CreateInstance(subCombinedType);
 
-		return array;
-	}
+            var addMethod = listAsInstance.GetType().GetMethod("Add");
 
-	private static object CreateDictionary(int? lengthOfList, Type fakeType)
-	{
-		var keyType = fakeType.GetGenericArguments()[0];
-		var valueType = fakeType.GetGenericArguments()[1];
+            var numberOfItems = lengthOfList ?? Random.Next(1, 3);
 
-		var genericDictionary = typeof(Dictionary<,>);
+            for (var i = 0; i < numberOfItems; i++)
+            {
+                addMethod.Invoke(listAsInstance, new[] { Create(itemType) });
+            }
 
-		var finalDictionaryType = genericDictionary.MakeGenericType(keyType, valueType);
+            return listAsInstance;
+        }
 
-		var dictionary = Activator.CreateInstance(finalDictionaryType);
+        private static bool DoesNotHaveParameterLessConstructor(Type fakeType) =>
+            fakeType.GetConstructor(Type.EmptyTypes) == null;
 
-		var addMethod = dictionary.GetType().GetMethod("Add");
+        private static Type FindImplementingType(Type fakeType)
+        {
+            var foundTypes = CacheOfImplementingTypes.TryGetValue(fakeType.FullName, out var types);
 
-		var numberOfItems = lengthOfList ?? Random.Next(3, 9);
+            if (!foundTypes)
+            {
+                var assembly = fakeType.Assembly;
 
-		for (var i = 0; i < numberOfItems; i++)
-		{
-			try { addMethod.Invoke(dictionary, new[] { Create(keyType), Create(valueType) }); }
-			catch (ArgumentException)
-			{
-				// Added the same key, skipping entry
-			}
-		}
+                types = assembly
+                    .GetTypes()
+                    .Where(
+                        i =>
+                            i.IsClass
+                            && !i.IsAbstract
+                            && (i.IsSubclassOf(fakeType) || i.Implements(fakeType))
+                    )
+                    .ToList();
 
-		return dictionary;
-	}
+                CacheOfImplementingTypes.TryAdd(fakeType.FullName, types);
+            }
 
-	private static object CreateGenericType(Type typeToCreate)
-	{
-		var genericArguments = typeToCreate.GetGenericArguments();
+            var typeIndex = Random.Next(types.Count);
 
-		var genericType = genericArguments[0];
+            return types[typeIndex];
+        }
 
-		var typeImplementingGeneric = FindImplementingType(genericType.BaseType);
+        private static bool IsDictionary(Type fakeType) =>
+            fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
 
-		var combinedType = typeToCreate.MakeGenericType(typeImplementingGeneric);
-
-		return Activator.CreateInstance(combinedType);
-	}
-
-	private static object CreateInstance(Type fakeType)
-	{
-		var typeToCreate = fakeType;
-
-		if (fakeType.IsAbstract || fakeType.IsInterface) { typeToCreate = FindImplementingType(fakeType); }
-
-		if (string.IsNullOrEmpty(fakeType.FullName)) { typeToCreate = FindImplementingType(fakeType.BaseType); }
-
-		if (DoesNotHaveParameterLessConstructor(typeToCreate)) { return null; }
-
-		var instance = typeToCreate.IsGenericType
-							? CreateGenericType(typeToCreate)
-							: Activator.CreateInstance(typeToCreate);
-
-		var properties = new List<PropertyInfo>(instance.GetType().GetProperties());
-
-		foreach (var propertyInfo in properties.Where(i => i.CanWrite))
-		{
-			var value = Create(propertyInfo.PropertyType);
-
-			propertyInfo.SetValue(instance, value);
-		}
-
-		return instance;
-	}
-
-	private static object CreateList(int? lengthOfList, Type fakeType)
-	{
-		var itemType = fakeType.GetGenericArguments()[0];
-
-		var genericListType = typeof(List<>);
-
-		var subCombinedType = genericListType.MakeGenericType(itemType);
-		var listAsInstance = Activator.CreateInstance(subCombinedType);
-
-		var addMethod = listAsInstance.GetType().GetMethod("Add");
-
-		var numberOfItems = lengthOfList ?? Random.Next(1, 3);
-
-		for (var i = 0; i < numberOfItems; i++) { addMethod.Invoke(listAsInstance, new[] { Create(itemType) }); }
-
-		return listAsInstance;
-	}
-
-	private static bool DoesNotHaveParameterLessConstructor(Type fakeType) => fakeType.GetConstructor(Type.EmptyTypes) == null;
-
-	private static Type FindImplementingType(Type fakeType)
-	{
-		var foundTypes = CacheOfImplementingTypes.TryGetValue(fakeType.FullName, out var types);
-
-		if (!foundTypes)
-		{
-			var assembly = fakeType.Assembly;
-
-			types = assembly
-					.GetTypes()
-					.Where(
-							i =>
-								i.IsClass
-								&& !i.IsAbstract
-								&& (i.IsSubclassOf(fakeType) || i.Implements(fakeType))
-						)
-					.ToList();
-
-			CacheOfImplementingTypes.TryAdd(fakeType.FullName, types);
-		}
-
-		var typeIndex = Random.Next(types.Count);
-
-		return types[typeIndex];
-	}
-
-	private static bool IsDictionary(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
-
-	private static bool IsList(Type fakeType) => fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
-}
+        private static bool IsList(Type fakeType) =>
+            fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+    }
 }
