@@ -1,34 +1,33 @@
 using FluentAssertions;
 using Xunit;
 
-namespace FatCat.Fakes.Tests
+namespace FatCat.Fakes.Tests;
+
+public class CanFakeAnInterface
 {
-    public class CanFakeAnInterface
+    [Fact]
+    public void CanCreateAnInterface()
     {
-        private interface IAmAnInterface
-        {
-            int SomeNumber { get; set; }
+        var item = Faker.Create<IAmAnInterface>();
 
-            string SomeString { get; set; }
-        }
+        item.Should().BeOfType<FirstImplementation>();
 
-        public class FirstImplementation : IAmAnInterface
-        {
-            public int SomeNumber { get; set; }
+        item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 
-            public string SomeString { get; set; }
-        }
+        item.SomeString.Should().NotBeNullOrWhiteSpace();
+    }
 
-        [Fact]
-        public void CanCreateAnInterface()
-        {
-            var item = Faker.Create<IAmAnInterface>();
+    public class FirstImplementation : IAmAnInterface
+    {
+        public int SomeNumber { get; set; }
 
-            item.Should().BeOfType<FirstImplementation>();
+        public string SomeString { get; set; }
+    }
 
-            item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
+    private interface IAmAnInterface
+    {
+        int SomeNumber { get; set; }
 
-            item.SomeString.Should().NotBeNullOrWhiteSpace();
-        }
+        string SomeString { get; set; }
     }
 }
