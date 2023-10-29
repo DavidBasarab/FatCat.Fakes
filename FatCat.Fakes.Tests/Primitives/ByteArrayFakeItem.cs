@@ -1,4 +1,3 @@
-using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -26,9 +25,7 @@ namespace FatCat.Fakes.Tests.Primitives
 
             var bytes = Faker.RandomBytes(length);
 
-            bytes.Length
-
-            bytes.LongCount().Should().BeGreaterThan(length);
+            bytes.Length.Should().Be(length);
 
             foreach (var byteValue in bytes)
             {

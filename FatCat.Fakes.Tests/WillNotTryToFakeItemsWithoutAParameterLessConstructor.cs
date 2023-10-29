@@ -3,37 +3,40 @@ using Xunit;
 
 namespace FatCat.Fakes.Tests
 {
-	public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
-	{
-		private class ItemWithStuffInConstructor
-		{
-			public string SomeData { get; }
+    public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
+    {
+        [Fact]
+        public void WillNotPopulateItemsWithoutAParameterLessConstructor()
+        {
+            var item = Faker.Create<ItemToFake>();
 
-			public ItemWithStuffInConstructor(string someData) => SomeData = someData;
-		}
-		
-		private class ItemToFake
-		{
-			public ItemWithStuffInConstructor ShouldNotBeFaked { get; set; }
+            item.ShouldNotBeFaked.Should().BeNull();
+            item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
+        }
 
-			public int SomeNumber { get; set; }
-		}
-		
-		[Fact]
-		public void WillNotPopulateItemsWithoutAParameterLessConstructor()
-		{
-			var item = Faker.Create<ItemToFake>();
+        [Fact]
+        public void WillReturnNullIfTypeGivenDoesNotHaveAParameterLessConstructor()
+        {
+            var item = Faker.Create<ItemWithStuffInConstructor>();
 
-			item.ShouldNotBeFaked.Should().BeNull();
-			item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
-		}
-		
-		[Fact]
-		public void WillReturnNullIfTypeGivenDoesNotHaveAParameterLessConstructor()
-		{
-			var item = Faker.Create<ItemWithStuffInConstructor>();
-			
-			item.Should().BeNull();
-		}
-	}
+            item.Should().BeNull();
+        }
+
+        private class ItemToFake
+        {
+            public ItemWithStuffInConstructor ShouldNotBeFaked { get; }
+
+            public int SomeNumber { get; }
+        }
+
+        private class ItemWithStuffInConstructor
+        {
+            public string SomeData { get; }
+
+            public ItemWithStuffInConstructor(string someData)
+            {
+                SomeData = someData;
+            }
+        }
+    }
 }

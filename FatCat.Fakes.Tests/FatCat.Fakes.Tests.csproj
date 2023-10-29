@@ -1,32 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <DebugType>full</DebugType>
-    <TargetFramework>net7.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <AssemblyOriginatorKeyFile>..\FatCat.Fakes\FakerRelease.snk</AssemblyOriginatorKeyFile>
-    <PublicSign>false</PublicSign>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
+    <PropertyGroup>
+        <DebugType>full</DebugType>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <AssemblyOriginatorKeyFile>..\FatCat.Fakes\FakerRelease.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>false</PublicSign>
+        <SignAssembly>true</SignAssembly>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="xunit" Version="2.5.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.12.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2"/>
+        <PackageReference Include="xunit" Version="2.5.3"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\FatCat.Fakes\FakerRelease.snk">
-      <Link>FakerRelease.snk</Link>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\FatCat.Fakes\FakerRelease.snk">
+            <Link>FakerRelease.snk</Link>
+        </None>
+    </ItemGroup>
 
 </Project>

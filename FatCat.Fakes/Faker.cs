@@ -20,17 +20,30 @@ namespace FatCat.Fakes
         private static ConcurrentDictionary<string, List<Type>> CacheOfImplementingTypes { get; } =
             new();
 
-        public static void AddGenerator(Type generatorType, FakeGenerator generator) =>
+        public static void AddGenerator(Type generatorType, FakeGenerator generator)
+        {
             FakeFactory.Instance.AddGenerator(generatorType, generator);
+        }
 
-        public static T Create<T>() => Create<T>(i => { }, null);
+        public static T Create<T>()
+        {
+            return Create<T>(i => { }, null);
+        }
 
-        public static T Create<T>(Action<T> afterCreate) => Create(afterCreate, null);
+        public static T Create<T>(Action<T> afterCreate)
+        {
+            return Create(afterCreate, null);
+        }
 
-        public static T Create<T>(int? length) => Create<T>(i => { }, length);
+        public static T Create<T>(int? length)
+        {
+            return Create<T>(i => { }, length);
+        }
 
-        public static T Create<T>(params Expression<Func<T, object>>[] propertiesToIgnore) =>
-            Create(i => { }, null, propertiesToIgnore);
+        public static T Create<T>(params Expression<Func<T, object>>[] propertiesToIgnore)
+        {
+            return Create(i => { }, null, propertiesToIgnore);
+        }
 
         // ReSharper disable once MemberCanBePrivate.Global
         public static T Create<T>(
@@ -153,21 +166,29 @@ namespace FatCat.Fakes
             }
         }
 
-        public static Span<byte> RandomBytes(int length)
+        public static byte[] RandomBytes(int length)
         {
-            byte[] bytes = new();
+            var bytes = new byte[length];
 
             Random.NextBytes(bytes);
 
             return bytes;
         }
 
-        public static Color RandomColor() =>
-            Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
+        public static Color RandomColor()
+        {
+            return Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
+        }
 
-        public static DateTime RandomDateTime() => Create<DateTime>();
+        public static DateTime RandomDateTime()
+        {
+            return Create<DateTime>();
+        }
 
-        public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
+        public static int RandomInt(int maxValue)
+        {
+            return RandomInt(null, maxValue);
+        }
 
         public static int RandomInt(int? minValue = null, int? maxValue = null)
         {
@@ -194,7 +215,10 @@ namespace FatCat.Fakes
             return (long)Random.NextDouble();
         }
 
-        public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
+        public static long RandomLong(int maxValue)
+        {
+            return RandomLong(null, maxValue);
+        }
 
         public static string RandomString(string prefix = null, int? length = null)
         {
@@ -320,8 +344,10 @@ namespace FatCat.Fakes
             return listAsInstance;
         }
 
-        private static bool DoesNotHaveParameterLessConstructor(Type fakeType) =>
-            fakeType.GetConstructor(Type.EmptyTypes) == null;
+        private static bool DoesNotHaveParameterLessConstructor(Type fakeType)
+        {
+            return fakeType.GetConstructor(Type.EmptyTypes) == null;
+        }
 
         private static Type FindImplementingType(Type fakeType)
         {
@@ -349,10 +375,14 @@ namespace FatCat.Fakes
             return types[typeIndex];
         }
 
-        private static bool IsDictionary(Type fakeType) =>
-            fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
+        private static bool IsDictionary(Type fakeType)
+        {
+            return fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
+        }
 
-        private static bool IsList(Type fakeType) =>
-            fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+        private static bool IsList(Type fakeType)
+        {
+            return fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+        }
     }
 }

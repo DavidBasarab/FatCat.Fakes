@@ -4,64 +4,75 @@ using Xunit;
 
 namespace FatCat.Fakes.Tests
 {
-	public class WithMultipleAbstractClass
-	{
-		[Fact]
-		public void WillPickTypeAtRandom()
-		{
-			var realClassFound = false;
-			var anotherClassFound = false;
-			var evenAnotherClassFound = false;
+    public class WithMultipleAbstractClass
+    {
+        [Fact]
+        public void CanFakeAnAbstractClass()
+        {
+            var item = Faker.Create<AbstractClass>();
 
-			for (var i = 0; i < 35; i++)
-			{
-				var item = Faker.Create<SomeClass>();
+            item.Should().NotBeNull();
 
-				if (item.ThisIsNotReal is RealClass) realClassFound = true;
-				if (item.ThisIsNotReal is AnotherClass) anotherClassFound = true;
-				if (item.ThisIsNotReal is EvenAnotherClass) evenAnotherClassFound = true;
-			}
+            item.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
+        }
 
-			realClassFound.Should().BeTrue();
-			anotherClassFound.Should().BeTrue();
-			evenAnotherClassFound.Should().BeTrue();
-		}
-		
-		[Fact]
-		public void CanFakeAnAbstractClass()
-		{
-			var item = Faker.Create<AbstractClass>();
+        [Fact]
+        public void WillPickTypeAtRandom()
+        {
+            var realClassFound = false;
+            var anotherClassFound = false;
+            var evenAnotherClassFound = false;
 
-			item.Should().NotBeNull();
+            for (var i = 0; i < 35; i++)
+            {
+                var item = Faker.Create<SomeClass>();
 
-			item.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
-		}
+                if (item.ThisIsNotReal is RealClass)
+                {
+                    realClassFound = true;
+                }
 
-		private abstract class AbstractClass
-		{
-			public int SomeInt { get; set; }
+                if (item.ThisIsNotReal is AnotherClass)
+                {
+                    anotherClassFound = true;
+                }
 
-			public string SomeString { get; set; }
-		}
+                if (item.ThisIsNotReal is EvenAnotherClass)
+                {
+                    evenAnotherClassFound = true;
+                }
+            }
 
-		private class AnotherClass : AbstractClass
-		{
-			public int ANewNumber { get; set; }
-		}
+            realClassFound.Should().BeTrue();
+            anotherClassFound.Should().BeTrue();
+            evenAnotherClassFound.Should().BeTrue();
+        }
 
-		private class EvenAnotherClass : AbstractClass
-		{
-			public string SomeName { get; set; }
-		}
+        private abstract class AbstractClass
+        {
+            public int SomeInt { get; }
 
-		private class RealClass : AbstractClass
-		{
-			public DateTime SomeDateTime { get; set; }
-		}
+            public string SomeString { get; set; }
+        }
 
-		private class SomeClass
-		{
-			public AbstractClass ThisIsNotReal { get; set; }
-		}
-	}
+        private class AnotherClass : AbstractClass
+        {
+            public int ANewNumber { get; set; }
+        }
+
+        private class EvenAnotherClass : AbstractClass
+        {
+            public string SomeName { get; set; }
+        }
+
+        private class RealClass : AbstractClass
+        {
+            public DateTime SomeDateTime { get; set; }
+        }
+
+        private class SomeClass
+        {
+            public AbstractClass ThisIsNotReal { get; }
+        }
+    }
 }
