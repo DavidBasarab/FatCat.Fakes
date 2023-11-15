@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <DebugType>full</DebugType>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
-    <VersionPrefix>1.0.23</VersionPrefix>
+        <VersionPrefix>1.0.23</VersionPrefix>
         <Authors>David Basarab</Authors>
         <PackageTags>unittest;fakes;object</PackageTags>
         <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>
