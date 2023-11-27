@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <DebugType>full</DebugType>
-        <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
     <VersionPrefix>1.0.25</VersionPrefix>
@@ -13,6 +12,7 @@
         <RepositoryUrl>https://github.com/DavidBasarab/FatCat.Fakes</RepositoryUrl>
         <NoWarn>CS8002,CS1700</NoWarn>
         <SignAssembly>true</SignAssembly>
+        <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
