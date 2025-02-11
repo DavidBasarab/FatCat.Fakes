@@ -1,5 +1,3 @@
-using System;
-
 namespace FatCat.Fakes.Tests.SpeedUp.Models
 {
     public abstract class Equipment

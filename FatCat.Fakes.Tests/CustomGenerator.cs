@@ -1,7 +1,4 @@
-using System;
 using FatCat.Fakes.Generators;
-using FluentAssertions;
-using Xunit;
 
 namespace FatCat.Fakes.Tests;
 

@@ -1,5 +1,3 @@
-using FluentAssertions;
-
 namespace FatCat.Fakes.Tests.Primitives
 {
     public class ByteFakeItem : FakeNumberItems<byte>

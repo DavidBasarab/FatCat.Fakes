@@ -1,7 +1,3 @@
-using System;
-using FluentAssertions;
-using Xunit;
-
 namespace FatCat.Fakes.Tests;
 
 public class WithMultipleAbstractClass
