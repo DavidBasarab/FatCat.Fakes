@@ -6,7 +6,10 @@ namespace FatCat.Fakes.Generators
     {
         private static Random random;
 
-        protected static Random Random => random ??= new Random();
+        protected static Random Random
+        {
+            get { return random ??= new Random(); }
+        }
 
         public abstract object Generate(Type typeToGenerate);
     }

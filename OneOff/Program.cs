@@ -33,12 +33,21 @@ public class ItemTwo : BaseItem
     // public int ItemTwoProperty { get; set; }
 }
 
+public record TestingRecord(int Number, string Name);
+
 internal class Program
 {
     private static void Main(string[] args)
     {
-        var moduleFake = Faker.Create<ModuleItem>();
+        var moduleFake = Faker.Create<TestingRecord>();
 
-        Console.WriteLine($"ModuleFake Type {moduleFake.GetType().FullName}");
+        if (moduleFake is null)
+        {
+            Console.WriteLine("ModuleFake is null");
+        }
+        else
+        {
+            Console.WriteLine($"ModuleFake Type {moduleFake.GetType().FullName}");
+        }
     }
 }

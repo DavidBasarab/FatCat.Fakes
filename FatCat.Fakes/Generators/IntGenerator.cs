@@ -4,9 +4,6 @@ namespace FatCat.Fakes.Generators
 {
     internal class IntGenerator : FakeGenerator
     {
-        public override object Generate(Type typeToGenerate)
-        {
-            return Random.Next();
-        }
+        public override object Generate(Type typeToGenerate) => Random.Next();
     }
 }

@@ -9,7 +9,10 @@ namespace FatCat.Fakes.Generators
             () => new FakeFactory()
         );
 
-        public static FakeFactory Instance => instance.Value;
+        public static FakeFactory Instance
+        {
+            get { return instance.Value; }
+        }
 
         private ConcurrentDictionary<Type, FakeGenerator> TypeGenerators { get; } =
             new ConcurrentDictionary<Type, FakeGenerator>();
@@ -69,9 +72,6 @@ namespace FatCat.Fakes.Generators
             return TypeGenerators.TryGetValue(type, out var faker) ? faker.Generate(type) : null;
         }
 
-        public bool IsTypeFaked(Type type)
-        {
-            return type.IsEnum || TypeGenerators.ContainsKey(type);
-        }
+        public bool IsTypeFaked(Type type) => type.IsEnum || TypeGenerators.ContainsKey(type);
     }
 }
