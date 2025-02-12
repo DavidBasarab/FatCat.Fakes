@@ -7,6 +7,8 @@ public class CanFakeARecord
     {
         var record = Faker.Create<RecordToFake>();
 
+        record.Should().NotBeNull();
+
         record.Number.Should().BeInRange(int.MinValue, int.MaxValue);
         record.Name.Should().NotBeNullOrEmpty();
     }

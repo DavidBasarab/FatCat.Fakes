@@ -30,7 +30,10 @@ namespace FatCat.Fakes
             return Create<T>(i => { }, null);
         }
 
-        public static T Create<T>(Action<T> afterCreate) => Create(afterCreate, null);
+        public static T Create<T>(Action<T> afterCreate)
+        {
+            return Create(afterCreate, null);
+        }
 
         public static T Create<T>(int? length)
         {
@@ -147,12 +150,20 @@ namespace FatCat.Fakes
             return bytes;
         }
 
-        public static Color RandomColor() =>
-            Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
+        public static Color RandomColor()
+        {
+            return Color.FromArgb(RandomInt(0, 256), RandomInt(0, 256), RandomInt(0, 256));
+        }
 
-        public static DateTime RandomDateTime() => Create<DateTime>();
+        public static DateTime RandomDateTime()
+        {
+            return Create<DateTime>();
+        }
 
-        public static int RandomInt(int maxValue) => RandomInt(null, maxValue);
+        public static int RandomInt(int maxValue)
+        {
+            return RandomInt(null, maxValue);
+        }
 
         public static int RandomInt(int? minValue = null, int? maxValue = null)
         {
@@ -179,7 +190,10 @@ namespace FatCat.Fakes
             return (long)Random.NextDouble();
         }
 
-        public static long RandomLong(int maxValue) => RandomLong(null, maxValue);
+        public static long RandomLong(int maxValue)
+        {
+            return RandomLong(null, maxValue);
+        }
 
         public static string RandomString(string prefix = null, int? length = null)
         {
@@ -305,8 +319,10 @@ namespace FatCat.Fakes
             return listAsInstance;
         }
 
-        private static bool DoesNotHaveParameterLessConstructor(Type fakeType) =>
-            fakeType.GetConstructor(Type.EmptyTypes) == null;
+        private static bool DoesNotHaveParameterLessConstructor(Type fakeType)
+        {
+            return fakeType.GetConstructor(Type.EmptyTypes) == null;
+        }
 
         private static Type FindImplementingType(Type fakeType)
         {
@@ -318,10 +334,11 @@ namespace FatCat.Fakes
 
                 types = assembly
                     .GetTypes()
-                    .Where(i =>
-                        i.IsClass
-                        && !i.IsAbstract
-                        && (i.IsSubclassOf(fakeType) || i.Implements(fakeType))
+                    .Where(
+                        i =>
+                            i.IsClass
+                            && !i.IsAbstract
+                            && (i.IsSubclassOf(fakeType) || i.Implements(fakeType))
                     )
                     .ToList();
 
@@ -333,10 +350,14 @@ namespace FatCat.Fakes
             return types[typeIndex];
         }
 
-        private static bool IsDictionary(Type fakeType) =>
-            fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
+        private static bool IsDictionary(Type fakeType)
+        {
+            return fakeType.IsGenericType && fakeType.Implements(typeof(IDictionary<,>));
+        }
 
-        private static bool IsList(Type fakeType) =>
-            fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+        private static bool IsList(Type fakeType)
+        {
+            return fakeType.IsGenericType && fakeType.Implements(typeof(IEnumerable));
+        }
     }
 }

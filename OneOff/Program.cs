@@ -1,5 +1,5 @@
 ﻿using System;
-using FatCat.Fakes;
+using FatCat.Toolkit.Console;
 
 namespace OneOff;
 
@@ -39,15 +39,18 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var moduleFake = Faker.Create<TestingRecord>();
+        try
+        {
+            var recordType = typeof(TestingRecord);
 
-        if (moduleFake is null)
-        {
-            Console.WriteLine("ModuleFake is null");
+            foreach (var prop in recordType.GetProperties())
+            {
+                ConsoleLog.WriteMagenta($" - {prop.Name} == {prop.PropertyType.FullName}");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine($"ModuleFake Type {moduleFake.GetType().FullName}");
+            ConsoleLog.WriteException(ex);
         }
     }
 }
