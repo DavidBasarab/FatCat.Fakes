@@ -1,6 +1,4 @@
 using System.Drawing;
-using FluentAssertions;
-using Xunit;
 
 namespace FatCat.Fakes.Tests.RandomTests
 {

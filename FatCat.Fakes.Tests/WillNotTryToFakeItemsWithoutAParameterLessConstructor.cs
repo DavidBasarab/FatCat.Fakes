@@ -1,6 +1,3 @@
-using FluentAssertions;
-using Xunit;
-
 namespace FatCat.Fakes.Tests;
 
 public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
@@ -33,9 +30,6 @@ public class WillNotTryToFakeItemsWithoutAParameterLessConstructor
     {
         public string SomeData { get; }
 
-        public ItemWithStuffInConstructor(string someData)
-        {
-            SomeData = someData;
-        }
+        public ItemWithStuffInConstructor(string someData) => SomeData = someData;
     }
 }

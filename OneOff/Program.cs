@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using FatCat.Fakes;
+using FatCat.Toolkit.Console;
+using Newtonsoft.Json;
 
 namespace OneOff;
 
@@ -33,12 +36,28 @@ public class ItemTwo : BaseItem
     // public int ItemTwoProperty { get; set; }
 }
 
+public record TestingRecord(int Number, string Name);
+
 internal class Program
 {
     private static void Main(string[] args)
     {
-        var moduleFake = Faker.Create<ModuleItem>();
+        try
+        {
+            for (var i = 0; i < 50; i++)
+            {
+                var watch = Stopwatch.StartNew();
 
-        Console.WriteLine($"ModuleFake Type {moduleFake.GetType().FullName}");
+                var item = Faker.Create<TestingRecord>();
+
+                watch.Stop();
+
+                ConsoleLog.WriteGreen($"{JsonConvert.SerializeObject(item)} | {watch.Elapsed}");
+            }
+        }
+        catch (Exception ex)
+        {
+            ConsoleLog.WriteException(ex);
+        }
     }
 }

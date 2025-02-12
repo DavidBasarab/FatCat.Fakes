@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace FatCat.Fakes.Tests.Primitives
 {
     public class BoolFakeItem

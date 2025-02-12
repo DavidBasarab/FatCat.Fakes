@@ -4,7 +4,7 @@
         <DebugType>full</DebugType>
         <LangVersion>latest</LangVersion>
         <AssemblyOriginatorKeyFile>FakerRelease.snk</AssemblyOriginatorKeyFile>
-    <VersionPrefix>1.0.27</VersionPrefix>
+    <VersionPrefix>1.0.28</VersionPrefix>
         <Authors>David Basarab</Authors>
         <PackageTags>unittest;fakes;object</PackageTags>
         <PackageProjectUrl>https://github.com/DavidBasarab/FatCat.Fakes</PackageProjectUrl>

@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using Xunit;
-
 namespace FatCat.Fakes.Tests;
 
 public class OneLevelTypeFake
@@ -65,9 +60,6 @@ public class OneLevelTypeFake
 
         public TimeSpan SomeTimeSpan { get; set; }
 
-        public int GetPrivateItemValue()
-        {
-            return aPrivateItem;
-        }
+        public int GetPrivateItemValue() => aPrivateItem;
     }
 }

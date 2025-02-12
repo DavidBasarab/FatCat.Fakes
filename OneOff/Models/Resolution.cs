@@ -4,7 +4,10 @@ namespace OneOff.Models
     {
         public int Height { get; set; }
 
-        public int TotalPixels => Width * Height;
+        public int TotalPixels
+        {
+            get { return Width * Height; }
+        }
 
         public int Width { get; set; }
     }
