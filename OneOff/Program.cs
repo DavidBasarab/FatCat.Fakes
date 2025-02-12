@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using FatCat.Fakes;
 using FatCat.Toolkit.Console;
 using Newtonsoft.Json;
@@ -46,8 +44,6 @@ public class DynamicRecordCreator
     {
         var item = CreateRecord(typeof(T));
 
-        ConsoleLog.WriteGreen($"{item.GetType().FullName} | {typeof(T).FullName}");
-
         return item == null ? default : (T)item;
     }
 
@@ -62,27 +58,7 @@ public class DynamicRecordCreator
 
     public static object CreateRecord(Type recordType, Dictionary<string, object> propertyValues)
     {
-        if (recordType == null)
-            throw new ArgumentNullException(nameof(recordType));
-        if (propertyValues == null || propertyValues.Count == 0)
-            throw new ArgumentException("At least one property value is required.");
-
-        // Ensure that the type has the expected properties
-        PropertyInfo[] properties = recordType.GetProperties();
-        foreach (var property in propertyValues)
-        {
-            if (
-                !properties.Any(
-                    p => p.Name == property.Key && p.PropertyType == property.Value.GetType()
-                )
-            )
-                throw new ArgumentException(
-                    $"Property '{property.Key}' with type '{property.Value.GetType()}' is not found in the specified type."
-                );
-        }
-
-        // Create an instance of the record type using its constructor
-        object instance = Activator.CreateInstance(recordType, propertyValues.Values.ToArray());
+        var instance = Activator.CreateInstance(recordType, propertyValues.Values.ToArray());
 
         return instance;
     }
