@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using FatCat.Fakes;
@@ -41,121 +42,49 @@ public class ItemTwo : BaseItem
 
 public class DynamicRecordCreator
 {
-    public static object CreateRecord(Type recordType, Dictionary<string, object> properties)
+    public static T CreateRecord<T>()
     {
-        if (properties == null || properties.Count == 0)
+        var item = CreateRecord(typeof(T));
+
+        ConsoleLog.WriteGreen($"{item.GetType().FullName} | {typeof(T).FullName}");
+
+        return item == null ? default : (T)item;
+    }
+
+    public static object CreateRecord(Type recordType)
+    {
+        var recordParameters = recordType
+            .GetProperties()
+            .ToDictionary(prop => prop.Name, prop => Faker.Create(prop.PropertyType));
+
+        return CreateRecord(recordType, recordParameters);
+    }
+
+    public static object CreateRecord(Type recordType, Dictionary<string, object> propertyValues)
+    {
+        if (recordType == null)
+            throw new ArgumentNullException(nameof(recordType));
+        if (propertyValues == null || propertyValues.Count == 0)
+            throw new ArgumentException("At least one property value is required.");
+
+        // Ensure that the type has the expected properties
+        PropertyInfo[] properties = recordType.GetProperties();
+        foreach (var property in propertyValues)
         {
-            throw new ArgumentException("At least one property is required.");
+            if (
+                !properties.Any(
+                    p => p.Name == property.Key && p.PropertyType == property.Value.GetType()
+                )
+            )
+                throw new ArgumentException(
+                    $"Property '{property.Key}' with type '{property.Value.GetType()}' is not found in the specified type."
+                );
         }
 
-        var assemblyName = recordType.Assembly.GetName();
+        // Create an instance of the record type using its constructor
+        object instance = Activator.CreateInstance(recordType, propertyValues.Values.ToArray());
 
-        var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
-            assemblyName,
-            AssemblyBuilderAccess.Run
-        );
-
-        var moduleBuilder = assemblyBuilder.DefineDynamicModule(recordType.Name + "Module");
-
-        var typeBuilder = moduleBuilder.DefineType(
-            recordType.Name,
-            TypeAttributes.Public | TypeAttributes.Sealed,
-            typeof(object)
-        );
-
-        var fields = new List<FieldBuilder>();
-        var propertyBuilders = new List<PropertyBuilder>();
-        var constructorParamTypes = new List<Type>();
-
-        foreach (var property in properties)
-        {
-            var propertyName = property.Key;
-            var propertyType = property.Value.GetType();
-
-            // Define private field
-            var fieldBuilder = typeBuilder.DefineField(
-                "_" + propertyName,
-                propertyType,
-                FieldAttributes.Private
-            );
-
-            fields.Add(fieldBuilder);
-
-            // Define property
-            var propertyBuilder = typeBuilder.DefineProperty(
-                propertyName,
-                PropertyAttributes.HasDefault,
-                propertyType,
-                null
-            );
-
-            propertyBuilders.Add(propertyBuilder);
-
-            // Define getter
-            var getMethodBuilder = typeBuilder.DefineMethod(
-                "get_" + propertyName,
-                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig,
-                propertyType,
-                Type.EmptyTypes
-            );
-
-            var getIL = getMethodBuilder.GetILGenerator();
-            getIL.Emit(OpCodes.Ldarg_0);
-            getIL.Emit(OpCodes.Ldfld, fieldBuilder);
-            getIL.Emit(OpCodes.Ret);
-
-            // Define setter
-            var setMethodBuilder = typeBuilder.DefineMethod(
-                "set_" + propertyName,
-                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig,
-                null,
-                new[] { propertyType }
-            );
-
-            var setIL = setMethodBuilder.GetILGenerator();
-            setIL.Emit(OpCodes.Ldarg_0);
-            setIL.Emit(OpCodes.Ldarg_1);
-            setIL.Emit(OpCodes.Stfld, fieldBuilder);
-            setIL.Emit(OpCodes.Ret);
-
-            // Attach getter and setter to property
-            propertyBuilder.SetGetMethod(getMethodBuilder);
-            propertyBuilder.SetSetMethod(setMethodBuilder);
-
-            // Collect constructor parameters
-            constructorParamTypes.Add(propertyType);
-        }
-
-        // Define constructor
-        var constructorBuilder = typeBuilder.DefineConstructor(
-            MethodAttributes.Public,
-            CallingConventions.Standard,
-            constructorParamTypes.ToArray()
-        );
-
-        var ctorIL = constructorBuilder.GetILGenerator();
-        ctorIL.Emit(OpCodes.Ldarg_0);
-        ctorIL.Emit(OpCodes.Call, typeof(object).GetConstructor(Type.EmptyTypes)); // Call base constructor
-
-        var index = 1;
-
-        foreach (var field in fields)
-        {
-            ctorIL.Emit(OpCodes.Ldarg_0);
-            ctorIL.Emit(OpCodes.Ldarg, index++);
-            ctorIL.Emit(OpCodes.Stfld, field);
-        }
-
-        ctorIL.Emit(OpCodes.Ret);
-
-        // Create type
-        var dynamicType = typeBuilder.CreateType();
-
-        // Instantiate and return the new record
-        var constructorArgs = new object[properties.Count];
-        properties.Values.CopyTo(constructorArgs, 0);
-
-        return Activator.CreateInstance(dynamicType, constructorArgs);
+        return instance;
     }
 }
 
@@ -167,20 +96,11 @@ internal class Program
     {
         try
         {
-            var recordType = typeof(TestingRecord);
-
-            for (int i = 0; i < 50; i++)
+            for (var i = 0; i < 50; i++)
             {
-                var recordParameters = new Dictionary<string, object>();
-
-                foreach (var prop in recordType.GetProperties())
-                {
-                    recordParameters.Add(prop.Name, Faker.Create(prop.PropertyType));
-                }
-
                 var watch = Stopwatch.StartNew();
 
-                var item = DynamicRecordCreator.CreateRecord(recordType, recordParameters);
+                var item = DynamicRecordCreator.CreateRecord<TestingRecord>();
 
                 watch.Stop();
 
