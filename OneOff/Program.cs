@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
+using FatCat.Fakes;
 using FatCat.Toolkit.Console;
 using Newtonsoft.Json;
 
@@ -167,17 +169,23 @@ internal class Program
         {
             var recordType = typeof(TestingRecord);
 
-            foreach (var prop in recordType.GetProperties())
+            for (int i = 0; i < 50; i++)
             {
-                ConsoleLog.WriteMagenta($" - {prop.Name} == {prop.PropertyType.FullName}");
+                var recordParameters = new Dictionary<string, object>();
+
+                foreach (var prop in recordType.GetProperties())
+                {
+                    recordParameters.Add(prop.Name, Faker.Create(prop.PropertyType));
+                }
+
+                var watch = Stopwatch.StartNew();
+
+                var item = DynamicRecordCreator.CreateRecord(recordType, recordParameters);
+
+                watch.Stop();
+
+                ConsoleLog.WriteGreen($"{JsonConvert.SerializeObject(item)} | {watch.Elapsed}");
             }
-
-            var item = DynamicRecordCreator.CreateRecord(
-                recordType,
-                new Dictionary<string, object>() { { "Number", 42 }, { "Name", "The Answer" } }
-            );
-
-            ConsoleLog.WriteGreen($"{JsonConvert.SerializeObject(item)}");
         }
         catch (Exception ex)
         {
