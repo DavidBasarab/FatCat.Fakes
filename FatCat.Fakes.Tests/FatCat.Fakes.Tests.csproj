@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <DebugType>full</DebugType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <AssemblyOriginatorKeyFile>..\FatCat.Fakes\FakerRelease.snk</AssemblyOriginatorKeyFile>
         <PublicSign>false</PublicSign>
