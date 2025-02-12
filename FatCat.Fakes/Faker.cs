@@ -119,6 +119,11 @@ namespace FatCat.Fakes
                 return FakeFactory.GetValue(fakeType);
             }
 
+            if (fakeType.IsRecordType())
+            {
+                return DynamicRecordCreator.CreateRecord(fakeType);
+            }
+
             if (fakeType.IsArray)
             {
                 return CreateArray(length, fakeType);

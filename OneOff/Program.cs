@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using FatCat.Fakes;
 using FatCat.Toolkit.Console;
 using Newtonsoft.Json;
@@ -38,32 +36,6 @@ public class ItemTwo : BaseItem
     // public int ItemTwoProperty { get; set; }
 }
 
-public class DynamicRecordCreator
-{
-    public static T CreateRecord<T>()
-    {
-        var item = CreateRecord(typeof(T));
-
-        return item == null ? default : (T)item;
-    }
-
-    public static object CreateRecord(Type recordType)
-    {
-        var recordParameters = recordType
-            .GetProperties()
-            .ToDictionary(prop => prop.Name, prop => Faker.Create(prop.PropertyType));
-
-        return CreateRecord(recordType, recordParameters);
-    }
-
-    public static object CreateRecord(Type recordType, Dictionary<string, object> propertyValues)
-    {
-        var instance = Activator.CreateInstance(recordType, propertyValues.Values.ToArray());
-
-        return instance;
-    }
-}
-
 public record TestingRecord(int Number, string Name);
 
 internal class Program
@@ -76,7 +48,7 @@ internal class Program
             {
                 var watch = Stopwatch.StartNew();
 
-                var item = DynamicRecordCreator.CreateRecord<TestingRecord>();
+                var item = Faker.Create<TestingRecord>();
 
                 watch.Stop();
 
