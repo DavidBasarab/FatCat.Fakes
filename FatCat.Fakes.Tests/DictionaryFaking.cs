@@ -25,4 +25,19 @@ public class DictionaryFaking
             pair.Value.Should().NotBeNullOrWhiteSpace();
         }
     }
+
+    [Fact]
+    public void CanFakeADictionaryWithAnObject()
+    {
+        var item = Faker.Create<Dictionary<string, object>>();
+
+        item.Count.Should().BeInRange(3, 9);
+
+        foreach (var pair in item)
+        {
+            pair.Key.Should().NotBeNullOrWhiteSpace();
+
+            pair.Value.Should().NotBeNull();
+        }
+    }
 }
