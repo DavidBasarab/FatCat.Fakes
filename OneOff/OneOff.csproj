@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj"/>
+        <ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FatCat.Toolkit" Version="1.0.263" />
+      <PackageReference Include="FatCat.Toolkit" Version="1.0.274" />
     </ItemGroup>
 
 </Project>
