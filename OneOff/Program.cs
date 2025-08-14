@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using FatCat.Fakes;
 using FatCat.Toolkit.Console;
-using Newtonsoft.Json;
+using FatCat.Toolkit.Json;
 
 namespace OneOff;
 
@@ -20,7 +20,9 @@ internal class Program
 
                 watch.Stop();
 
-                ConsoleLog.WriteGreen($"{JsonConvert.SerializeObject(item)} | {watch.Elapsed}");
+                ConsoleLog.WriteGreen(
+                    $"{new JsonOperations().Serialize(item, true)} | {watch.Elapsed}"
+                );
             }
         }
         catch (Exception ex)
