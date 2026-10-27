@@ -7,7 +7,7 @@ public class MultiLevelObjectTests
     {
         var upperObject = Faker.Create<UpperObject>();
 
-        upperObject.LowerObject.Should().NotBeNull();
+        upperObject.LowerObject.Should().Not.BeNull();
 
         upperObject.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
         upperObject.SomeString.Length.Should().BeGreaterThan(6);

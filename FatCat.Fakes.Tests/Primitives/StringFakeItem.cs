@@ -7,7 +7,7 @@ namespace FatCat.Fakes.Tests.Primitives
         {
             var value = Faker.Create<string>();
 
-            value.Should().NotBeEmpty();
+            value.Should().Not.BeEmpty();
             value.Length.Should().BeGreaterThan(7);
         }
     }

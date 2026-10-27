@@ -27,9 +27,9 @@ public class CollectionFakeIssueTests
 
     private static void VerifyItem(TestingMongoObject item)
     {
-        item.Should().NotBeNull();
+        item.Should().Not.BeNull();
 
-        item.Name.Should().NotBeNullOrEmpty();
+        item.Name.Should().Not.BeNullOrEmpty();
         item.Number.Should().BeGreaterThan(0);
     }
 }

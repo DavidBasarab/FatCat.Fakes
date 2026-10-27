@@ -8,7 +8,7 @@ namespace FatCat.Fakes.Tests.RandomTests
             var randomString = Faker.RandomString();
 
             randomString.Length.Should().BeGreaterThan(7);
-            randomString.Should().NotBeNullOrWhiteSpace();
+            randomString.Should().Not.BeNullOrWhiteSpace();
         }
 
         [Fact]
@@ -17,7 +17,7 @@ namespace FatCat.Fakes.Tests.RandomTests
             var randomString = Faker.RandomString(length: 17);
 
             randomString.Length.Should().Be(17);
-            randomString.Should().NotBeNullOrWhiteSpace();
+            randomString.Should().Not.BeNullOrWhiteSpace();
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace FatCat.Fakes.Tests.RandomTests
         [Fact]
         public void TwoRandomStringsShouldNotBeTheSame()
         {
-            Faker.RandomString().Should().NotBe("AAAAAAAA");
+            Faker.RandomString().Should().Not.Be("AAAAAAAA");
         }
     }
 }

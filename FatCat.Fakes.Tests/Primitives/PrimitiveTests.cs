@@ -11,7 +11,7 @@ namespace FatCat.Fakes.Tests.Primitives
             {
                 var currentValue = Faker.Create<T>();
 
-                currentValue.Should().NotBe(previousValue);
+                ((object)currentValue).Should().Not.Be(previousValue);
 
                 previousValue = currentValue;
             }

@@ -22,7 +22,7 @@ public class DictionaryFaking
             pair.Key.Should().BeInRange(int.MinValue, int.MaxValue);
 
             pair.Value.Length.Should().BeGreaterThan(5);
-            pair.Value.Should().NotBeNullOrWhiteSpace();
+            pair.Value.Should().Not.BeNullOrWhiteSpace();
         }
     }
 
@@ -35,9 +35,9 @@ public class DictionaryFaking
 
         foreach (var pair in item)
         {
-            pair.Key.Should().NotBeNullOrWhiteSpace();
+            pair.Key.Should().Not.BeNullOrWhiteSpace();
 
-            pair.Value.Should().NotBeNull();
+            pair.Value.Should().Not.BeNull();
         }
     }
 }

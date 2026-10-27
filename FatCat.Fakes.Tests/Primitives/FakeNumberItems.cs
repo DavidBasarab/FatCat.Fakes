@@ -16,7 +16,7 @@ namespace FatCat.Fakes.Tests.Primitives
         {
             var value = Faker.Create<T?>();
 
-            value.Should().NotBeNull();
+            value.HasValue.Should().BeTrue();
 
             // ReSharper disable once PossibleInvalidOperationException
             VerifyRange(value.Value);

@@ -7,7 +7,7 @@ public class GenericCustomGenerator
     {
         var fake = Faker.Create(typeof(GenericClass<>));
 
-        fake.Should().BeOfType(typeof(GenericClass<>));
+        fake.GetType().GetGenericTypeDefinition().Should().Be(typeof(GenericClass<>));
     }
 
     [Fact]
@@ -15,7 +15,7 @@ public class GenericCustomGenerator
     {
         var moduleFake = Faker.Create<ModuleItem>();
 
-        moduleFake.Should().BeOfType(typeof(GenericClass<>));
+        moduleFake.GetType().GetGenericTypeDefinition().Should().Be(typeof(GenericClass<>));
     }
 }
 

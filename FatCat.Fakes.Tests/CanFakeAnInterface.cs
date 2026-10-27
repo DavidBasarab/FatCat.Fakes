@@ -11,7 +11,7 @@ public class CanFakeAnInterface
 
         item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 
-        item.SomeString.Should().NotBeNullOrWhiteSpace();
+        item.SomeString.Should().Not.BeNullOrWhiteSpace();
     }
 
     public class FirstImplementation : IAmAnInterface

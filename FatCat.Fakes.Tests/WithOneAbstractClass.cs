@@ -7,7 +7,7 @@ public class WithONeAbstractClass
     {
         var item = Faker.Create<SomeClass>();
 
-        item.ThisIsNotReal.Should().NotBeNull();
+        item.ThisIsNotReal.Should().Not.BeNull();
         item.ThisIsNotReal.Should().BeOfType<RealClass>();
 
         item.ThisIsNotReal.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);

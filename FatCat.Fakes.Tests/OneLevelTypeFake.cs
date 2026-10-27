@@ -7,7 +7,7 @@ public class OneLevelTypeFake
     {
         var item = Faker.Create<ItemToFake>();
 
-        item.Should().NotBeNull();
+        item.Should().Not.BeNull();
 
         item.SomeByte.Should().BeInRange(byte.MinValue, byte.MaxValue);
         item.SomeString.Length.Should().BeGreaterThan(7);

@@ -7,7 +7,7 @@ namespace FatCat.Fakes.Tests.Primitives
         {
             var value = Faker.Create<Guid>();
 
-            value.Should().NotBeEmpty();
+            value.Should().Not.BeEmpty();
         }
 
         [Fact]
@@ -15,7 +15,7 @@ namespace FatCat.Fakes.Tests.Primitives
         {
             var value = Faker.Create<Guid?>();
 
-            value.Should().NotBeEmpty();
+            value.Should().Not.BeEmpty();
         }
     }
 }

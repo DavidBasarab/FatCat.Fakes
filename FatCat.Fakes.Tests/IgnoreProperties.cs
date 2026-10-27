@@ -7,10 +7,10 @@ public class IgnoreProperties
     {
         var item = Faker.Create<TestFakingItem>(propertiesToIgnore: i => i.SomeNumber);
 
-        item.SomeString.Should().NotBeNullOrWhiteSpace();
+        item.SomeString.Should().Not.BeNullOrWhiteSpace();
         item.SomeNumber.Should().Be(default);
 
-        item.FindMe.Should().NotBeNull();
+        item.FindMe.Should().Not.BeNull();
 
         item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
         item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);
@@ -43,15 +43,15 @@ public class IgnoreProperties
             i => i.FindMe.DiveDive.GoLow.SomeString
         );
 
-        item.FindMe.Should().NotBeNull();
+        item.FindMe.Should().Not.BeNull();
 
-        item.FindMe.DiveDive.GoLow.Should().NotBeNull();
+        item.FindMe.DiveDive.GoLow.Should().Not.BeNull();
 
         item.FindMe.DiveDive.SomeString.Should().BeNullOrWhiteSpace();
 
         item.FindMe.DiveDive.GoLow.SomeString.Should().BeNullOrWhiteSpace();
 
-        item.FindMe.DiveDive.GoLow.SomeNumber.Should().NotBe(default);
+        item.FindMe.DiveDive.GoLow.SomeNumber.Should().Not.Be(default);
     }
 
     [Fact]
@@ -62,7 +62,7 @@ public class IgnoreProperties
         item.SomeString.Should().BeNullOrWhiteSpace();
         item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 
-        item.FindMe.Should().NotBeNull();
+        item.FindMe.Should().Not.BeNull();
 
         item.FindMe.First.Should().BeInRange(int.MinValue, int.MaxValue);
         item.FindMe.Second.Should().BeInRange(int.MinValue, int.MaxValue);

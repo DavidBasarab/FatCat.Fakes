@@ -13,7 +13,7 @@ namespace FatCat.Fakes.Tests.RandomTests
             {
                 var currentColor = Faker.RandomColor();
 
-                currentColor.Should().NotBe(previousColor);
+                ((object)currentColor).Should().Not.Be(previousColor);
 
                 previousColor = currentColor;
             }

@@ -25,10 +25,10 @@ public class CanFakeARecord
 
     private static void VerifyRecord(RecordToFake record)
     {
-        record.Should().NotBeNull();
+        record.Should().Not.BeNull();
 
         record.Number.Should().BeInRange(int.MinValue, int.MaxValue);
-        record.Name.Should().NotBeNullOrEmpty();
+        record.Name.Should().Not.BeNullOrEmpty();
     }
 
     private record RecordToFake(int Number, string Name) { }

@@ -20,8 +20,8 @@ public class ListFakeItems
     {
         var listOfInts = Faker.Create<List<int>>();
 
-        listOfInts.Count.Should().BeGreaterOrEqualTo(1);
-        listOfInts.Count.Should().BeLessOrEqualTo(3);
+        listOfInts.Count.Should().BeGreaterThanOrEqualTo(1);
+        listOfInts.Count.Should().BeLessThanOrEqualTo(3);
 
         foreach (var listItem in listOfInts)
         {
@@ -34,8 +34,8 @@ public class ListFakeItems
     {
         var listOfDates = Faker.Create<List<DateTime>>();
 
-        listOfDates.Count.Should().BeGreaterOrEqualTo(1);
-        listOfDates.Count.Should().BeLessOrEqualTo(3);
+        listOfDates.Count.Should().BeGreaterThanOrEqualTo(1);
+        listOfDates.Count.Should().BeLessThanOrEqualTo(3);
 
         foreach (var dateItem in listOfDates)
         {

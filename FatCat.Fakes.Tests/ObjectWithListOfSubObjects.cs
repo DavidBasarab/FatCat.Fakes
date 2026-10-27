@@ -7,7 +7,7 @@ public class ObjectWithListOfSubObjects
     {
         var upperObject = Faker.Create<UpperObject>();
 
-        upperObject.LowerList.Should().NotBeNull();
+        upperObject.LowerList.Should().Not.BeEmpty();
         upperObject.LowerList.Count.Should().BeInRange(1, 4);
 
         upperObject.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);

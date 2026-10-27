@@ -7,7 +7,7 @@ public class WithMultipleAbstractClass
     {
         var item = Faker.Create<AbstractClass>();
 
-        item.Should().NotBeNull();
+        item.Should().Not.BeNull();
 
         item.SomeInt.Should().BeInRange(int.MinValue, int.MaxValue);
     }
