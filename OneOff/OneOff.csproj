@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+		<LangVersion>default</LangVersion>
+	</PropertyGroup>
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
-        <LangVersion>default</LangVersion>
-    </PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\FatCat.Fakes\FatCat.Fakes.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FatCat.Toolkit" Version="1.0.308" />
-    </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="CSharpier.MsBuild" Version="1.3.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="FatCat.Toolkit" Version="1.0.314" />
+	</ItemGroup>
 </Project>

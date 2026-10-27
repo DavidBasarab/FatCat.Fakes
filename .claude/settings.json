@@ -1,0 +1,22 @@
+{
+	"env": {
+		"SHELL": "C:\\Program Files\\Git\\bin\\bash.exe"
+	},
+	"permissions": {
+		"allow": [
+			"Bash(*)"
+		]
+	},
+	"hooks": {
+		"Stop": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/ux-review-gate.sh\""
+					}
+				]
+			}
+		]
+	}
+}

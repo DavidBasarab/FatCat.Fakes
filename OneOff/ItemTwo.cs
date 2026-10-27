@@ -2,5 +2,5 @@ namespace OneOff;
 
 public class ItemTwo : BaseItem
 {
-    // public int ItemTwoProperty { get; set; }
+	// public int ItemTwoProperty { get; set; }
 }

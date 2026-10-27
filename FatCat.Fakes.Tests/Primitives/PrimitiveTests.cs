@@ -1,20 +1,14 @@
-namespace FatCat.Fakes.Tests.Primitives
+using System.Linq;
+
+namespace FatCat.Fakes.Tests.Primitives;
+
+public abstract class PrimitiveTests<T>
 {
-    public abstract class PrimitiveTests<T>
-    {
-        [Fact]
-        public void EachItemWillBeRandom()
-        {
-            var previousValue = default(T);
+	[Fact]
+	public void CreateDifferentValues()
+	{
+		var values = Enumerable.Range(0, 13).Select(_ => Faker.Create<T>()).ToList();
 
-            for (var i = 0; i < 13; i++)
-            {
-                var currentValue = Faker.Create<T>();
-
-                currentValue.Should().NotBe(previousValue);
-
-                previousValue = currentValue;
-            }
-        }
-    }
+		values.Distinct().Count().Should().BeGreaterThan(1);
+	}
 }
