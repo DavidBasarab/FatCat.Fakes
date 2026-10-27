@@ -1,6 +1,6 @@
 namespace FatCat.Fakes.Tests.Primitives;
 
-public abstract class GuidFake : PrimitiveTests<Guid>
+public class GuidFake : PrimitiveTests<Guid>
 {
     [Fact]
     public void CanFakeAGuid()
