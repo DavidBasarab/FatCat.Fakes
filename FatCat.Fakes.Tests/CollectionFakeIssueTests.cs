@@ -1,5 +1,3 @@
-using MongoDB.Bson;
-
 namespace FatCat.Fakes.Tests;
 
 public class CollectionFakeIssueTests
@@ -32,20 +30,4 @@ public class CollectionFakeIssueTests
         item.Name.Should().Not.BeNullOrEmpty();
         item.Number.Should().BeGreaterThan(0);
     }
-}
-
-public class BottomLevel { }
-
-public class IdObjectLevel : BottomLevel
-{
-    public ObjectId Id { get; set; }
-}
-
-public class TestingMongoObject : IdObjectLevel
-{
-    public string Name { get; set; }
-
-    public int Number { get; set; }
-
-    public DateTime SomeDate { get; set; }
 }

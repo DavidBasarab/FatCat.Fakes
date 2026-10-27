@@ -3,7 +3,7 @@ namespace FatCat.Fakes.Tests;
 public class MultiLevelObjectTests
 {
     [Fact]
-    public void ItWillPopulateALowerObject()
+    public void PopulateALowerObject()
     {
         var upperObject = Faker.Create<UpperObject>();
 

@@ -3,7 +3,7 @@ namespace FatCat.Fakes.Tests;
 public class CanFakeARecord
 {
     [Fact]
-    public void BasicTest()
+    public void CreateARecord()
     {
         var record = Faker.Create<RecordToFake>();
 

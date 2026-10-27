@@ -1,6 +1,6 @@
 namespace FatCat.Fakes.Tests;
 
-public class WithONeAbstractClass
+public class WithOneAbstractClass
 {
     [Fact]
     public void WillPopulateAnAbstractClass()

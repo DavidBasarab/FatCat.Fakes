@@ -5,7 +5,7 @@ namespace FatCat.Fakes.Tests;
 public class ListFakeItems
 {
     [Fact]
-    public void ArrayShouldNotBeGreaterThan3()
+    public void CreateAnArrayOfAtMostThreeItems()
     {
         for (var i = 0; i < 10; i++)
         {

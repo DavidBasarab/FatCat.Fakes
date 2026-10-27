@@ -1,21 +1,20 @@
-namespace FatCat.Fakes.Tests.Primitives
+namespace FatCat.Fakes.Tests.Primitives;
+
+public abstract class GuidFake : PrimitiveTests<Guid>
 {
-    public abstract class GuidFake : PrimitiveTests<Guid>
+    [Fact]
+    public void CanFakeAGuid()
     {
-        [Fact]
-        public void CanFakeAGuid()
-        {
-            var value = Faker.Create<Guid>();
+        var value = Faker.Create<Guid>();
 
-            value.Should().Not.BeEmpty();
-        }
+        value.Should().Not.BeEmpty();
+    }
 
-        [Fact]
-        public void CanFakeANullableGuid()
-        {
-            var value = Faker.Create<Guid?>();
+    [Fact]
+    public void CanFakeANullableGuid()
+    {
+        var value = Faker.Create<Guid?>();
 
-            value.Should().Not.BeEmpty();
-        }
+        value.Should().Not.BeEmpty();
     }
 }

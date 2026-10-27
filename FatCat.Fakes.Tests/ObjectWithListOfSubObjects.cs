@@ -3,7 +3,7 @@ namespace FatCat.Fakes.Tests;
 public class ObjectWithListOfSubObjects
 {
     [Fact]
-    public void ItWillPopulateALowerObject()
+    public void PopulateAListOfLowerObjects()
     {
         var upperObject = Faker.Create<UpperObject>();
 
