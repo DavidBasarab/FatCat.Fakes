@@ -350,3 +350,6 @@ MigrationBackup/
 .ionide/
 */.idea/*
 **/.idea/.**
+
+# Claude review reports (standards-review / unit-test-review)
+.reviews/
