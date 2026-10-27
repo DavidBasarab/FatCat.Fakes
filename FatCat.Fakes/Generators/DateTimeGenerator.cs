@@ -6,7 +6,7 @@ namespace FatCat.Fakes.Generators
 	{
 		public override object Generate(Type typeToGenerate)
 		{
-			var now = DateTime.Now;
+			var now = DateTime.UtcNow;
 
 			var randomDays = Random.Next(-1500, 7500);
 

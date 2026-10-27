@@ -1,6 +1,6 @@
 # Task: generate UTC `DateTime` values
 
-**Status:** to do (owner). It does not block anything in Fog. The Fog follow-up is `C:\Code\Fog\tasks\one_off\fatcat-fakes-utc-dates.md`.
+**Status:** code done on `utc-generator` (version bump and publish not done yet). It does not block anything in Fog. The Fog follow-up is `C:\Code\Fog\tasks\one_off\fatcat-fakes-utc-dates.md`.
 
 ## Problem
 `Faker.Create<DateTime>()`, `Faker.Create<DateTime?>()` and `Faker.RandomDateTime()` return `DateTimeKind.Local` values, because `Generators/DateTimeGenerator.cs` starts from `DateTime.Now`.
@@ -27,6 +27,6 @@ In Fog this is about 0.8% per `LokrServiceModel` round-trip, so most full test r
 - Behaviour change: consumers that relied on `Kind == Local` (for example, formatting fake dates as local time and comparing against a hard-coded expectation) may see different output. List this in the release notes.
 
 ## Done when
-- [ ] Generator returns UTC, and the tests above are green.
+- [x] Generator returns UTC, and the tests above are green.
 - [ ] 1.0.32 is published.
 - [ ] Fog follow-up started (`C:\Code\Fog\tasks\one_off\fatcat-fakes-utc-dates.md`).
