@@ -2,19 +2,19 @@ namespace FatCat.Fakes.Tests;
 
 public class GenericCustomGenerator
 {
-    [Fact]
-    public void CanCreateAFakeOfAGenericClass()
-    {
-        var fake = Faker.Create(typeof(GenericClass<>));
+	[Fact]
+	public void CanCreateAFakeOfAGenericClass()
+	{
+		var fake = Faker.Create(typeof(GenericClass<>));
 
-        fake.GetType().GetGenericTypeDefinition().Should().Be(typeof(GenericClass<>));
-    }
+		fake.GetType().GetGenericTypeDefinition().Should().Be(typeof(GenericClass<>));
+	}
 
-    [Fact]
-    public void CanFactAnItemWithAGeneric()
-    {
-        var moduleFake = Faker.Create<ModuleItem>();
+	[Fact]
+	public void CanFactAnItemWithAGeneric()
+	{
+		var moduleFake = Faker.Create<ModuleItem>();
 
-        moduleFake.GetType().GetGenericTypeDefinition().Should().Be(typeof(GenericClass<>));
-    }
+		moduleFake.GetType().GetGenericTypeDefinition().Should().Be(typeof(GenericClass<>));
+	}
 }

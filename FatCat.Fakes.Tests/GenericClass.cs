@@ -1,7 +1,7 @@
 namespace FatCat.Fakes.Tests;
 
 public class GenericClass<T> : ModuleItem
-    where T : BaseItem
+	where T : BaseItem
 {
-    public T Value { get; set; }
+	public T Value { get; set; }
 }

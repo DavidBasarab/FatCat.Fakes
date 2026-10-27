@@ -1,17 +1,17 @@
 namespace FatCat.Fakes.Tests.Primitives
 {
-    public class BoolFakeItem
-    {
-        [Fact]
-        public void CanFakeABool()
-        {
-            Faker.Create<bool>();
-        }
+	public class BoolFakeItem
+	{
+		[Fact]
+		public void CanFakeABool()
+		{
+			Faker.Create<bool>();
+		}
 
-        [Fact]
-        public void CanFakeANullableBool()
-        {
-            Faker.Create<bool?>();
-        }
-    }
+		[Fact]
+		public void CanFakeANullableBool()
+		{
+			Faker.Create<bool?>();
+		}
+	}
 }

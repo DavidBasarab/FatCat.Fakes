@@ -1,11 +1,11 @@
 namespace FatCat.Fakes.Tests.SpeedUp.Models
 {
-    public class PadCleanRoom : PadFeature
-    {
-        public Guid CleanHash { get; set; }
+	public class PadCleanRoom : PadFeature
+	{
+		public Guid CleanHash { get; set; }
 
-        public List<Equipment> Equipments { get; set; }
+		public List<Equipment> Equipments { get; set; }
 
-        public int NumberOfPeople { get; set; }
-    }
+		public int NumberOfPeople { get; set; }
+	}
 }
