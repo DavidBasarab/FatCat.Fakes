@@ -11,7 +11,7 @@
 		<RepositoryUrl>https://github.com/DavidBasarab/FatCat.Fakes</RepositoryUrl>
 		<NoWarn>CS8002,CS1700</NoWarn>
 		<SignAssembly>true</SignAssembly>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net11.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>

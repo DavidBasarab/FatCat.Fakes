@@ -11,7 +11,7 @@ It is the single source of truth for what this product is and how it is built. D
 
 The README tells you the things you must know before you touch a line of code:
 - **Product:** FatCat.Fakes is a NuGet library (`FatCat.Fakes`) that fills objects with random fake data for unit tests. A single static entry point, `Faker`, creates primitives, classes with nested objects, lists, arrays and dictionaries, and random implementations of interfaces and abstract classes (picked from the requested type's assembly). Callers can change an object after creation, ignore properties (nested ones too), create random strings with a prefix or length, and register their own `FakeGenerator` for a type.
-- **Tech stack:** **.NET 9** class library (`net9.0`, `LangVersion latest`), strong-name signed with `FakerRelease.snk`. Its only runtime dependency is **fasterflect** (reflection). Tests use **xUnit** + **FluentAssertions**. There is no UI, web server or database.
+- **Tech stack:** **.NET 11 / C# 15** class library (`net11.0`, `LangVersion latest`), strong-name signed with `FakerRelease.snk`. Its only runtime dependency is **fasterflect** (reflection). Tests use **xUnit** + **FatCat.Testing**. There is no UI, web server or database.
 - **Architecture:** which project owns which responsibility, so a new generator, `Faker` method or test lands in the right project.
 - **Standing rules:** invariants that nothing enforces at compile time — for example, the package version lives in `VersionPrefix` in `FatCat.Fakes/FatCat.Fakes.csproj`, and a new built-in generator must be registered in `Generators/FakeFactory.cs` for both `T` and `T?`.
 
@@ -22,7 +22,7 @@ If anything below in the coding standards appears to conflict with the README, t
 | Path | Project | Purpose |
 |---|---|---|
 | `FatCat.Fakes/` | `FatCat.Fakes` | The published NuGet library: `Faker` (public entry point), `DynamicRecordCreator`, and `Generators/` (one `FakeGenerator` per type, registered in `FakeFactory`) |
-| `FatCat.Fakes.Tests/` | `FatCat.Fakes.Tests` | xUnit + FluentAssertions tests for the library (`Primitives/`, `RandomTests/`, `SpeedUp/`) |
+| `FatCat.Fakes.Tests/` | `FatCat.Fakes.Tests` | xUnit + FatCat.Testing tests for the library (`Primitives/`, `RandomTests/`, `SpeedUp/`) |
 | `OneOff/` | `OneOff` | Console scratch app for trying out and timing fakes by hand; not shipped |
 | `tasks/` | — | Task write-ups for planned changes |
 
