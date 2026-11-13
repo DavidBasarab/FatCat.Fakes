@@ -5,16 +5,12 @@ public class ActionAfterItemCreate
 	[Fact]
 	public void AfterCreateForNonGenericVersion()
 	{
-		var item =
-			Faker.Create(
-				typeof(ItemToBeCreated),
-				i =>
-				{
-					var createdItem = i as ItemToBeCreated;
+		var item = Faker.Create(typeof(ItemToBeCreated), i =>
+			{
+				var createdItem = i as ItemToBeCreated;
 
-					createdItem.AnotherNumber = 95;
-				}
-			) as ItemToBeCreated;
+				createdItem.AnotherNumber = 95;
+			}) as ItemToBeCreated;
 
 		item.SomeNumber.Should().BeInRange(int.MinValue, int.MaxValue);
 		item.AnotherNumber.Should().Be(95);
