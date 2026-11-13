@@ -30,8 +30,8 @@ All production namespaces start with `FatCat.Fakes.*`; test namespaces start wit
 
 Everything must build and every test must pass before work is considered done:
 ```bash
-dotnet build FatCat.Fakes.sln
-dotnet test FatCat.Fakes.sln
+dotnet build FatCat.Fakes.slnx
+dotnet test FatCat.Fakes.slnx
 ```
 
 ---

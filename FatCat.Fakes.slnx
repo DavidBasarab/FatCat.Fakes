@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="FatCat.Fakes.Tests/FatCat.Fakes.Tests.csproj" />
+  <Project Path="FatCat.Fakes/FatCat.Fakes.csproj" />
+  <Project Path="OneOff/OneOff.csproj" />
+</Solution>

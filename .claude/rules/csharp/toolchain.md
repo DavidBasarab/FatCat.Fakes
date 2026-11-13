@@ -1,12 +1,12 @@
 # Toolchain
 
-## Solution — FatCat.Fakes.sln
-The solution is `FatCat.Fakes.sln` at the repo root. Every project belongs to it. When you add a project, add it with `dotnet sln FatCat.Fakes.sln add <path>` — never hand-edit the solution file.
+## Solution — FatCat.Fakes.slnx
+The solution is `FatCat.Fakes.slnx` at the repo root. Every project belongs to it. When you add a project, add it with `dotnet sln FatCat.Fakes.slnx add <path>` — never hand-edit the solution file.
 
 Build and test the whole repo against the solution:
 ```bash
-dotnet build FatCat.Fakes.sln
-dotnet test FatCat.Fakes.sln
+dotnet build FatCat.Fakes.slnx
+dotnet test FatCat.Fakes.slnx
 ```
 
 ## CSharpier — Final Formatting Authority
@@ -27,9 +27,9 @@ CSharpier owns **all** C# layout — braces, spacing, new lines, wrapping, singl
 
 Run it before committing — style and analyzers only, never `whitespace`:
 ```bash
-dotnet format style FatCat.Fakes.sln                       # apply code-style fixes from .editorconfig
-dotnet format analyzers FatCat.Fakes.sln                   # apply analyzer fixes
-dotnet format style FatCat.Fakes.sln --verify-no-changes   # CI / pre-commit gate
+dotnet format style FatCat.Fakes.slnx                       # apply code-style fixes from .editorconfig
+dotnet format analyzers FatCat.Fakes.slnx                   # apply analyzer fixes
+dotnet format style FatCat.Fakes.slnx --verify-no-changes   # CI / pre-commit gate
 ```
 
 If `dotnet format` changes something, that change is correct — do not revert it. Do not suppress an analyzer rule without a comment explaining why. Suppression format when genuinely necessary:
