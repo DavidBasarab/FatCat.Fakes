@@ -353,3 +353,6 @@ MigrationBackup/
 
 # Claude review reports (standards-review / unit-test-review)
 .reviews/
+
+# Claude machine-local settings
+.claude/settings.local.json

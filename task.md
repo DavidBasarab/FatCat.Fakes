@@ -53,7 +53,7 @@ Each phase must be:
 - [ ] **Parallel-classified:** each phase declares `Wave:` and `Parallel with:` (phase numbers, or `none` and why). Two phases are parallel-safe only when **all** of these hold:
   - neither depends on the other, directly or transitively;
   - their `Touches` write sets are disjoint;
-  - they do not both edit a **shared hotspot**: the `Errors.cs` error-key class, `*Module.cs`, `*CustomProjectors.cs`, `GlobalUsings.cs`, `*.csproj` / `Directory.Build.props` / `FatCat.Fakes.sln`, `README.md`, the anonymous-route session-check exclusion list(s), the shared design tokens (CSS variables / Tailwind theme), or shared UI components;
+  - they do not both edit a **shared hotspot**: the `Errors.cs` error-key class, `*Module.cs`, `*CustomProjectors.cs`, `GlobalUsings.cs`, `*.csproj` / `Directory.Build.props` / `FatCat.Fakes.slnx`, `README.md`, the anonymous-route session-check exclusion list(s), the shared design tokens (CSS variables / Tailwind theme), or shared UI components;
   - neither needs an exclusive runtime resource (above);
   - neither is a human-gated phase, an E2E walk, or a report that rolls up other phases. These always run alone.
   When in doubt, serialize. A wrong "parallel" claim costs a merge conflict and a halted pipeline. A wrong "serial" claim only costs time.
@@ -66,7 +66,7 @@ Each phase must be:
   - Create each worktree from the current task-branch tip: `git worktree add ..\FatCat.Fakes-wt\{WORK_ITEM}-{NN} -b wt/{WORK_ITEM}/{NN}`. Copy the git-excluded local files a build needs (for example `global.json` and local `appsettings.json` overrides) into it.
   - Each phase meets its full Definition of Done and commits once, inside its worktree.
   - When every phase in the wave has committed, cherry-pick the phase commits onto the task branch **in phase-number order**. Do not squash, amend or rewrite them.
-  - **Integration gate** after each multi-phase wave, on the task branch: `dotnet build` with no new warnings, then `dotnet test FatCat.Fakes.sln` green apart from known flakes. A cherry-pick conflict or a red integration gate means the plan's parallel claim was wrong, so treat it as a failure (halt policy below). Do not hand-merge it.
+  - **Integration gate** after each multi-phase wave, on the task branch: `dotnet build` with no new warnings, then `dotnet test FatCat.Fakes.slnx` green apart from known flakes. A cherry-pick conflict or a red integration gate means the plan's parallel claim was wrong, so treat it as a failure (halt policy below). Do not hand-merge it.
   - After a successful integration, remove the wave's worktrees and `wt/` branches (`git worktree remove`, `git branch -D`).
   - If one phase in a wave fails, let its siblings finish. Integrate only the phases that passed and do not depend on the failed one, then halt.
 - [ ] Commit boundary between every phase; the orchestrator never squashes or amends
